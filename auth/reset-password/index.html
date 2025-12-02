@@ -473,20 +473,29 @@
 
       // Check if we have a PKCE code
       if (code) {
-        console.log('CODE CASE: Has PKCE code, exchanging for session...');
+        console.log('CODE CASE: Has PKCE code, verifying...');
         showLoading('Verifying your reset link...');
 
         try {
-          // Exchange code for session - Supabase client handles this automatically
-          const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+          // Try to verify the code as an OTP token for password recovery
+          const { data, error } = await supabase.auth.verifyOtp({
+            token_hash: code,
+            type: 'recovery'
+          });
+
+          console.log('OTP verification result:', data, error);
 
           if (error) {
-            console.error('Code exchange error:', error);
+            console.error('OTP verification error:', error);
             throw error;
           }
 
-          console.log('Session obtained:', data);
-          currentSession = data.session;
+          if (data.session) {
+            console.log('Session obtained:', data.session);
+            currentSession = data.session;
+          } else {
+            throw new Error('No session returned from verification.');
+          }
 
           // Show the password reset form
           const form = document.getElementById('resetForm');
