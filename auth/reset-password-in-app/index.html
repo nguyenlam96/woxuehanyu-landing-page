@@ -146,7 +146,7 @@
     <div id="status">
       <div class="logo">🔐</div>
       <div class="loader"></div>
-      <p class="message">Opening WoXueHanyu app to reset your password...</p>
+      <p class="message">Preparing your password reset...</p>
     </div>
   </div>
 
@@ -170,8 +170,8 @@
     const errorCode = urlParams.get('error') || hashParams.get('error_code');
     const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
 
-    // Deep link base URL
-    const DEEP_LINK_BASE = 'woxuehanyu://auth/reset-password';
+    // Universal Link base URL (use the callback page which is configured for Universal Links)
+    const UNIVERSAL_LINK_BASE = 'https://nguyenlam96.github.io/woxuehanyu-auth/auth/callback';
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
@@ -186,24 +186,19 @@
       `);
     }
 
-    function redirectToApp(deepLinkUrl) {
-      console.log('Redirecting to:', deepLinkUrl);
+    function redirectToApp(universalLink) {
+      console.log('Universal Link ready:', universalLink);
 
-      // Try to redirect immediately
-      window.location.href = deepLinkUrl;
-
-      // Show manual button after a short delay
-      setTimeout(() => {
-        updateUI(`
-          <div class="logo">🔐</div>
-          <h1>Reset Your Password</h1>
-          <p class="message">Opening <strong>WoXueHanyu</strong> app...</p>
-          <a href="${deepLinkUrl}" class="button">🚀 Open WoXueHanyu App</a>
-          <div class="info">
-            💡 If the app doesn't open automatically, please click the button above to reset your password in the app.
-          </div>
-        `);
-      }, 1000);
+      // Show the button immediately (Universal Links only work when user clicks, not with auto-redirect)
+      updateUI(`
+        <div class="logo">🔐</div>
+        <h1>Reset Your Password</h1>
+        <p class="message">Click the button below to open the <strong>WoXueHanyu</strong> app and reset your password.</p>
+        <a href="${universalLink}" class="button">🚀 Open WoXueHanyu App</a>
+        <div class="info">
+          💡 Your password reset link is ready. Click the button above to continue in the app.
+        </div>
+      `);
     }
 
     // Initialize page
@@ -227,27 +222,28 @@
         return;
       }
 
-      // Build deep link with the appropriate parameter
-      let deepLinkUrl = DEEP_LINK_BASE;
+      // Build Universal Link with the appropriate parameter
+      let universalLink = UNIVERSAL_LINK_BASE;
 
       if (code) {
         // PKCE flow - pass the code
-        deepLinkUrl += `?code=${encodeURIComponent(code)}`;
+        universalLink += `?code=${encodeURIComponent(code)}&type=recovery`;
         console.log('Using PKCE code');
       } else if (accessToken) {
-        // Has access token in hash - pass it
-        deepLinkUrl += `?access_token=${encodeURIComponent(accessToken)}`;
+        // Has access token in hash - pass it via hash fragment
+        universalLink += `#access_token=${encodeURIComponent(accessToken)}`;
         if (refreshToken) {
-          deepLinkUrl += `&refresh_token=${encodeURIComponent(refreshToken)}`;
+          universalLink += `&refresh_token=${encodeURIComponent(refreshToken)}`;
         }
+        universalLink += `&type=recovery`;
         console.log('Using access token');
       } else if (token) {
         // Legacy token flow
-        deepLinkUrl += `?token=${encodeURIComponent(token)}`;
+        universalLink += `?token=${encodeURIComponent(token)}&type=recovery`;
         console.log('Using token');
       } else if (tokenHash) {
         // Token hash flow
-        deepLinkUrl += `?token_hash=${encodeURIComponent(tokenHash)}`;
+        universalLink += `?token_hash=${encodeURIComponent(tokenHash)}&type=recovery`;
         console.log('Using token hash');
       } else {
         // No valid parameters
@@ -255,8 +251,8 @@
         return;
       }
 
-      // Redirect to app
-      redirectToApp(deepLinkUrl);
+      // Redirect to app via Universal Link
+      redirectToApp(universalLink);
     };
   </script>
 </body>
