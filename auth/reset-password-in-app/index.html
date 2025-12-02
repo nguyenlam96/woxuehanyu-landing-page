@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WoXueHanyu - Reset Password</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 64px;
+      margin-bottom: 24px;
+      animation: bounceIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      color: #111827;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      animation: fadeIn 0.6s ease-out 0.6s both;
+    }
+
+    .message {
+      color: #6b7280;
+      font-size: 16px;
+      margin: 16px 0;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease-out 0.7s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .loader {
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      animation: spin 1s linear infinite;
+      margin: 24px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .button {
+      display: inline-block;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+      animation: fadeIn 0.6s ease-out 0.8s both;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .info {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeIn 0.6s ease-out 0.9s both;
+    }
+
+    .error {
+      color: #ef4444;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="status">
+      <div class="logo">🔐</div>
+      <div class="loader"></div>
+      <p class="message">Opening WoXueHanyu app to reset your password...</p>
+    </div>
+  </div>
+
+  <script>
+    // Get all parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+
+    // Get code from query params (PKCE flow)
+    const code = urlParams.get('code');
+
+    // Get token from query params (legacy flow)
+    const token = urlParams.get('token');
+    const tokenHash = urlParams.get('token_hash');
+
+    // Get from hash params
+    const accessToken = hashParams.get('access_token');
+    const refreshToken = hashParams.get('refresh_token');
+
+    // Get error params
+    const errorCode = urlParams.get('error') || hashParams.get('error_code');
+    const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
+
+    // Deep link base URL
+    const DEEP_LINK_BASE = 'woxuehanyu://auth/reset-password';
+
+    function updateUI(content) {
+      document.getElementById('status').innerHTML = content;
+    }
+
+    function showError(message) {
+      updateUI(`
+        <div class="logo">⚠️</div>
+        <h1>Error</h1>
+        <p class="message error">${message}</p>
+        <p class="message">Please try requesting a new password reset link from the app.</p>
+      `);
+    }
+
+    function redirectToApp(deepLinkUrl) {
+      console.log('Redirecting to:', deepLinkUrl);
+
+      // Try to redirect immediately
+      window.location.href = deepLinkUrl;
+
+      // Show manual button after a short delay
+      setTimeout(() => {
+        updateUI(`
+          <div class="logo">🔐</div>
+          <h1>Reset Your Password</h1>
+          <p class="message">Opening <strong>WoXueHanyu</strong> app...</p>
+          <a href="${deepLinkUrl}" class="button">🚀 Open WoXueHanyu App</a>
+          <div class="info">
+            💡 If the app doesn't open automatically, please click the button above to reset your password in the app.
+          </div>
+        `);
+      }, 1000);
+    }
+
+    // Initialize page
+    window.onload = function() {
+      console.log('=== PASSWORD RESET REDIRECT ===');
+      console.log('Full URL:', window.location.href);
+      console.log('Parameters:', {
+        code,
+        token,
+        tokenHash,
+        accessToken: accessToken ? 'Present' : 'Missing',
+        refreshToken: refreshToken ? 'Present' : 'Missing',
+        errorCode,
+        errorDescription
+      });
+      console.log('================================');
+
+      // Check for errors
+      if (errorCode) {
+        showError(errorDescription || 'Invalid or expired password reset link.');
+        return;
+      }
+
+      // Build deep link with the appropriate parameter
+      let deepLinkUrl = DEEP_LINK_BASE;
+
+      if (code) {
+        // PKCE flow - pass the code
+        deepLinkUrl += `?code=${encodeURIComponent(code)}`;
+        console.log('Using PKCE code');
+      } else if (accessToken) {
+        // Has access token in hash - pass it
+        deepLinkUrl += `?access_token=${encodeURIComponent(accessToken)}`;
+        if (refreshToken) {
+          deepLinkUrl += `&refresh_token=${encodeURIComponent(refreshToken)}`;
+        }
+        console.log('Using access token');
+      } else if (token) {
+        // Legacy token flow
+        deepLinkUrl += `?token=${encodeURIComponent(token)}`;
+        console.log('Using token');
+      } else if (tokenHash) {
+        // Token hash flow
+        deepLinkUrl += `?token_hash=${encodeURIComponent(tokenHash)}`;
+        console.log('Using token hash');
+      } else {
+        // No valid parameters
+        showError('Invalid password reset link. No authentication token found.');
+        return;
+      }
+
+      // Redirect to app
+      redirectToApp(deepLinkUrl);
+    };
+  </script>
+</body>
+</html>
