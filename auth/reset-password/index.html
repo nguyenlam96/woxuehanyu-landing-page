@@ -292,30 +292,44 @@
   </div>
 
   <script type="module">
-    // Get query params from URL (from password reset email)
+    // Import Supabase client
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    // Your Supabase configuration
+    const SUPABASE_URL = 'https://bjenzsjiidjkslgeaxah.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZW56c2ppaWRqa3NsZ2VheGFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NTc4OTcsImV4cCI6MjA3NzQzMzg5N30';
+
+    // Initialize Supabase client
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Get query params from URL
     const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code'); // PKCE code
     const token = urlParams.get('token');
     const tokenHash = urlParams.get('token_hash');
     const typeFromQuery = urlParams.get('type');
+    const errorParam = urlParams.get('error');
+    const errorDescription = urlParams.get('error_description');
 
-    // Get hash fragment from URL (contains access_token after Supabase redirect)
+    // Get hash fragment from URL
     const hash = window.location.hash;
     const hashParams = new URLSearchParams(hash.substring(1));
     const accessToken = hashParams.get('access_token');
     const refreshToken = hashParams.get('refresh_token');
     const errorCode = hashParams.get('error_code');
-    const errorDescription = hashParams.get('error_description');
+    const errorDescriptionHash = hashParams.get('error_description');
     const typeFromHash = hashParams.get('type');
 
-    // Use type from either source
+    // Use values from either source
     const type = typeFromHash || typeFromQuery;
+    const finalError = errorCode || errorParam;
+    const finalErrorDescription = errorDescriptionHash || errorDescription;
 
     // Deep link URL
     const DEEP_LINK_URL = 'woxuehanyu://auth/reset-password';
 
-    // Your Supabase configuration - UPDATE THESE VALUES
-    const SUPABASE_URL = 'https://bjenzsjiidjkslgeaxah.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZW56c2ppaWRqa3NsZ2VheGFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NTc4OTcsImV4cCI6MjA3NzQzMzg5N30';
+    // Store session globally
+    let currentSession = null;
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
@@ -401,104 +415,195 @@
       submitBtn.textContent = 'Resetting...';
 
       try {
-        // Update password using Supabase REST API
-        const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
-            'apikey': SUPABASE_ANON_KEY
-          },
-          body: JSON.stringify({
-            password: password
-          })
+        // Check if we have a session
+        if (!currentSession) {
+          throw new Error('No active session. Please try clicking the reset link again.');
+        }
+
+        // Update password using Supabase client
+        const { data, error } = await supabase.auth.updateUser({
+          password: password
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          showSuccess();
-        } else {
-          throw new Error(data.message || 'Failed to reset password');
+        if (error) {
+          throw error;
         }
+
+        console.log('Password updated successfully:', data);
+        showSuccess();
       } catch (error) {
         console.error('Password reset error:', error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Reset Password';
         showError(error.message || 'An error occurred while resetting your password. Please try again.');
       }
     }
 
     // Initialize page
-    window.onload = function() {
+    window.onload = async function() {
       console.log('=== FULL DEBUG INFO ===');
       console.log('Full URL:', window.location.href);
       console.log('Search params:', window.location.search);
       console.log('Hash fragment:', window.location.hash);
       console.log('Query params:', {
+        code,
         token,
         tokenHash,
-        typeFromQuery
+        typeFromQuery,
+        errorParam,
+        errorDescription
       });
       console.log('Hash params:', {
         accessToken,
         refreshToken,
         typeFromHash,
         errorCode,
-        errorDescription
+        errorDescriptionHash
       });
+      console.log('Final error:', finalError);
       console.log('Final type:', type);
       console.log('======================');
 
-      // Check if this is a password recovery link
-      if (errorCode) {
-        // Has error from Supabase
-        console.log('ERROR CASE: Has error code');
-        showError(errorDescription || 'Link is invalid or has expired.');
-      } else if (token || tokenHash) {
-        // Has token in query params - this is the initial link from email
-        // Supabase will automatically process it and redirect with access_token in hash
-        console.log('TOKEN CASE: Has token in query params');
-        if (type === 'recovery') {
-          showLoading('Processing your password reset link...');
-          // Supabase will handle the redirect automatically
-        } else {
-          showError('Invalid link type. Please use the password reset link from your email.');
-        }
-      } else if (accessToken) {
-        // Has access token in hash - ready to reset password
-        console.log('ACCESS TOKEN CASE: Has access token, type =', type);
-        if (type === 'recovery') {
-          // Valid reset link, show form (form is already visible from initial HTML)
+      // Check for errors first
+      if (finalError) {
+        console.log('ERROR CASE: Has error');
+        showError(finalErrorDescription || 'Link is invalid or has expired.');
+        return;
+      }
+
+      // Check if we have a PKCE code
+      if (code) {
+        console.log('CODE CASE: Has PKCE code, exchanging for session...');
+        showLoading('Verifying your reset link...');
+
+        try {
+          // Exchange code for session - Supabase client handles this automatically
+          const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+          if (error) {
+            console.error('Code exchange error:', error);
+            throw error;
+          }
+
+          console.log('Session obtained:', data);
+          currentSession = data.session;
+
+          // Show the password reset form
           const form = document.getElementById('resetForm');
           if (form) {
             form.addEventListener('submit', handleSubmit);
           }
 
           // Add real-time validation
-          const confirmPassword = document.getElementById('confirmPassword');
-          if (confirmPassword) {
-            confirmPassword.addEventListener('input', function() {
-              const password = document.getElementById('password').value;
-              const confirmError = document.getElementById('confirmError');
-              const confirmInput = document.getElementById('confirmPassword');
+          setupFormValidation();
 
-              if (this.value && this.value !== password) {
-                confirmError.classList.add('show');
-                confirmInput.classList.add('error');
-              } else {
-                confirmError.classList.remove('show');
-                confirmInput.classList.remove('error');
-              }
-            });
+          // Update UI to show the form
+          updateUI(`
+            <div class="logo">🔐</div>
+            <h1>Reset Password</h1>
+            <p class="message">Enter your new password below.</p>
+
+            <form id="resetForm">
+              <div class="form-group">
+                <label for="password">New Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  minlength="8"
+                  placeholder="Enter new password"
+                >
+                <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+                <div class="password-requirements">
+                  <ul>
+                    <li>At least 8 characters long</li>
+                    <li>Mix of letters and numbers recommended</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  required
+                  minlength="8"
+                  placeholder="Confirm new password"
+                >
+                <div class="error-message" id="confirmError">Passwords do not match</div>
+              </div>
+
+              <button type="submit" class="button" id="submitBtn">
+                Reset Password
+              </button>
+            </form>
+
+            <div class="info">
+              🔒 Your password will be securely encrypted and stored.
+            </div>
+          `);
+
+          // Re-attach event listeners after updating UI
+          const newForm = document.getElementById('resetForm');
+          if (newForm) {
+            newForm.addEventListener('submit', handleSubmit);
           }
-        } else {
-          showError('Invalid link type. Expected "recovery" but got: ' + type);
+          setupFormValidation();
+
+        } catch (error) {
+          console.error('Session error:', error);
+          showError(error.message || 'Failed to verify reset link. Please try again.');
         }
-      } else {
-        // No valid parameters found
-        console.log('FALLBACK CASE: No valid params found');
-        showError('Invalid or expired password reset link. Please check the console for debug info.');
+        return;
       }
+
+      // Check if we have a token in query params (old flow)
+      if (token || tokenHash) {
+        console.log('TOKEN CASE: Has token in query params');
+        showLoading('Processing your password reset link...');
+        return;
+      }
+
+      // Check if we have access token in hash (old implicit flow)
+      if (accessToken) {
+        console.log('ACCESS TOKEN CASE: Has access token');
+        currentSession = { access_token: accessToken };
+
+        const form = document.getElementById('resetForm');
+        if (form) {
+          form.addEventListener('submit', handleSubmit);
+        }
+        setupFormValidation();
+        return;
+      }
+
+      // No valid parameters found
+      console.log('FALLBACK CASE: No valid params found');
+      showError('Invalid or expired password reset link. Please check the console for debug info.');
     };
+
+    // Setup form validation
+    function setupFormValidation() {
+      const confirmPassword = document.getElementById('confirmPassword');
+      if (confirmPassword) {
+        confirmPassword.addEventListener('input', function() {
+          const password = document.getElementById('password').value;
+          const confirmError = document.getElementById('confirmError');
+          const confirmInput = document.getElementById('confirmPassword');
+
+          if (this.value && this.value !== password) {
+            confirmError.classList.add('show');
+            confirmInput.classList.add('error');
+          } else {
+            confirmError.classList.remove('show');
+            confirmInput.classList.remove('error');
+          }
+        });
+      }
+    }
   </script>
 </body>
 </html>
