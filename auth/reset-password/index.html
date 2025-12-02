@@ -292,6 +292,12 @@
   </div>
 
   <script type="module">
+    // Get query params from URL (from password reset email)
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const tokenHash = urlParams.get('token_hash');
+    const typeFromQuery = urlParams.get('type');
+
     // Get hash fragment from URL (contains access_token after Supabase redirect)
     const hash = window.location.hash;
     const hashParams = new URLSearchParams(hash.substring(1));
@@ -299,7 +305,10 @@
     const refreshToken = hashParams.get('refresh_token');
     const errorCode = hashParams.get('error_code');
     const errorDescription = hashParams.get('error_description');
-    const type = hashParams.get('type');
+    const typeFromHash = hashParams.get('type');
+
+    // Use type from either source
+    const type = typeFromHash || typeFromQuery;
 
     // Deep link URL
     const DEEP_LINK_URL = 'woxuehanyu://auth/reset-password';
@@ -421,6 +430,8 @@
     // Initialize page
     window.onload = function() {
       console.log('URL Params:', {
+        token: token ? 'Present' : 'Missing',
+        tokenHash: tokenHash ? 'Present' : 'Missing',
         accessToken: accessToken ? 'Present' : 'Missing',
         type,
         errorCode,
@@ -429,13 +440,20 @@
 
       // Check if this is a password recovery link
       if (errorCode) {
+        // Has error from Supabase
         showError(errorDescription || 'Link is invalid or has expired.');
-      } else if (!accessToken) {
-        showError('Invalid or expired password reset link.');
-      } else if (type !== 'recovery') {
-        showError('Invalid link type. Please use the password reset link from your email.');
-      } else {
-        // Valid reset link, show form
+      } else if (token || tokenHash) {
+        // Has token in query params - this is the initial link from email
+        // Supabase will automatically process it and redirect with access_token in hash
+        if (type === 'recovery') {
+          showLoading('Processing your password reset link...');
+          // Supabase will handle the redirect automatically
+        } else {
+          showError('Invalid link type. Please use the password reset link from your email.');
+        }
+      } else if (accessToken && type === 'recovery') {
+        // Has access token in hash - ready to reset password
+        // Valid reset link, show form (form is already visible from initial HTML)
         const form = document.getElementById('resetForm');
         if (form) {
           form.addEventListener('submit', handleSubmit);
@@ -458,6 +476,9 @@
             }
           });
         }
+      } else {
+        // No valid parameters found
+        showError('Invalid or expired password reset link.');
       }
     };
   </script>
