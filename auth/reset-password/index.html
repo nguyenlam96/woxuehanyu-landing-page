@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WoXueHanyu - Reset Password</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 64px;
+      margin-bottom: 24px;
+      animation: bounceIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .success-icon {
+      width: 88px;
+      height: 88px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      color: white;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      color: #111827;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      animation: fadeIn 0.6s ease-out 0.6s both;
+    }
+
+    .message {
+      color: #6b7280;
+      font-size: 16px;
+      margin: 16px 0;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease-out 0.7s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .loader {
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      animation: spin 1s linear infinite;
+      margin: 24px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      animation: fadeIn 0.6s ease-out 0.8s both;
+    }
+
+    .form-group label {
+      display: block;
+      color: #374151;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group input.error {
+      border-color: #ef4444;
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .button {
+      width: 100%;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+      cursor: pointer;
+      font-family: inherit;
+      animation: fadeIn 0.6s ease-out 0.9s both;
+    }
+
+    .button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    }
+
+    .button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .info {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeIn 0.6s ease-out 1s both;
+    }
+
+    .error {
+      color: #ef4444;
+      margin-top: 16px;
+    }
+
+    .password-requirements {
+      text-align: left;
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 8px;
+      padding-left: 4px;
+    }
+
+    .password-requirements ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .password-requirements li {
+      padding: 4px 0;
+    }
+
+    .password-requirements li::before {
+      content: "•";
+      color: #9ca3af;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="status">
+      <div class="logo">🔐</div>
+      <h1>Reset Password</h1>
+      <p class="message">Enter your new password below.</p>
+
+      <form id="resetForm">
+        <div class="form-group">
+          <label for="password">New Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            minlength="8"
+            placeholder="Enter new password"
+          >
+          <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+          <div class="password-requirements">
+            <ul>
+              <li>At least 8 characters long</li>
+              <li>Mix of letters and numbers recommended</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            minlength="8"
+            placeholder="Confirm new password"
+          >
+          <div class="error-message" id="confirmError">Passwords do not match</div>
+        </div>
+
+        <button type="submit" class="button" id="submitBtn">
+          Reset Password
+        </button>
+      </form>
+
+      <div class="info">
+        🔒 Your password will be securely encrypted and stored.
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Get hash fragment from URL (contains access_token after Supabase redirect)
+    const hash = window.location.hash;
+    const hashParams = new URLSearchParams(hash.substring(1));
+    const accessToken = hashParams.get('access_token');
+    const refreshToken = hashParams.get('refresh_token');
+    const errorCode = hashParams.get('error_code');
+    const errorDescription = hashParams.get('error_description');
+    const type = hashParams.get('type');
+
+    // Deep link URL
+    const DEEP_LINK_URL = 'woxuehanyu://auth/reset-password';
+
+    // Your Supabase configuration - UPDATE THESE VALUES
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+    function updateUI(content) {
+      document.getElementById('status').innerHTML = content;
+    }
+
+    function showSuccess() {
+      updateUI(`
+        <div class="success-icon">✓</div>
+        <h1>Password Reset Successfully!</h1>
+        <p class="message">Your password has been changed.</p>
+        <p class="message">Opening <strong>WoXueHanyu</strong> app...</p>
+        <a href="${DEEP_LINK_URL}" class="button">🚀 Open WoXueHanyu App</a>
+        <div class="info">
+          💡 If the app doesn't open automatically, please click the button above to sign in with your new password.
+        </div>
+      `);
+    }
+
+    function showError(message) {
+      updateUI(`
+        <div class="logo">⚠️</div>
+        <h1>Error</h1>
+        <p class="message error">${message}</p>
+        <p class="message">Please try requesting a new password reset link.</p>
+      `);
+    }
+
+    function showLoading(message) {
+      updateUI(`
+        <div class="logo">🔐</div>
+        <div class="loader"></div>
+        <p class="message">${message}</p>
+      `);
+    }
+
+    // Validate form inputs
+    function validateForm() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const passwordError = document.getElementById('passwordError');
+      const confirmError = document.getElementById('confirmError');
+      const passwordInput = document.getElementById('password');
+      const confirmInput = document.getElementById('confirmPassword');
+
+      let isValid = true;
+
+      // Reset errors
+      passwordError.classList.remove('show');
+      confirmError.classList.remove('show');
+      passwordInput.classList.remove('error');
+      confirmInput.classList.remove('error');
+
+      // Validate password length
+      if (password.length < 8) {
+        passwordError.classList.add('show');
+        passwordInput.classList.add('error');
+        isValid = false;
+      }
+
+      // Validate passwords match
+      if (password !== confirmPassword) {
+        confirmError.classList.add('show');
+        confirmInput.classList.add('error');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // Handle form submission
+    async function handleSubmit(event) {
+      event.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
+      const password = document.getElementById('password').value;
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Resetting...';
+
+      try {
+        // Update password using Supabase REST API
+        const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+            'apikey': SUPABASE_ANON_KEY
+          },
+          body: JSON.stringify({
+            password: password
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          throw new Error(data.message || 'Failed to reset password');
+        }
+      } catch (error) {
+        console.error('Password reset error:', error);
+        showError(error.message || 'An error occurred while resetting your password. Please try again.');
+      }
+    }
+
+    // Initialize page
+    window.onload = function() {
+      console.log('URL Params:', {
+        accessToken: accessToken ? 'Present' : 'Missing',
+        type,
+        errorCode,
+        fullURL: window.location.href
+      });
+
+      // Check if this is a password recovery link
+      if (errorCode) {
+        showError(errorDescription || 'Link is invalid or has expired.');
+      } else if (!accessToken) {
+        showError('Invalid or expired password reset link.');
+      } else if (type !== 'recovery') {
+        showError('Invalid link type. Please use the password reset link from your email.');
+      } else {
+        // Valid reset link, show form
+        const form = document.getElementById('resetForm');
+        if (form) {
+          form.addEventListener('submit', handleSubmit);
+        }
+
+        // Add real-time validation
+        const confirmPassword = document.getElementById('confirmPassword');
+        if (confirmPassword) {
+          confirmPassword.addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmError = document.getElementById('confirmError');
+            const confirmInput = document.getElementById('confirmPassword');
+
+            if (this.value && this.value !== password) {
+              confirmError.classList.add('show');
+              confirmInput.classList.add('error');
+            } else {
+              confirmError.classList.remove('show');
+              confirmInput.classList.remove('error');
+            }
+          });
+        }
+      }
+    };
+  </script>
+</body>
+</html>
