@@ -429,56 +429,74 @@
 
     // Initialize page
     window.onload = function() {
-      console.log('URL Params:', {
-        token: token ? 'Present' : 'Missing',
-        tokenHash: tokenHash ? 'Present' : 'Missing',
-        accessToken: accessToken ? 'Present' : 'Missing',
-        type,
-        errorCode,
-        fullURL: window.location.href
+      console.log('=== FULL DEBUG INFO ===');
+      console.log('Full URL:', window.location.href);
+      console.log('Search params:', window.location.search);
+      console.log('Hash fragment:', window.location.hash);
+      console.log('Query params:', {
+        token,
+        tokenHash,
+        typeFromQuery
       });
+      console.log('Hash params:', {
+        accessToken,
+        refreshToken,
+        typeFromHash,
+        errorCode,
+        errorDescription
+      });
+      console.log('Final type:', type);
+      console.log('======================');
 
       // Check if this is a password recovery link
       if (errorCode) {
         // Has error from Supabase
+        console.log('ERROR CASE: Has error code');
         showError(errorDescription || 'Link is invalid or has expired.');
       } else if (token || tokenHash) {
         // Has token in query params - this is the initial link from email
         // Supabase will automatically process it and redirect with access_token in hash
+        console.log('TOKEN CASE: Has token in query params');
         if (type === 'recovery') {
           showLoading('Processing your password reset link...');
           // Supabase will handle the redirect automatically
         } else {
           showError('Invalid link type. Please use the password reset link from your email.');
         }
-      } else if (accessToken && type === 'recovery') {
+      } else if (accessToken) {
         // Has access token in hash - ready to reset password
-        // Valid reset link, show form (form is already visible from initial HTML)
-        const form = document.getElementById('resetForm');
-        if (form) {
-          form.addEventListener('submit', handleSubmit);
-        }
+        console.log('ACCESS TOKEN CASE: Has access token, type =', type);
+        if (type === 'recovery') {
+          // Valid reset link, show form (form is already visible from initial HTML)
+          const form = document.getElementById('resetForm');
+          if (form) {
+            form.addEventListener('submit', handleSubmit);
+          }
 
-        // Add real-time validation
-        const confirmPassword = document.getElementById('confirmPassword');
-        if (confirmPassword) {
-          confirmPassword.addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmError = document.getElementById('confirmError');
-            const confirmInput = document.getElementById('confirmPassword');
+          // Add real-time validation
+          const confirmPassword = document.getElementById('confirmPassword');
+          if (confirmPassword) {
+            confirmPassword.addEventListener('input', function() {
+              const password = document.getElementById('password').value;
+              const confirmError = document.getElementById('confirmError');
+              const confirmInput = document.getElementById('confirmPassword');
 
-            if (this.value && this.value !== password) {
-              confirmError.classList.add('show');
-              confirmInput.classList.add('error');
-            } else {
-              confirmError.classList.remove('show');
-              confirmInput.classList.remove('error');
-            }
-          });
+              if (this.value && this.value !== password) {
+                confirmError.classList.add('show');
+                confirmInput.classList.add('error');
+              } else {
+                confirmError.classList.remove('show');
+                confirmInput.classList.remove('error');
+              }
+            });
+          }
+        } else {
+          showError('Invalid link type. Expected "recovery" but got: ' + type);
         }
       } else {
         // No valid parameters found
-        showError('Invalid or expired password reset link.');
+        console.log('FALLBACK CASE: No valid params found');
+        showError('Invalid or expired password reset link. Please check the console for debug info.');
       }
     };
   </script>
