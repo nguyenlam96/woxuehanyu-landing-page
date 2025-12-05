@@ -225,8 +225,9 @@
     // Get parameters from URL query string
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get('email');
+    const code = urlParams.get('code'); // PKCE code from Supabase
 
-    // Get parameters from URL hash fragment (Supabase passes tokens here)
+    // Get parameters from URL hash fragment (Supabase may pass tokens here in some flows)
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = hashParams.get('access_token');
     const refreshToken = hashParams.get('refresh_token');
@@ -249,7 +250,12 @@
         params.append('email', email);
       }
 
-      // Add Supabase tokens if available (for auto-login)
+      // Add PKCE code if available (app will exchange it for tokens)
+      if (code) {
+        params.append('code', code);
+      }
+
+      // Add Supabase tokens if available (for auto-login in non-PKCE flow)
       if (accessToken) {
         params.append('access_token', accessToken);
       }
@@ -273,6 +279,7 @@
     // Log for debugging
     console.log('=== EMAIL CONFIRMATION SUCCESS ===');
     console.log('Email:', email || 'Not provided');
+    console.log('Code:', code || 'Not provided');
     console.log('Access Token:', accessToken ? 'Present' : 'Not available');
     console.log('Refresh Token:', refreshToken ? 'Present' : 'Not available');
     console.log('App deep link:', appLink);
