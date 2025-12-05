@@ -5,14 +5,12 @@
       {
         "appID": "4W3729C9FG.com.woxuehanyu.dev",
         "paths": [
-          "/auth/verify-email",
           "/auth/*"
         ]
       },
       {
         "appID": "4W3729C9FG.com.woxuehanyu.prod",
         "paths": [
-          "/auth/verify-email",
           "/auth/*"
         ]
       }
