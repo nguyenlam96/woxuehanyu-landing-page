@@ -197,12 +197,6 @@
     .button:active {
       transform: translateY(0);
     }
-
-    .app-not-installed {
-      background: #fef3c7 !important;
-      border-color: #fde68a !important;
-      color: #92400e !important;
-    }
   </style>
 </head>
 <body>
@@ -218,10 +212,6 @@
     </div>
 
     <a href="#" id="openAppBtn" class="button">🚀 Open WoXueHanyu App</a>
-
-    <div id="appNotInstalled" class="info app-not-installed" style="display: none;">
-      📱 App not installed? Download WoXueHanyu from the App Store to get started!
-    </div>
 
     <div class="next-steps">
       <h3>What's Next?</h3>
@@ -283,44 +273,10 @@
       return deepLink;
     }
 
-    // Set up the "Open App" button with app detection
+    // Set up the "Open App" button
     const openAppBtn = document.getElementById('openAppBtn');
-    const appNotInstalledDiv = document.getElementById('appNotInstalled');
     const appLink = buildAppLink();
-
-    let hasDetectedApp = false;
-
-    openAppBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      if (hasDetectedApp) {
-        // Already detected app is not installed, don't try again
-        return;
-      }
-
-      // Set up blur detection before attempting to open
-      const onBlur = function() {
-        // Page lost focus - app likely opened
-        console.log('App likely opened successfully');
-        window.removeEventListener('blur', onBlur);
-        clearTimeout(timeout);
-      };
-      window.addEventListener('blur', onBlur);
-
-      // Try to open the app
-      window.location.href = appLink;
-
-      // Quick check if app didn't open
-      const timeout = setTimeout(function() {
-        // If we're still here after 100ms and didn't lose focus, app likely not installed
-        window.removeEventListener('blur', onBlur);
-        hasDetectedApp = true;
-        // Hide the button and show the message
-        openAppBtn.style.display = 'none';
-        appNotInstalledDiv.style.display = 'block';
-        console.log('App does not appear to be installed');
-      }, 100);
-    });
+    openAppBtn.href = appLink;
 
     // Update Smart Banner with app-argument
     const smartBannerMeta = document.querySelector('meta[name="apple-itunes-app"]');

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WoXueHanyu - Reset Password</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <!-- iOS Smart Banner - Replace YOUR_APP_STORE_ID with actual App Store ID -->
+  <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID">
   <style>
     * {
       margin: 0;
@@ -176,11 +178,41 @@
       updateUI(`
         <div class="logo">🔐</div>
         <h1>Reset Your Password</h1>
-        <p class="message">Please open the <strong>WoXueHanyu</strong> app to reset your password.</p>
+        <p class="message">To reset your password, you need to have the <strong>WoXueHanyu</strong> app installed on your device.</p>
         <div class="info">
-          💡 If you don't have the app installed, download it from the App Store or Google Play.
+          📱 <strong>Install the app:</strong><br>
+          Download WoXueHanyu from the App Store (iOS) or Google Play (Android).<br><br>
+          🔑 <strong>Then:</strong><br>
+          Click the password reset link again from this device to open it in the app and complete your password reset.
         </div>
       `);
+    }
+
+    // Build deep link for app with all parameters
+    function buildAppLink() {
+      let deepLink = 'woxuehanyu://reset-password';
+      const params = new URLSearchParams();
+
+      // Collect all parameters from URL query string
+      urlParams.forEach((value, key) => {
+        if (key !== 'error' && key !== 'error_description') {
+          params.append(key, value);
+        }
+      });
+
+      // Collect all parameters from hash fragment
+      hashParams.forEach((value, key) => {
+        if (!params.has(key)) {
+          params.append(key, value);
+        }
+      });
+
+      const queryString = params.toString();
+      if (queryString) {
+        deepLink += `?${queryString}`;
+      }
+
+      return deepLink;
     }
 
     // Initialize page
@@ -188,6 +220,19 @@
       console.log('=== PASSWORD RESET PAGE ===');
       console.log('Full URL:', window.location.href);
       console.log('============================');
+
+      // Build deep link
+      const appLink = buildAppLink();
+
+      // Update Smart Banner with app-argument
+      const smartBannerMeta = document.querySelector('meta[name="apple-itunes-app"]');
+      if (smartBannerMeta) {
+        const currentContent = smartBannerMeta.getAttribute('content');
+        // Add app-argument to pass the deep link URL to the app
+        smartBannerMeta.setAttribute('content', `${currentContent}, app-argument=${encodeURIComponent(appLink)}`);
+      }
+
+      console.log('App deep link:', appLink);
 
       // If we reached this page, it means the Universal Link didn't intercept
       // (app not installed or user is on desktop)
