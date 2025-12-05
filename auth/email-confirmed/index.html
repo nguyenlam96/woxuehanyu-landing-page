@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Confirmed - WoXueHanyu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <!-- iOS Smart Banner - Replace YOUR_APP_STORE_ID with actual App Store ID -->
+  <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID">
   <style>
     * {
       margin: 0;
@@ -195,6 +197,12 @@
     .button:active {
       transform: translateY(0);
     }
+
+    .app-not-installed {
+      background: #fef3c7 !important;
+      border-color: #fde68a !important;
+      color: #92400e !important;
+    }
   </style>
 </head>
 <body>
@@ -210,6 +218,10 @@
     </div>
 
     <a href="#" id="openAppBtn" class="button">🚀 Open WoXueHanyu App</a>
+
+    <div id="appNotInstalled" class="info app-not-installed" style="display: none;">
+      📱 App not installed? Download WoXueHanyu from the App Store to get started!
+    </div>
 
     <div class="next-steps">
       <h3>What's Next?</h3>
@@ -271,10 +283,56 @@
       return deepLink;
     }
 
-    // Set up the "Open App" button
+    // Set up the "Open App" button with app detection
     const openAppBtn = document.getElementById('openAppBtn');
+    const appNotInstalledDiv = document.getElementById('appNotInstalled');
     const appLink = buildAppLink();
-    openAppBtn.href = appLink;
+
+    let hasDetectedApp = false;
+
+    openAppBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      if (hasDetectedApp) {
+        // Already detected app is not installed, don't try again
+        return;
+      }
+
+      // Try to open the app
+      window.location.href = appLink;
+
+      // Detect if app opened successfully
+      const startTime = Date.now();
+
+      // Check if page is still visible after attempting to open app
+      setTimeout(function() {
+        const timeElapsed = Date.now() - startTime;
+
+        // If user is still on this page and document is visible, app likely didn't open
+        if (document.hasFocus() && timeElapsed < 2000) {
+          hasDetectedApp = true;
+          // Hide the button and show the message
+          openAppBtn.style.display = 'none';
+          appNotInstalledDiv.style.display = 'block';
+          console.log('App does not appear to be installed');
+        }
+      }, 1500);
+
+      // Also listen for visibility change - if user switches apps, they likely opened it
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          console.log('App likely opened successfully');
+        }
+      }, { once: true });
+    });
+
+    // Update Smart Banner with app-argument
+    const smartBannerMeta = document.querySelector('meta[name="apple-itunes-app"]');
+    if (smartBannerMeta) {
+      const currentContent = smartBannerMeta.getAttribute('content');
+      // Add app-argument to pass the deep link URL to the app
+      smartBannerMeta.setAttribute('content', `${currentContent}, app-argument=${encodeURIComponent(appLink)}`);
+    }
 
     // Log for debugging
     console.log('=== EMAIL CONFIRMATION SUCCESS ===');
