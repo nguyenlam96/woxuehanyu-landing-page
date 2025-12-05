@@ -151,27 +151,11 @@
   </div>
 
   <script>
-    // Get all parameters from URL
+    // Get error params
     const urlParams = new URLSearchParams(window.location.search);
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
-
-    // Get code from query params (PKCE flow)
-    const code = urlParams.get('code');
-
-    // Get token from query params (legacy flow)
-    const token = urlParams.get('token');
-    const tokenHash = urlParams.get('token_hash');
-
-    // Get from hash params
-    const accessToken = hashParams.get('access_token');
-    const refreshToken = hashParams.get('refresh_token');
-
-    // Get error params
     const errorCode = urlParams.get('error') || hashParams.get('error_code');
     const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
-
-    // Universal Link base URL (use the callback page which is configured for Universal Links)
-    const UNIVERSAL_LINK_BASE = 'https://auth.woxuehanyu.site/auth/callback';
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
@@ -186,35 +170,27 @@
       `);
     }
 
-    function redirectToApp(universalLink) {
-      console.log('Universal Link ready:', universalLink);
-
-      // Show the button immediately (Universal Links only work when user clicks, not with auto-redirect)
+    function showFallback() {
+      // This page should only display if the Universal Link didn't open the app
+      // (app is not installed or user is on desktop/web browser)
       updateUI(`
         <div class="logo">🔐</div>
         <h1>Reset Your Password</h1>
-        <p class="message">Click the button below to open the <strong>WoXueHanyu</strong> app and reset your password.</p>
-        <a href="${universalLink}" class="button">🚀 Open WoXueHanyu App</a>
+        <p class="message">Please open the <strong>WoXueHanyu</strong> app to reset your password.</p>
         <div class="info">
-          💡 Your password reset link is ready. Click the button above to continue in the app.
+          💡 If you don't have the app installed, download it from the App Store or Google Play.
         </div>
       `);
     }
 
     // Initialize page
     window.onload = function() {
-      console.log('=== PASSWORD RESET REDIRECT ===');
+      console.log('=== PASSWORD RESET PAGE ===');
       console.log('Full URL:', window.location.href);
-      console.log('Parameters:', {
-        code,
-        token,
-        tokenHash,
-        accessToken: accessToken ? 'Present' : 'Missing',
-        refreshToken: refreshToken ? 'Present' : 'Missing',
-        errorCode,
-        errorDescription
-      });
-      console.log('================================');
+      console.log('============================');
+
+      // If we reached this page, it means the Universal Link didn't intercept
+      // (app not installed or user is on desktop)
 
       // Check for errors
       if (errorCode) {
@@ -222,37 +198,8 @@
         return;
       }
 
-      // Build Universal Link with the appropriate parameter
-      let universalLink = UNIVERSAL_LINK_BASE;
-
-      if (code) {
-        // PKCE flow - pass the code
-        universalLink += `?code=${encodeURIComponent(code)}&type=recovery`;
-        console.log('Using PKCE code');
-      } else if (accessToken) {
-        // Has access token in hash - pass it via hash fragment
-        universalLink += `#access_token=${encodeURIComponent(accessToken)}`;
-        if (refreshToken) {
-          universalLink += `&refresh_token=${encodeURIComponent(refreshToken)}`;
-        }
-        universalLink += `&type=recovery`;
-        console.log('Using access token');
-      } else if (token) {
-        // Legacy token flow
-        universalLink += `?token=${encodeURIComponent(token)}&type=recovery`;
-        console.log('Using token');
-      } else if (tokenHash) {
-        // Token hash flow
-        universalLink += `?token_hash=${encodeURIComponent(tokenHash)}&type=recovery`;
-        console.log('Using token hash');
-      } else {
-        // No valid parameters
-        showError('Invalid password reset link. No authentication token found.');
-        return;
-      }
-
-      // Redirect to app via Universal Link
-      redirectToApp(universalLink);
+      // Show fallback message
+      showFallback();
     };
   </script>
 </body>
