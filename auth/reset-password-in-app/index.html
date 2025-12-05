@@ -227,33 +227,6 @@
       `);
     }
 
-    // Build deep link for app with all parameters
-    function buildAppLink() {
-      let deepLink = 'woxuehanyu://reset-password';
-      const params = new URLSearchParams();
-
-      // Collect all parameters from URL query string
-      urlParams.forEach((value, key) => {
-        if (key !== 'error' && key !== 'error_description') {
-          params.append(key, value);
-        }
-      });
-
-      // Collect all parameters from hash fragment
-      hashParams.forEach((value, key) => {
-        if (!params.has(key)) {
-          params.append(key, value);
-        }
-      });
-
-      const queryString = params.toString();
-      if (queryString) {
-        deepLink += `?${queryString}`;
-      }
-
-      return deepLink;
-    }
-
     // Update initial loading message with localized text
     document.querySelector('.message').textContent = t.loading;
 
@@ -263,22 +236,6 @@
       console.log('Full URL:', window.location.href);
       console.log('Detected language:', userLang);
       console.log('============================');
-
-      // Build deep link
-      const appLink = buildAppLink();
-
-      // Update Smart Banner with app-argument
-      const smartBannerMeta = document.querySelector('meta[name="apple-itunes-app"]');
-      if (smartBannerMeta) {
-        const currentContent = smartBannerMeta.getAttribute('content');
-        // Add app-argument to pass the deep link URL to the app
-        smartBannerMeta.setAttribute('content', `${currentContent}, app-argument=${encodeURIComponent(appLink)}`);
-      }
-
-      console.log('App deep link:', appLink);
-
-      // If we reached this page, it means the Universal Link didn't intercept
-      // (app not installed or user is on desktop)
 
       // Check for errors
       if (errorCode) {
