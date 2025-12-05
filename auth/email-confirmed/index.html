@@ -202,20 +202,20 @@
 <body>
   <div class="container">
     <div class="success-icon">✓</div>
-    <h1>Email Confirmed!</h1>
-    <p class="message">Your email has been successfully verified.</p>
+    <h1 id="heading">Email Confirmed!</h1>
+    <p class="message" id="message">Your email has been successfully verified.</p>
 
     <div id="emailDisplay"></div>
 
-    <div class="info">
+    <div class="info" id="infoMessage">
       🎉 You're all set! Your account is now active.
     </div>
 
     <a href="#" id="openAppBtn" class="button">🚀 Open WoXueHanyu App</a>
 
     <div class="next-steps">
-      <h3>What's Next?</h3>
-      <ul>
+      <h3 id="nextStepsHeading">What's Next?</h3>
+      <ul id="nextStepsList">
         <li>Download the WoXueHanyu app from App Store or Google Play</li>
         <li>Sign in with your verified email</li>
         <li>Start your Chinese learning journey</li>
@@ -234,6 +234,58 @@
     const accessToken = hashParams.get('access_token');
     const refreshToken = hashParams.get('refresh_token');
     const tokenType = hashParams.get('token_type');
+
+    // Localization: Detect language from URL param or browser
+    const langParam = urlParams.get('lang');
+    const browserLang = navigator.language || navigator.userLanguage;
+    const userLang = langParam || (browserLang.startsWith('vi') ? 'vi' : 'en');
+
+    // Translations
+    const translations = {
+      en: {
+        pageTitle: 'Email Confirmed - WoXueHanyu',
+        heading: 'Email Confirmed!',
+        message: 'Your email has been successfully verified.',
+        infoMessage: '🎉 You\'re all set! Your account is now active.',
+        buttonText: '🚀 Open WoXueHanyu App',
+        nextStepsHeading: 'What\'s Next?',
+        nextStep1: 'Download the WoXueHanyu app from App Store or Google Play',
+        nextStep2: 'Sign in with your verified email',
+        nextStep3: 'Start your Chinese learning journey'
+      },
+      vi: {
+        pageTitle: 'Xác Nhận Email - WoXueHanyu',
+        heading: 'Email Đã Được Xác Nhận!',
+        message: 'Email của bạn đã được xác minh thành công.',
+        infoMessage: '🎉 Hoàn tất! Tài khoản của bạn hiện đã kích hoạt.',
+        buttonText: '🚀 Mở Ứng Dụng WoXueHanyu',
+        nextStepsHeading: 'Bước Tiếp Theo?',
+        nextStep1: 'Tải ứng dụng WoXueHanyu từ App Store hoặc Google Play',
+        nextStep2: 'Đăng nhập bằng email đã xác minh',
+        nextStep3: 'Bắt đầu hành trình học tiếng Trung của bạn'
+      }
+    };
+
+    // Get current language translations
+    const t = translations[userLang] || translations.en;
+
+    // Update page title
+    document.title = t.pageTitle;
+
+    // Update UI with translations
+    document.getElementById('heading').textContent = t.heading;
+    document.getElementById('message').textContent = t.message;
+    document.getElementById('infoMessage').textContent = t.infoMessage;
+    document.getElementById('openAppBtn').textContent = t.buttonText;
+    document.getElementById('nextStepsHeading').textContent = t.nextStepsHeading;
+
+    // Update next steps list
+    const nextStepsList = document.getElementById('nextStepsList');
+    nextStepsList.innerHTML = `
+      <li>${t.nextStep1}</li>
+      <li>${t.nextStep2}</li>
+      <li>${t.nextStep3}</li>
+    `;
 
     // Display email if available
     if (email) {
@@ -292,6 +344,7 @@
     console.log('Code:', code || 'Not provided');
     console.log('Access Token:', accessToken ? 'Present' : 'Not available');
     console.log('Refresh Token:', refreshToken ? 'Present' : 'Not available');
+    console.log('Detected language:', userLang);
     console.log('App deep link:', appLink);
     console.log('Full URL:', window.location.href);
     console.log('==================================');

@@ -159,6 +159,45 @@
     const errorCode = urlParams.get('error') || hashParams.get('error_code');
     const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
 
+    // Localization: Detect language from URL param or browser
+    const langParam = urlParams.get('lang');
+    const browserLang = navigator.language || navigator.userLanguage;
+    const userLang = langParam || (browserLang.startsWith('vi') ? 'vi' : 'en');
+
+    // Translations
+    const translations = {
+      en: {
+        loading: 'Preparing your password reset...',
+        title: 'Reset Your Password',
+        message: 'To reset your password, you need to have the <strong>WoXueHanyu</strong> app installed on your device.',
+        installTitle: 'Install the app:',
+        installText: 'Download WoXueHanyu from the App Store (iOS) or Google Play (Android).',
+        thenTitle: 'Then:',
+        thenText: 'Click the password reset link again from this device to open it in the app and complete your password reset.',
+        errorTitle: 'Error',
+        errorTryAgain: 'Please try requesting a new password reset link from the app.',
+        errorDefault: 'Invalid or expired password reset link.'
+      },
+      vi: {
+        loading: 'Đang chuẩn bị đặt lại mật khẩu...',
+        title: 'Đặt Lại Mật Khẩu',
+        message: 'Để đặt lại mật khẩu, bạn cần cài đặt ứng dụng <strong>WoXueHanyu</strong> trên thiết bị của mình.',
+        installTitle: 'Cài đặt ứng dụng:',
+        installText: 'Tải WoXueHanyu từ App Store (iOS) hoặc Google Play (Android).',
+        thenTitle: 'Sau đó:',
+        thenText: 'Nhấp lại vào liên kết đặt lại mật khẩu từ thiết bị này để mở trong ứng dụng và hoàn tất việc đặt lại mật khẩu.',
+        errorTitle: 'Lỗi',
+        errorTryAgain: 'Vui lòng yêu cầu liên kết đặt lại mật khẩu mới từ ứng dụng.',
+        errorDefault: 'Liên kết đặt lại mật khẩu không hợp lệ hoặc đã hết hạn.'
+      }
+    };
+
+    // Get current language translations
+    const t = translations[userLang] || translations.en;
+
+    // Update page title
+    document.title = userLang === 'vi' ? 'WoXueHanyu - Đặt Lại Mật Khẩu' : 'WoXueHanyu - Reset Password';
+
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
     }
@@ -166,9 +205,9 @@
     function showError(message) {
       updateUI(`
         <div class="logo">⚠️</div>
-        <h1>Error</h1>
+        <h1>${t.errorTitle}</h1>
         <p class="message error">${message}</p>
-        <p class="message">Please try requesting a new password reset link from the app.</p>
+        <p class="message">${t.errorTryAgain}</p>
       `);
     }
 
@@ -177,13 +216,13 @@
       // (app is not installed or user is on desktop/web browser)
       updateUI(`
         <div class="logo">🔐</div>
-        <h1>Reset Your Password</h1>
-        <p class="message">To reset your password, you need to have the <strong>WoXueHanyu</strong> app installed on your device.</p>
+        <h1>${t.title}</h1>
+        <p class="message">${t.message}</p>
         <div class="info">
-          📱 <strong>Install the app:</strong><br>
-          Download WoXueHanyu from the App Store (iOS) or Google Play (Android).<br><br>
-          🔑 <strong>Then:</strong><br>
-          Click the password reset link again from this device to open it in the app and complete your password reset.
+          📱 <strong>${t.installTitle}</strong><br>
+          ${t.installText}<br><br>
+          🔑 <strong>${t.thenTitle}</strong><br>
+          ${t.thenText}
         </div>
       `);
     }
@@ -215,10 +254,14 @@
       return deepLink;
     }
 
+    // Update initial loading message with localized text
+    document.querySelector('.message').textContent = t.loading;
+
     // Initialize page
     window.onload = function() {
       console.log('=== PASSWORD RESET PAGE ===');
       console.log('Full URL:', window.location.href);
+      console.log('Detected language:', userLang);
       console.log('============================');
 
       // Build deep link
@@ -239,7 +282,7 @@
 
       // Check for errors
       if (errorCode) {
-        showError(errorDescription || 'Invalid or expired password reset link.');
+        showError(errorDescription || t.errorDefault);
         return;
       }
 
