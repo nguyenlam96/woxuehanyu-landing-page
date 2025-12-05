@@ -1,10 +1,22 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.example.woxuehanyu",
-    "sha256_cert_fingerprints": [
-      "6C:21:CF:4C:DF:37:B7:D9:BD:E9:F9:B8:DB:5C:37:ED:6F:37:25:73:D5:44:F6:C3:89:88:06:75:1B:10:4E:44"
-    ]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.woxuehanyu.dev",
+      "sha256_cert_fingerprints": [
+        "B2:C5:63:66:CA:43:A1:78:3E:8B:71:82:8A:80:05:39:CE:60:95:7C:D9:9A:D8:21:04:AE:C9:C3:3F:06:EC:C9"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.woxuehanyu.prod",
+      "sha256_cert_fingerprints": [
+        "C1:FC:5E:91:66:56:D2:E1:E7:07:8D:36:03:D8:76:06:23:F8:29:DA:7C:FD:48:1B:85:E0:4B:5D:CF:80:E4:ED"
+      ]
+    }
   }
-}]
+]

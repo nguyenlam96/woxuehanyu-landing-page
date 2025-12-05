@@ -3,17 +3,27 @@
     "apps": [],
     "details": [
       {
-        "appID": "4W3729C9FG.com.example.woxuehanyu",
+        "appID": "4W3729C9FG.com.woxuehanyu.dev",
         "paths": [
           "/auth/callback",
-          "/auth/*"
+          "/auth/*",
+          "/reset-password"
+        ]
+      },
+      {
+        "appID": "4W3729C9FG.com.woxuehanyu.prod",
+        "paths": [
+          "/auth/callback",
+          "/auth/*",
+          "/reset-password"
         ]
       }
     ]
   },
   "webcredentials": {
     "apps": [
-      "4W3729C9FG.com.example.woxuehanyu"
+      "4W3729C9FG.com.woxuehanyu.dev",
+      "4W3729C9FG.com.woxuehanyu.prod"
     ]
   }
 }
