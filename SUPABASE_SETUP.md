@@ -32,24 +32,28 @@ com.woxuehanyu.prod://auth/verify-email
 
 Configure your email templates to use Universal Links. Each type of email has a specific purpose:
 
+**IMPORTANT:** Do NOT use `{{ .ConfirmationURL }}` - this creates a Supabase redirect that breaks Universal Links. Instead, manually construct the URL.
+
 #### Email Confirmation Template (Sign Up Verification)
 **Purpose:** Verify user's email address after sign up
-**Supabase Redirect:** `https://auth.woxuehanyu.site/auth/verify-email`
+
+In Supabase Dashboard → Authentication → Email Templates → Confirm Signup:
 
 ```html
 <h2>Confirm your email</h2>
 <p>Welcome to WoXueHanyu! Click the link below to confirm your email address:</p>
-<p><a href="{{ .ConfirmationURL }}">Confirm Email</a></p>
+<p><a href="https://auth.woxuehanyu.site/auth/verify-email?token={{ .TokenHash }}&type=signup">Confirm Email</a></p>
 ```
 
 #### Password Reset Template (Forgotten Password)
 **Purpose:** Allow user to reset forgotten password
-**Supabase Redirect:** `https://auth.woxuehanyu.site/auth/reset-password-in-app`
+
+In Supabase Dashboard → Authentication → Email Templates → Reset Password:
 
 ```html
 <h2>Reset your password</h2>
 <p>Click the link below to reset your password:</p>
-<p><a href="{{ .ConfirmationURL }}">Reset Password</a></p>
+<p><a href="https://auth.woxuehanyu.site/auth/reset-password-in-app?token={{ .TokenHash }}&type=recovery">Reset Password</a></p>
 ```
 
 **Note:** The two pages serve different purposes:
@@ -254,3 +258,28 @@ Both should return valid JSON (no 404 errors).
 - Universal Links only work when clicked from outside your domain (email, SMS, etc.)
 - They don't work when clicking from your own website or typing in browser
 - This is expected behavior for security reasons
+
+### Supabase emails not opening app (shows fallback page)
+
+**Problem:** Clicking Supabase email link opens browser instead of app
+
+**Cause:** Supabase uses `{{ .ConfirmationURL }}` which creates a redirect:
+```
+https://bjenzsjiidjkslgeaxah.supabase.co/auth/v1/verify?redirect_to=https://auth.woxuehanyu.site/...
+```
+
+Universal Links don't work through redirects!
+
+**Solution:** Manually construct the URL in email templates using `{{ .TokenHash }}`:
+
+❌ **Don't use:**
+```html
+<a href="{{ .ConfirmationURL }}">Click here</a>
+```
+
+✅ **Use instead:**
+```html
+<a href="https://auth.woxuehanyu.site/auth/reset-password-in-app?token={{ .TokenHash }}&type=recovery">Click here</a>
+```
+
+This makes the email link go directly to your domain, allowing Universal Links to work.
