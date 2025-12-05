@@ -174,6 +174,9 @@
   </div>
 
   <script>
+    // Email Confirmation Callback Page
+    // This page handles email verification links from Supabase
+
     // Get query params from URL (from email link)
     const urlParams = new URLSearchParams(window.location.search);
     const verifyToken = urlParams.get('token');
@@ -187,25 +190,19 @@
     const refreshToken = hashParams.get('refresh_token');
     const errorCode = hashParams.get('error_code');
     const errorDescription = hashParams.get('error_description');
-    const hashType = hashParams.get('type');
-
-    // Determine the type (from either query or hash)
-    const type = hashType || verificationType;
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
     }
 
-    function showFallbackUI() {
-      const isPasswordReset = type === 'recovery';
-
+    function showEmailVerifiedFallback() {
       // This page should only display if the Universal Link didn't open the app
       // (app is not installed or user is on desktop/web browser)
       updateUI(`
-        <div class="logo">🎓</div>
-        <h1>WoXueHanyu</h1>
-        <p class="message">${isPasswordReset ? 'Password reset link verified!' : 'Email verified successfully!'}</p>
-        <p class="message">Please open the <strong>WoXueHanyu</strong> app to continue.</p>
+        <div class="success-icon">✓</div>
+        <h1>Email Verified!</h1>
+        <p class="message">Your email has been successfully confirmed.</p>
+        <p class="message">Please open the <strong>WoXueHanyu</strong> app to start learning.</p>
         <div class="info">
           💡 If you don't have the app installed, download it from the App Store or Google Play.
         </div>
@@ -217,22 +214,23 @@
       updateUI(`
         <div class="success-icon">✓</div>
         <h1>Verifying Email...</h1>
-        <p class="message">Your account is being activated.</p>
+        <p class="message">Your email is being confirmed.</p>
         <p class="message">Please wait a moment...</p>
       `);
     }
 
     // Run when page loads
     window.onload = function() {
+      console.log('=== EMAIL CONFIRMATION CALLBACK ===');
       console.log('URL Params:', {
         verifyToken,
         code,
         verificationType,
-        type,
         accessToken: accessToken ? 'Present' : 'Missing',
         errorCode,
         fullURL: window.location.href
       });
+      console.log('===================================');
 
       // If we reached this page, it means the Universal Link didn't intercept
       // (app not installed or user is on desktop)
@@ -241,9 +239,9 @@
       if (errorCode) {
         updateUI(`
           <div class="logo">⚠️</div>
-          <h1>An Error Occurred</h1>
-          <p class="message error">${errorDescription || 'Link is invalid or has expired.'}</p>
-          <p class="message">Please try again or contact support.</p>
+          <h1>Verification Failed</h1>
+          <p class="message error">${errorDescription || 'Email verification link is invalid or has expired.'}</p>
+          <p class="message">Please try signing up again or contact support.</p>
         `);
       }
       // Case 2: Has verify token in query params (user just clicked email)
@@ -252,13 +250,13 @@
         // Supabase will automatically process and redirect back with hash fragment
         // Page will reload with access_token in hash
       }
-      // Case 3: Any valid auth token present - show fallback
+      // Case 3: Any valid auth token present - show success fallback
       else if (accessToken || code) {
-        showFallbackUI();
+        showEmailVerifiedFallback();
       }
       // Case 4: Fallback for all other cases
       else {
-        showFallbackUI();
+        showEmailVerifiedFallback();
       }
     };
   </script>

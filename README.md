@@ -34,12 +34,18 @@ woxuehanyu-auth/
 │   ├── apple-app-site-association  # iOS Universal Links
 │   └── assetlinks.json            # Android App Links
 ├── auth/
-│   ├── callback/                  # Email verification callback
-│   ├── reset-password/            # In-browser password reset
-│   └── reset-password-in-app/     # In-app password reset redirect
+│   ├── verify-email/              # Email confirmation (sign up verification only)
+│   ├── reset-password/            # In-browser password reset (alternative flow)
+│   └── reset-password-in-app/     # In-app password reset (primary flow)
 ├── wrangler.jsonc                 # Cloudflare Pages config
 └── SUPABASE_SETUP.md             # Supabase configuration guide
 ```
+
+## Page Purposes
+
+- **`/auth/verify-email`** - Email confirmation after sign up (Universal Link fallback)
+- **`/auth/reset-password-in-app`** - Password reset redirect to app (Universal Link fallback)
+- **`/auth/reset-password`** - Full in-browser password reset form (alternative to in-app)
 
 ## How It Works
 
@@ -54,11 +60,11 @@ woxuehanyu-auth/
 ```bash
 # Test Universal Links (iOS)
 # Open Safari and visit:
-https://auth.woxuehanyu.site/auth/callback?code=test&type=signup
+https://auth.woxuehanyu.site/auth/verify-email?code=test&type=signup
 
 # Test App Links (Android)
 adb shell am start -W -a android.intent.action.VIEW \
-  -d "https://auth.woxuehanyu.site/auth/callback?code=test&type=signup" \
+  -d "https://auth.woxuehanyu.site/auth/verify-email?code=test&type=signup" \
   com.woxuehanyu.dev
 ```
 

@@ -22,39 +22,39 @@ https://auth.woxuehanyu.site
 
 #### Redirect URLs (Add all of these)
 ```
-https://auth.woxuehanyu.site/auth/callback
+https://auth.woxuehanyu.site/auth/verify-email
 https://auth.woxuehanyu.site/auth/reset-password-in-app
-com.woxuehanyu.dev://auth/callback
-com.woxuehanyu.prod://auth/callback
+com.woxuehanyu.dev://auth/verify-email
+com.woxuehanyu.prod://auth/verify-email
 ```
 
 ### 2. Email Templates
 
-Configure your email templates to use Universal Links:
+Configure your email templates to use Universal Links. Each type of email has a specific purpose:
 
-#### Email Confirmation Template
+#### Email Confirmation Template (Sign Up Verification)
+**Purpose:** Verify user's email address after sign up
+**Supabase Redirect:** `https://auth.woxuehanyu.site/auth/verify-email`
+
 ```html
 <h2>Confirm your email</h2>
-<p>Click the link below to confirm your email address:</p>
+<p>Welcome to WoXueHanyu! Click the link below to confirm your email address:</p>
 <p><a href="{{ .ConfirmationURL }}">Confirm Email</a></p>
 ```
 
-**Set Confirmation URL to:**
-```
-https://auth.woxuehanyu.site/auth/callback
-```
+#### Password Reset Template (Forgotten Password)
+**Purpose:** Allow user to reset forgotten password
+**Supabase Redirect:** `https://auth.woxuehanyu.site/auth/reset-password-in-app`
 
-#### Password Reset Template
 ```html
 <h2>Reset your password</h2>
 <p>Click the link below to reset your password:</p>
 <p><a href="{{ .ConfirmationURL }}">Reset Password</a></p>
 ```
 
-**Set Confirmation URL to:**
-```
-https://auth.woxuehanyu.site/auth/reset-password-in-app
-```
+**Note:** The two pages serve different purposes:
+- `/auth/verify-email` - For **email confirmation only** (sign up flow)
+- `/auth/reset-password-in-app` - For **password reset only** (forgot password flow)
 
 ### 3. Flow Configuration
 
@@ -66,33 +66,41 @@ Enable PKCE flow for better security:
 
 ## How It Works
 
-### Email Verification Flow
+### Email Confirmation Flow (Sign Up)
+
+**Page:** `/auth/verify-email`
 
 1. User signs up in app
-2. Supabase sends email with link: `https://auth.woxuehanyu.site/auth/callback?token=...&type=signup`
-3. User clicks link:
+2. Supabase sends email with link: `https://auth.woxuehanyu.site/auth/verify-email?token=...&type=signup`
+3. User clicks link in email:
    - **If app installed**: Universal Link opens app directly with token parameters
-   - **If app not installed**: Web page shows "Please install WoXueHanyu app"
+   - **If app not installed**: Web page shows "Email Verified! Please open the WoXueHanyu app"
 4. App extracts token from URL and completes verification via Supabase SDK
+5. User is now verified and can sign in
 
-### Password Reset Flow
+### Password Reset Flow (Forgot Password)
 
-1. User requests password reset in app
+**Page:** `/auth/reset-password-in-app`
+
+1. User clicks "Forgot Password" in app
 2. Supabase sends email with link: `https://auth.woxuehanyu.site/auth/reset-password-in-app?code=...&type=recovery`
-3. User clicks link:
+3. User clicks link in email:
    - **If app installed**: Universal Link opens app directly with recovery code
-   - **If app not installed**: Web page shows "Please install WoXueHanyu app"
-4. App extracts code and shows password reset screen
-5. User enters new password, app calls Supabase SDK to update
+   - **If app not installed**: Web page shows "Please open the WoXueHanyu app to reset your password"
+4. App extracts recovery code and displays password reset screen
+5. User enters new password
+6. App calls Supabase SDK to update password
 
-### In-Browser Password Reset (Optional)
+### In-Browser Password Reset (Alternative Flow)
 
-If you want users to reset password in browser instead of app, use:
+**Page:** `/auth/reset-password`
+
+If you prefer users to reset password in browser instead of in-app, configure Supabase to use:
 ```
 https://auth.woxuehanyu.site/auth/reset-password
 ```
 
-This page has a full password reset form with Supabase integration.
+This page has a full password reset form with Supabase integration, allowing users to reset their password without opening the app.
 
 ## Mobile App Integration
 
@@ -116,17 +124,30 @@ func application(_ application: UIApplication,
     // Extract parameters from URL
     let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
     let code = components?.queryItems?.first(where: { $0.name == "code" })?.value
+    let token = components?.queryItems?.first(where: { $0.name == "token" })?.value
     let type = components?.queryItems?.first(where: { $0.name == "type" })?.value
 
-    if type == "recovery" {
-        // Navigate to password reset screen with code
-        showPasswordReset(code: code)
-    } else {
-        // Handle email verification
-        verifyEmail(code: code)
+    // Check which page the link came from
+    if url.path.contains("/auth/verify-email") {
+        // Email confirmation flow
+        handleEmailConfirmation(code: code, token: token)
+    } else if url.path.contains("/reset-password-in-app") {
+        // Password reset flow
+        handlePasswordReset(code: code)
     }
 
     return true
+}
+
+func handleEmailConfirmation(code: String?, token: String?) {
+    // Verify email with Supabase
+    // Navigate to success screen or auto-login
+}
+
+func handlePasswordReset(code: String?) {
+    guard let code = code else { return }
+    // Navigate to password reset screen with code
+    showPasswordResetScreen(recoveryCode: code)
 }
 ```
 
@@ -163,19 +184,34 @@ override fun onNewIntent(intent: Intent?) {
 private fun handleIntent(intent: Intent?) {
     val data: Uri? = intent?.data
     if (data != null) {
+        val path = data.path
         val code = data.getQueryParameter("code")
+        val token = data.getQueryParameter("token")
         val type = data.getQueryParameter("type")
 
-        when (type) {
-            "recovery" -> {
-                // Navigate to password reset screen
-                showPasswordReset(code)
+        // Check which page the link came from
+        when {
+            path?.contains("/auth/verify-email") == true -> {
+                // Email confirmation flow
+                handleEmailConfirmation(code, token)
             }
-            else -> {
-                // Handle email verification
-                verifyEmail(code)
+            path?.contains("/reset-password-in-app") == true -> {
+                // Password reset flow
+                handlePasswordReset(code)
             }
         }
+    }
+}
+
+private fun handleEmailConfirmation(code: String?, token: String?) {
+    // Verify email with Supabase
+    // Navigate to success screen or auto-login
+}
+
+private fun handlePasswordReset(code: String?) {
+    code?.let {
+        // Navigate to password reset screen with code
+        showPasswordResetScreen(recoveryCode = it)
     }
 }
 ```
@@ -191,7 +227,7 @@ private fun handleIntent(intent: Intent?) {
 ### Test App Links (Android)
 ```bash
 adb shell am start -W -a android.intent.action.VIEW \
-  -d "https://auth.woxuehanyu.site/auth/callback?code=test123&type=signup" \
+  -d "https://auth.woxuehanyu.site/auth/verify-email?code=test123&type=signup" \
   com.woxuehanyu.dev
 ```
 
