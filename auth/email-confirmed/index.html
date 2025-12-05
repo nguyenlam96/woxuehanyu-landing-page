@@ -298,32 +298,28 @@
         return;
       }
 
+      // Set up blur detection before attempting to open
+      const onBlur = function() {
+        // Page lost focus - app likely opened
+        console.log('App likely opened successfully');
+        window.removeEventListener('blur', onBlur);
+        clearTimeout(timeout);
+      };
+      window.addEventListener('blur', onBlur);
+
       // Try to open the app
       window.location.href = appLink;
 
-      // Detect if app opened successfully
-      const startTime = Date.now();
-
-      // Check if page is still visible after attempting to open app
-      setTimeout(function() {
-        const timeElapsed = Date.now() - startTime;
-
-        // If user is still on this page and document is visible, app likely didn't open
-        if (document.hasFocus() && timeElapsed < 2000) {
-          hasDetectedApp = true;
-          // Hide the button and show the message
-          openAppBtn.style.display = 'none';
-          appNotInstalledDiv.style.display = 'block';
-          console.log('App does not appear to be installed');
-        }
-      }, 1500);
-
-      // Also listen for visibility change - if user switches apps, they likely opened it
-      document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-          console.log('App likely opened successfully');
-        }
-      }, { once: true });
+      // Quick check if app didn't open
+      const timeout = setTimeout(function() {
+        // If we're still here after 100ms and didn't lose focus, app likely not installed
+        window.removeEventListener('blur', onBlur);
+        hasDetectedApp = true;
+        // Hide the button and show the message
+        openAppBtn.style.display = 'none';
+        appNotInstalledDiv.style.display = 'block';
+        console.log('App does not appear to be installed');
+      }, 1000);
     });
 
     // Update Smart Banner with app-argument
