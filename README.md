@@ -34,7 +34,7 @@ woxuehanyu-auth/
 │   ├── apple-app-site-association  # iOS Universal Links
 │   └── assetlinks.json            # Android App Links
 ├── auth/
-│   ├── verify-email/              # Email confirmation (sign up verification only)
+│   ├── email-confirmed/           # Email confirmation success page
 │   ├── reset-password/            # In-browser password reset (alternative flow)
 │   └── reset-password-in-app/     # In-app password reset (primary flow)
 ├── wrangler.jsonc                 # Cloudflare Pages config
@@ -43,7 +43,7 @@ woxuehanyu-auth/
 
 ## Page Purposes
 
-- **`/auth/verify-email`** - Email confirmation after sign up (Universal Link fallback)
+- **`/auth/email-confirmed`** - Email confirmation success page with auto-login tokens
 - **`/auth/reset-password-in-app`** - Password reset redirect to app (Universal Link fallback)
 - **`/auth/reset-password`** - Full in-browser password reset form (alternative to in-app)
 
@@ -58,14 +58,11 @@ woxuehanyu-auth/
 ## Testing
 
 ```bash
-# Test Universal Links (iOS)
-# Open Safari and visit:
-https://auth.woxuehanyu.site/auth/verify-email?code=test&type=signup
+# Test email confirmation page (web browser)
+https://auth.woxuehanyu.site/auth/email-confirmed
 
-# Test App Links (Android)
-adb shell am start -W -a android.intent.action.VIEW \
-  -d "https://auth.woxuehanyu.site/auth/verify-email?code=test&type=signup" \
-  com.woxuehanyu.dev
+# Test password reset in-app redirect
+https://auth.woxuehanyu.site/auth/reset-password-in-app
 ```
 
 ## License
