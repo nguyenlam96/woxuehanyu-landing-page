@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WoXueHanyu - Email Verified</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .logo {
+      font-size: 64px;
+      margin-bottom: 24px;
+      animation: bounceIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .success-icon {
+      width: 88px;
+      height: 88px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      color: white;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+    
+    h1 {
+      color: #111827;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      animation: fadeIn 0.6s ease-out 0.6s both;
+    }
+    
+    .message {
+      color: #6b7280;
+      font-size: 16px;
+      margin: 16px 0;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease-out 0.7s both;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .loader {
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      animation: spin 1s linear infinite;
+      margin: 24px auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+      animation: fadeIn 0.6s ease-out 0.8s both;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+    
+    .info {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      animation: fadeIn 0.6s ease-out 0.9s both;
+    }
+    
+    .error {
+      color: #ef4444;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="status">
+      <div class="logo">🎓</div>
+      <div class="loader"></div>
+      <p class="message">Verifying your email...</p>
+    </div>
+  </div>
+
+  <script>
+    // Get query params from URL (from email link)
+    const urlParams = new URLSearchParams(window.location.search);
+    const verifyToken = urlParams.get('token');
+    const code = urlParams.get('code');
+    const verificationType = urlParams.get('type');
+
+    // Get hash fragment from URL (contains access_token after Supabase redirect)
+    const hash = window.location.hash;
+    const hashParams = new URLSearchParams(hash.substring(1));
+    const accessToken = hashParams.get('access_token');
+    const refreshToken = hashParams.get('refresh_token');
+    const errorCode = hashParams.get('error_code');
+    const errorDescription = hashParams.get('error_description');
+    const hashType = hashParams.get('type');
+
+    // Determine the type (from either query or hash)
+    const type = hashType || verificationType;
+
+    // Base deep link URL - will be modified based on type
+    const DEEP_LINK_BASE = 'woxuehanyu://auth/';
+
+    function updateUI(content) {
+      document.getElementById('status').innerHTML = content;
+    }
+
+    function buildDeepLink() {
+      // Build deep link based on type
+      let deepLink = DEEP_LINK_BASE;
+
+      if (type === 'recovery') {
+        // Password reset flow
+        deepLink += 'reset-password?';
+      } else {
+        // Email verification flow (default)
+        deepLink += 'callback?';
+      }
+
+      // Add parameters
+      const params = new URLSearchParams();
+
+      if (code) {
+        params.append('code', code);
+      }
+      if (accessToken) {
+        params.append('access_token', accessToken);
+      }
+      if (refreshToken) {
+        params.append('refresh_token', refreshToken);
+      }
+      if (type) {
+        params.append('type', type);
+      }
+
+      return deepLink + params.toString();
+    }
+
+    function showSuccessAndRedirect() {
+      const deepLink = buildDeepLink();
+      const isPasswordReset = type === 'recovery';
+
+      // Display success UI immediately
+      updateUI(`
+        <div class="success-icon">✓</div>
+        <h1>${isPasswordReset ? 'Password Reset Link Verified!' : 'Email Verified!'}</h1>
+        <p class="message">${isPasswordReset ? 'Ready to reset your password.' : 'Your account has been successfully activated.'}</p>
+        <p class="message">Opening <strong>WoXueHanyu</strong> app...</p>
+        <a href="${deepLink}" class="button">🚀 Open WoXueHanyu App</a>
+        <div class="info">
+          💡 If the app doesn't open automatically, please click the button above.
+        </div>
+      `);
+
+      console.log('Deep link ready:', deepLink);
+
+      // Auto-redirect after a short delay
+      setTimeout(() => {
+        window.location.href = deepLink;
+      }, 1500);
+    }
+
+    function showVerifyingUI() {
+      // Display verification UI when user just clicked email
+      updateUI(`
+        <div class="success-icon">✓</div>
+        <h1>Verifying Email...</h1>
+        <p class="message">Your account is being activated.</p>
+        <p class="message">Please wait a moment...</p>
+      `);
+    }
+
+    // Run when page loads
+    window.onload = function() {
+      console.log('URL Params:', {
+        verifyToken,
+        code,
+        verificationType,
+        type,
+        accessToken: accessToken ? 'Present' : 'Missing',
+        errorCode,
+        fullURL: window.location.href
+      });
+
+      // Case 1: Has access token in hash (after Supabase redirect)
+      if (accessToken) {
+        showSuccessAndRedirect();
+      }
+      // Case 2: Has PKCE code (password reset or email verification with PKCE)
+      else if (code) {
+        showSuccessAndRedirect();
+      }
+      // Case 3: Has error in hash
+      else if (errorCode) {
+        updateUI(`
+          <div class="logo">⚠️</div>
+          <h1>An Error Occurred</h1>
+          <p class="message error">${errorDescription || 'Link is invalid or has expired.'}</p>
+          <p class="message">Please try again or contact support.</p>
+        `);
+      }
+      // Case 4: Has verify token in query params (user just clicked email)
+      else if (verifyToken && verificationType) {
+        showVerifyingUI();
+        // Supabase will automatically process and redirect back with hash fragment
+        // Page will reload with access_token in hash
+      }
+      // Case 5: On callback page (after Supabase verify success)
+      // Supabase with PKCE flow doesn't return token in URL, app will get session later
+      else {
+        const deepLink = buildDeepLink();
+        setTimeout(() => {
+          updateUI(`
+            <div class="success-icon">✓</div>
+            <h1>${type === 'recovery' ? 'Password Reset Verified!' : 'Email Verified!'}</h1>
+            <p class="message">${type === 'recovery' ? 'Ready to reset your password.' : 'Your account has been successfully activated.'}</p>
+            <p class="message">You're all set! Return to the app.</p>
+            <a href="${deepLink}" class="button">🚀 Open WoXueHanyu App</a>
+            <div class="info">
+              💡 Click the button above to open the app.
+            </div>
+          `);
+        }, 500);
+      }
+    };
+  </script>
+</body>
+</html>
