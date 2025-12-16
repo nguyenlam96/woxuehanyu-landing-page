@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WoXueHanyu - Learn Chinese Your Way</title>
+  <meta name="description" content="Master Chinese with WoXueHanyu - Your personal Chinese learning companion. Learn Mandarin through interactive lessons, vocabulary practice, and more.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://woxuehanyu.site/">
+  <meta property="og:title" content="WoXueHanyu - Learn Chinese Your Way">
+  <meta property="og:description" content="Master Chinese with interactive lessons and personalized learning.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+    }
+
+    .language-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .language-toggle button {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+
+    .language-toggle button.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .language-toggle button:hover:not(.active) {
+      background: #f3f4f6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 120px;
+      margin-bottom: 24px;
+      animation: bounceIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .tagline {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+
+    .chinese-text {
+      font-size: 28px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .download-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 36px;
+      background: white;
+      color: #111827;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    .download-btn:active {
+      transform: translateY(-2px);
+    }
+
+    .download-btn .icon {
+      font-size: 32px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 80px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .feature-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .feature-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    }
+
+    .feature-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #111827;
+    }
+
+    .feature-card p {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .about {
+      margin-top: 80px;
+      background: white;
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .about h2 {
+      font-size: 36px;
+      margin-bottom: 24px;
+      text-align: center;
+      color: #111827;
+    }
+
+    .about p {
+      font-size: 18px;
+      color: #6b7280;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 48px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 16px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      padding: 40px 20px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      .tagline {
+        font-size: 18px;
+      }
+
+      .chinese-text {
+        font-size: 20px;
+      }
+
+      .logo {
+        font-size: 80px;
+      }
+
+      .download-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .download-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .about {
+        padding: 32px 24px;
+      }
+
+      .about h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="language-toggle">
+    <button onclick="setLanguage('en')" id="lang-en">English</button>
+    <button onclick="setLanguage('vi')" id="lang-vi">Tiếng Việt</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <div class="logo">🎓</div>
+      <h1 id="hero-title">WoXueHanyu</h1>
+      <p class="chinese-text" id="hero-chinese">我学汉语</p>
+      <p class="tagline" id="hero-tagline">Learn Chinese Your Way</p>
+
+      <div class="download-buttons">
+        <a href="#" class="download-btn" id="btn-ios">
+          <span class="icon">🍎</span>
+          <span id="download-ios-text">Download on App Store</span>
+        </a>
+        <a href="#" class="download-btn" id="btn-android">
+          <span class="icon">🤖</span>
+          <span id="download-android-text">Get it on Google Play</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <span class="feature-icon">📚</span>
+        <h3 id="feature1-title">Interactive Lessons</h3>
+        <p id="feature1-desc">Learn with engaging, bite-sized lessons designed for all levels, from beginner to advanced.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h3 id="feature2-title">Smart Practice</h3>
+        <p id="feature2-desc">Master vocabulary and characters with spaced repetition and personalized practice sessions.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🗣️</span>
+        <h3 id="feature3-title">Pronunciation Guide</h3>
+        <p id="feature3-desc">Perfect your tones and pronunciation with audio from native speakers and instant feedback.</p>
+      </div>
+    </div>
+
+    <div class="about">
+      <h2 id="about-title">Start Your Journey Today</h2>
+      <p id="about-desc1">WoXueHanyu makes learning Chinese accessible and enjoyable for everyone. Whether you're a complete beginner or looking to improve your skills, our app adapts to your learning pace.</p>
+      <p id="about-desc2">Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number" id="stat1-number">10K+</div>
+          <div class="stat-label" id="stat1-label">Active Learners</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="stat2-number">5000+</div>
+          <div class="stat-label" id="stat2-label">Vocabulary Words</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="stat3-number">100+</div>
+          <div class="stat-label" id="stat3-label">Interactive Lessons</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p id="footer-text">&copy; 2024 WoXueHanyu. All rights reserved.</p>
+    <p style="margin-top: 12px;">
+      <a href="/auth/email-confirmed" id="footer-support">Support</a> •
+      <a href="mailto:support@woxuehanyu.site" id="footer-contact">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    // Translations
+    const translations = {
+      en: {
+        heroTitle: 'WoXueHanyu',
+        heroChinese: '我学汉语',
+        heroTagline: 'Learn Chinese Your Way',
+        downloadIos: 'Download on App Store',
+        downloadAndroid: 'Get it on Google Play',
+        feature1Title: 'Interactive Lessons',
+        feature1Desc: 'Learn with engaging, bite-sized lessons designed for all levels, from beginner to advanced.',
+        feature2Title: 'Smart Practice',
+        feature2Desc: 'Master vocabulary and characters with spaced repetition and personalized practice sessions.',
+        feature3Title: 'Pronunciation Guide',
+        feature3Desc: 'Perfect your tones and pronunciation with audio from native speakers and instant feedback.',
+        aboutTitle: 'Start Your Journey Today',
+        aboutDesc1: 'WoXueHanyu makes learning Chinese accessible and enjoyable for everyone. Whether you\'re a complete beginner or looking to improve your skills, our app adapts to your learning pace.',
+        aboutDesc2: 'Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.',
+        stat1Number: '10K+',
+        stat1Label: 'Active Learners',
+        stat2Number: '5000+',
+        stat2Label: 'Vocabulary Words',
+        stat3Number: '100+',
+        stat3Label: 'Interactive Lessons',
+        footerText: '© 2024 WoXueHanyu. All rights reserved.',
+        footerSupport: 'Support',
+        footerContact: 'Contact'
+      },
+      vi: {
+        heroTitle: 'WoXueHanyu',
+        heroChinese: '我学汉语',
+        heroTagline: 'Học Tiếng Trung Theo Cách Của Bạn',
+        downloadIos: 'Tải trên App Store',
+        downloadAndroid: 'Tải trên Google Play',
+        feature1Title: 'Bài Học Tương Tác',
+        feature1Desc: 'Học với các bài học hấp dẫn, ngắn gọn được thiết kế cho mọi trình độ, từ cơ bản đến nâng cao.',
+        feature2Title: 'Luyện Tập Thông Minh',
+        feature2Desc: 'Thành thạo từ vựng và chữ Hán với phương pháp lặp lại ngắt quãng và bài luyện tập cá nhân hóa.',
+        feature3Title: 'Hướng Dẫn Phát Âm',
+        feature3Desc: 'Hoàn thiện thanh điệu và phát âm với audio từ người bản ngữ và phản hồi tức thì.',
+        aboutTitle: 'Bắt Đầu Hành Trình Ngay Hôm Nay',
+        aboutDesc1: 'WoXueHanyu làm cho việc học tiếng Trung trở nên dễ tiếp cận và thú vị cho mọi người. Dù bạn là người mới bắt đầu hay muốn cải thiện kỹ năng, ứng dụng sẽ thích ứng với tốc độ học của bạn.',
+        aboutDesc2: 'Tham gia cùng hàng nghìn người đang thành thạo tiếng Trung Quốc với phương pháp tương tác toàn diện của chúng tôi.',
+        stat1Number: '10K+',
+        stat1Label: 'Người Học',
+        stat2Number: '5000+',
+        stat2Label: 'Từ Vựng',
+        stat3Number: '100+',
+        stat3Label: 'Bài Học',
+        footerText: '© 2024 WoXueHanyu. Bảo lưu mọi quyền.',
+        footerSupport: 'Hỗ Trợ',
+        footerContact: 'Liên Hệ'
+      }
+    };
+
+    // Detect user language
+    const browserLang = navigator.language || navigator.userLanguage;
+    let currentLang = browserLang.startsWith('vi') ? 'vi' : 'en';
+
+    // Check localStorage for saved preference
+    const savedLang = localStorage.getItem('woxuehanyu-lang');
+    if (savedLang) {
+      currentLang = savedLang;
+    }
+
+    // Set language function
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('woxuehanyu-lang', lang);
+      updateContent();
+      updateActiveButton();
+    }
+
+    // Update content based on language
+    function updateContent() {
+      const t = translations[currentLang];
+
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-chinese').textContent = t.heroChinese;
+      document.getElementById('hero-tagline').textContent = t.heroTagline;
+      document.getElementById('download-ios-text').textContent = t.downloadIos;
+      document.getElementById('download-android-text').textContent = t.downloadAndroid;
+
+      document.getElementById('feature1-title').textContent = t.feature1Title;
+      document.getElementById('feature1-desc').textContent = t.feature1Desc;
+      document.getElementById('feature2-title').textContent = t.feature2Title;
+      document.getElementById('feature2-desc').textContent = t.feature2Desc;
+      document.getElementById('feature3-title').textContent = t.feature3Title;
+      document.getElementById('feature3-desc').textContent = t.feature3Desc;
+
+      document.getElementById('about-title').textContent = t.aboutTitle;
+      document.getElementById('about-desc1').textContent = t.aboutDesc1;
+      document.getElementById('about-desc2').textContent = t.aboutDesc2;
+
+      document.getElementById('stat1-number').textContent = t.stat1Number;
+      document.getElementById('stat1-label').textContent = t.stat1Label;
+      document.getElementById('stat2-number').textContent = t.stat2Number;
+      document.getElementById('stat2-label').textContent = t.stat2Label;
+      document.getElementById('stat3-number').textContent = t.stat3Number;
+      document.getElementById('stat3-label').textContent = t.stat3Label;
+
+      document.getElementById('footer-text').innerHTML = t.footerText;
+      document.getElementById('footer-support').textContent = t.footerSupport;
+      document.getElementById('footer-contact').textContent = t.footerContact;
+
+      // Update HTML lang attribute
+      document.documentElement.lang = currentLang;
+    }
+
+    // Update active language button
+    function updateActiveButton() {
+      document.getElementById('lang-en').classList.remove('active');
+      document.getElementById('lang-vi').classList.remove('active');
+      document.getElementById('lang-' + currentLang).classList.add('active');
+    }
+
+    // Initialize on page load
+    updateContent();
+    updateActiveButton();
+
+    // App store links (update these with actual links when apps are published)
+    document.getElementById('btn-ios').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Update with actual App Store link when available
+      alert(currentLang === 'vi'
+        ? 'Ứng dụng iOS sẽ sớm ra mắt!'
+        : 'iOS app coming soon!');
+    });
+
+    document.getElementById('btn-android').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Update with actual Google Play link when available
+      alert(currentLang === 'vi'
+        ? 'Ứng dụng Android sẽ sớm ra mắt!'
+        : 'Android app coming soon!');
+    });
+
+    console.log('WoXueHanyu - 我学汉语');
+    console.log('Language:', currentLang);
+  </script>
+</body>
+</html>
