@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WoXueHanyu - Learn Chinese Your Way</title>
-  <meta name="description" content="Master Chinese with WoXueHanyu - Your personal Chinese learning companion. Learn Mandarin through interactive lessons, vocabulary practice, and more.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <title>Wo xue Hanyu - A journey to Mandarin</title>
+  <meta name="description" content="Master Chinese with Wo xue Hanyu - Your personal Chinese learning companion. Learn Mandarin through interactive lessons, vocabulary practice, and more.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <!-- Smart App Banner for iOS -->
+  <meta name="apple-itunes-app" content="app-id=6754384426">
 
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://woxuehanyu.site/">
-  <meta property="og:title" content="WoXueHanyu - Learn Chinese Your Way">
+  <meta property="og:title" content="Wo xue Hanyu - A journey to Mandarin">
   <meta property="og:description" content="Master Chinese with interactive lessons and personalized learning.">
 
   <style>
@@ -25,6 +28,98 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       color: #111827;
+    }
+
+    /* Smart App Banner */
+    .smart-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .smart-banner.show {
+      transform: translateY(0);
+    }
+
+    .smart-banner.hidden {
+      display: none;
+    }
+
+    .smart-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .smart-banner-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .smart-banner-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .smart-banner-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .smart-banner-button {
+      padding: 8px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .smart-banner-button:hover {
+      background: #5568d3;
+    }
+
+    .smart-banner-close {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .smart-banner-close:hover {
+      color: #6b7280;
+    }
+
+    body.smart-banner-visible {
+      padding-top: 76px;
     }
 
     .language-toggle {
@@ -85,9 +180,15 @@
     }
 
     .logo {
-      font-size: 120px;
       margin-bottom: 24px;
       animation: bounceIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo img {
+      width: 150px;
+      height: 150px;
+      border-radius: 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
 
     @keyframes bounceIn {
@@ -296,8 +397,10 @@
         font-size: 20px;
       }
 
-      .logo {
-        font-size: 80px;
+      .logo img {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
       }
 
       .download-buttons {
@@ -321,6 +424,17 @@
   </style>
 </head>
 <body>
+  <!-- Smart App Banner -->
+  <div class="smart-banner" id="smartBanner">
+    <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
+    <div class="smart-banner-info">
+      <div class="smart-banner-title">Wo xue Hanyu</div>
+      <div class="smart-banner-subtitle" id="bannerSubtitle">Get the app</div>
+    </div>
+    <button class="smart-banner-button" id="bannerButton">VIEW</button>
+    <button class="smart-banner-close" id="bannerClose">&times;</button>
+  </div>
+
   <div class="language-toggle">
     <button onclick="setLanguage('en')" id="lang-en">English</button>
     <button onclick="setLanguage('vi')" id="lang-vi">Tiếng Việt</button>
@@ -328,8 +442,10 @@
 
   <div class="container">
     <div class="hero">
-      <div class="logo">🎓</div>
-      <h1 id="hero-title">WoXueHanyu</h1>
+      <div class="logo">
+        <img src="/assets/app_icon.png" alt="Wo xue Hanyu App Icon">
+      </div>
+      <h1 id="hero-title">Wo xue Hanyu</h1>
       <p class="chinese-text" id="hero-chinese">我学汉语</p>
       <p class="tagline" id="hero-tagline">Learn Chinese Your Way</p>
 
@@ -367,31 +483,30 @@
 
     <div class="about">
       <h2 id="about-title">Start Your Journey Today</h2>
-      <p id="about-desc1">WoXueHanyu makes learning Chinese accessible and enjoyable for everyone. Whether you're a complete beginner or looking to improve your skills, our app adapts to your learning pace.</p>
+      <p id="about-desc1">Wo xue Hanyu makes learning Chinese accessible and enjoyable for everyone. Whether you're a complete beginner or looking to improve your skills, our app adapts to your learning pace.</p>
       <p id="about-desc2">Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.</p>
 
       <div class="stats">
         <div class="stat">
-          <div class="stat-number" id="stat1-number">10K+</div>
-          <div class="stat-label" id="stat1-label">Active Learners</div>
+          <div class="stat-number" id="stat1-number">5000+</div>
+          <div class="stat-label" id="stat1-label">Vocabulary Words</div>
         </div>
         <div class="stat">
-          <div class="stat-number" id="stat2-number">5000+</div>
-          <div class="stat-label" id="stat2-label">Vocabulary Words</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number" id="stat3-number">100+</div>
-          <div class="stat-label" id="stat3-label">Interactive Lessons</div>
+          <div class="stat-number" id="stat2-number">100+</div>
+          <div class="stat-label" id="stat2-label">Interactive Lessons</div>
         </div>
       </div>
     </div>
   </div>
 
   <footer>
-    <p id="footer-text">&copy; 2024 WoXueHanyu. All rights reserved.</p>
+    <p id="footer-text">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
     <p style="margin-top: 12px;">
+      <a href="/terms_and_conditions" id="footer-terms-conditions">Terms & Conditions</a> •
+      <a href="/EULA" id="footer-terms">Terms of Use</a> •
+      <a href="/privacy_policy" id="footer-privacy">Privacy Policy</a> •
       <a href="/auth/email-confirmed" id="footer-support">Support</a> •
-      <a href="mailto:support@woxuehanyu.site" id="footer-contact">Contact</a>
+      <a href="mailto:woxuehanyu.mobile@gmail.com" id="footer-contact">Contact</a>
     </p>
   </footer>
 
@@ -399,9 +514,9 @@
     // Translations
     const translations = {
       en: {
-        heroTitle: 'WoXueHanyu',
+        heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
-        heroTagline: 'Learn Chinese Your Way',
+        heroTagline: 'A journey to Mandarin',
         downloadIos: 'Download on App Store',
         downloadAndroid: 'Get it on Google Play',
         feature1Title: 'Interactive Lessons',
@@ -411,22 +526,23 @@
         feature3Title: 'Pronunciation Guide',
         feature3Desc: 'Perfect your tones and pronunciation with audio from native speakers and instant feedback.',
         aboutTitle: 'Start Your Journey Today',
-        aboutDesc1: 'WoXueHanyu makes learning Chinese accessible and enjoyable for everyone. Whether you\'re a complete beginner or looking to improve your skills, our app adapts to your learning pace.',
+        aboutDesc1: 'Wo xue Hanyu makes learning Chinese accessible and enjoyable for everyone. Whether you\'re a complete beginner or looking to improve your skills, our app adapts to your learning pace.',
         aboutDesc2: 'Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.',
-        stat1Number: '10K+',
-        stat1Label: 'Active Learners',
-        stat2Number: '5000+',
-        stat2Label: 'Vocabulary Words',
-        stat3Number: '100+',
-        stat3Label: 'Interactive Lessons',
-        footerText: '© 2024 WoXueHanyu. All rights reserved.',
+        stat1Number: '5000+',
+        stat1Label: 'Vocabulary Words',
+        stat2Number: '100+',
+        stat2Label: 'Interactive Lessons',
+        footerText: '© 2025 Wo xue Hanyu. All rights reserved.',
+        footerTermsConditions: 'Terms & Conditions',
+        footerTerms: 'Terms of Use',
+        footerPrivacy: 'Privacy Policy',
         footerSupport: 'Support',
         footerContact: 'Contact'
       },
       vi: {
-        heroTitle: 'WoXueHanyu',
+        heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
-        heroTagline: 'Học Tiếng Trung Theo Cách Của Bạn',
+        heroTagline: 'Hành trình đến tiếng Quan Thoại',
         downloadIos: 'Tải trên App Store',
         downloadAndroid: 'Tải trên Google Play',
         feature1Title: 'Bài Học Tương Tác',
@@ -436,15 +552,16 @@
         feature3Title: 'Hướng Dẫn Phát Âm',
         feature3Desc: 'Hoàn thiện thanh điệu và phát âm với audio từ người bản ngữ và phản hồi tức thì.',
         aboutTitle: 'Bắt Đầu Hành Trình Ngay Hôm Nay',
-        aboutDesc1: 'WoXueHanyu làm cho việc học tiếng Trung trở nên dễ tiếp cận và thú vị cho mọi người. Dù bạn là người mới bắt đầu hay muốn cải thiện kỹ năng, ứng dụng sẽ thích ứng với tốc độ học của bạn.',
+        aboutDesc1: 'Wo xue Hanyu làm cho việc học tiếng Trung trở nên dễ tiếp cận và thú vị cho mọi người. Dù bạn là người mới bắt đầu hay muốn cải thiện kỹ năng, ứng dụng sẽ thích ứng với tốc độ học của bạn.',
         aboutDesc2: 'Tham gia cùng hàng nghìn người đang thành thạo tiếng Trung Quốc với phương pháp tương tác toàn diện của chúng tôi.',
-        stat1Number: '10K+',
-        stat1Label: 'Người Học',
-        stat2Number: '5000+',
-        stat2Label: 'Từ Vựng',
-        stat3Number: '100+',
-        stat3Label: 'Bài Học',
-        footerText: '© 2024 WoXueHanyu. Bảo lưu mọi quyền.',
+        stat1Number: '5000+',
+        stat1Label: 'Từ Vựng',
+        stat2Number: '100+',
+        stat2Label: 'Bài Học',
+        footerText: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        footerTermsConditions: 'Điều Khoản & Điều Kiện',
+        footerTerms: 'Điều Khoản Sử Dụng',
+        footerPrivacy: 'Chính Sách Bảo Mật',
         footerSupport: 'Hỗ Trợ',
         footerContact: 'Liên Hệ'
       }
@@ -493,10 +610,11 @@
       document.getElementById('stat1-label').textContent = t.stat1Label;
       document.getElementById('stat2-number').textContent = t.stat2Number;
       document.getElementById('stat2-label').textContent = t.stat2Label;
-      document.getElementById('stat3-number').textContent = t.stat3Number;
-      document.getElementById('stat3-label').textContent = t.stat3Label;
 
       document.getElementById('footer-text').innerHTML = t.footerText;
+      document.getElementById('footer-terms-conditions').textContent = t.footerTermsConditions;
+      document.getElementById('footer-terms').textContent = t.footerTerms;
+      document.getElementById('footer-privacy').textContent = t.footerPrivacy;
       document.getElementById('footer-support').textContent = t.footerSupport;
       document.getElementById('footer-contact').textContent = t.footerContact;
 
@@ -532,8 +650,75 @@
         : 'Android app coming soon!');
     });
 
-    console.log('WoXueHanyu - 我学汉语');
+    console.log('Wo xue Hanyu - 我学汉语');
     console.log('Language:', currentLang);
+
+    // Smart App Banner
+    (function() {
+      const banner = document.getElementById('smartBanner');
+      const bannerButton = document.getElementById('bannerButton');
+      const bannerClose = document.getElementById('bannerClose');
+      const bannerSubtitle = document.getElementById('bannerSubtitle');
+
+      // Check if banner was previously dismissed
+      const bannerDismissed = localStorage.getItem('smartBannerDismissed');
+      if (bannerDismissed) {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      // Detect platform
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      const isAndroid = /android/i.test(userAgent);
+
+      // Universal link
+      const universalLink = 'https://woxuehanyu.site/app';
+      const appStoreLink = 'https://apps.apple.com/app/id6754384426';
+      const playStoreLink = 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod';
+
+      // Show banner on mobile devices
+      if (isIOS || isAndroid) {
+        setTimeout(() => {
+          banner.classList.add('show');
+          document.body.classList.add('smart-banner-visible');
+        }, 500);
+
+        // Update subtitle based on platform
+        if (isIOS) {
+          bannerSubtitle.textContent = 'Free - On the App Store';
+        } else if (isAndroid) {
+          bannerSubtitle.textContent = 'Free - On Google Play';
+        }
+
+        // Button click handler
+        bannerButton.addEventListener('click', () => {
+          // Try to open with universal link first
+          window.location.href = universalLink;
+
+          // Fallback to store after a delay if app didn't open
+          setTimeout(() => {
+            if (isIOS) {
+              window.location.href = appStoreLink;
+            } else if (isAndroid) {
+              window.location.href = playStoreLink;
+            }
+          }, 1500);
+        });
+
+        // Close button handler
+        bannerClose.addEventListener('click', () => {
+          banner.classList.remove('show');
+          setTimeout(() => {
+            banner.classList.add('hidden');
+            document.body.classList.remove('smart-banner-visible');
+          }, 300);
+          localStorage.setItem('smartBannerDismissed', 'true');
+        });
+      } else {
+        banner.classList.add('hidden');
+      }
+    })();
   </script>
 </body>
 </html>

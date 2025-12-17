@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Wo xue Hanyu</title>
+  <meta name="description" content="Privacy Policy for Wo xue Hanyu - Learn how we protect your data and respect your privacy.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <!-- Smart App Banner for iOS -->
+  <meta name="apple-itunes-app" content="app-id=6754384426">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+      padding: 40px 20px;
+    }
+
+    body.smart-banner-visible {
+      padding-top: 116px;
+    }
+
+    /* Smart App Banner */
+    .smart-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .smart-banner.show {
+      transform: translateY(0);
+    }
+
+    .smart-banner.hidden {
+      display: none;
+    }
+
+    .smart-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .smart-banner-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .smart-banner-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .smart-banner-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .smart-banner-button {
+      padding: 8px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .smart-banner-button:hover {
+      background: #5568d3;
+    }
+
+    .smart-banner-close {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .smart-banner-close:hover {
+      color: #6b7280;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #764ba2;
+      transform: translateX(-4px);
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .last-updated {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #374151;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+      color: #6b7280;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #e5e7eb;
+      margin: 40px 0;
+    }
+
+    .intro {
+      background: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .intro p {
+      margin-bottom: 0;
+    }
+
+    .contact-info {
+      background: #f9fafb;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #764ba2;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 28px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Smart App Banner -->
+  <div class="smart-banner" id="smartBanner">
+    <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
+    <div class="smart-banner-info">
+      <div class="smart-banner-title">Wo xue Hanyu</div>
+      <div class="smart-banner-subtitle" id="bannerSubtitle">Get the app</div>
+    </div>
+    <button class="smart-banner-button" id="bannerButton">VIEW</button>
+    <button class="smart-banner-close" id="bannerClose">&times;</button>
+  </div>
+
+  <div class="container">
+    <a href="/" class="back-link">
+      <span>←</span>
+      <span>Back to Home</span>
+    </a>
+
+    <h1>Privacy Policy</h1>
+    <p class="last-updated"><strong>Last Updated: December 17, 2025</strong></p>
+
+    <div class="intro">
+      <p>Wo xue Hanyu ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, store, and protect your information when you use our Chinese language learning app.</p>
+    </div>
+
+    <h2>1. Information We Collect</h2>
+
+    <h3>1.1 Information You Provide</h3>
+    <ul>
+      <li><strong>Account Information</strong> (optional): Email address, name, profile picture</li>
+      <li><strong>Learning Data</strong>: Progress, completed lessons, quiz results, study streaks</li>
+      <li><strong>User Preferences</strong>: App settings, notification preferences, language preferences</li>
+      <li><strong>Communication</strong>: Support requests, feedback, survey responses</li>
+    </ul>
+
+    <h3>1.2 Automatically Collected Information</h3>
+    <ul>
+      <li><strong>Usage Data</strong>: Features used, time spent, lesson completion rates</li>
+      <li><strong>Device Information</strong>: Device model, operating system version, unique device identifiers</li>
+      <li><strong>Technical Data</strong>: App version, crash reports, performance metrics</li>
+      <li><strong>Analytics</strong>: Aggregated usage patterns to improve the app</li>
+    </ul>
+
+    <h3>1.3 Information We DO NOT Collect</h3>
+    <ul>
+      <li>We do NOT collect payment information (handled by Apple and Google)</li>
+      <li>We do NOT sell your personal data to third parties</li>
+      <li>We do NOT track you across other apps or websites</li>
+    </ul>
+
+    <h2>2. How We Use Your Information</h2>
+
+    <h3>2.1 To Provide Services</h3>
+    <ul>
+      <li>Deliver personalized learning content</li>
+      <li>Track your progress and achievements</li>
+      <li>Sync data across your devices</li>
+      <li>Provide customer support</li>
+    </ul>
+
+    <h3>2.2 To Improve Our App</h3>
+    <ul>
+      <li>Analyze usage patterns to enhance features</li>
+      <li>Fix bugs and optimize performance</li>
+      <li>Develop new content and features</li>
+    </ul>
+
+    <h3>2.3 To Communicate</h3>
+    <ul>
+      <li>Send important app updates</li>
+      <li>Respond to your support requests</li>
+      <li>Send learning reminders (if you opt-in)</li>
+    </ul>
+
+    <h3>2.4 Legal Compliance</h3>
+    <ul>
+      <li>Comply with legal obligations</li>
+      <li>Protect our rights and prevent misuse</li>
+      <li>Enforce our Terms of Use</li>
+    </ul>
+
+    <h2>3. Data Storage and Security</h2>
+
+    <h3>3.1 Where We Store Data</h3>
+    <ul>
+      <li>Primary servers: Supabase (hosted on AWS)</li>
+      <li>Data centers located in: [Specify regions, e.g., US, EU]</li>
+      <li>Backup systems: Encrypted cloud storage</li>
+    </ul>
+
+    <h3>3.2 How We Protect Data</h3>
+    <ul>
+      <li><strong>Encryption</strong>: Data encrypted in transit (TLS/SSL) and at rest (AES-256)</li>
+      <li><strong>Access Control</strong>: Strict authentication and authorization</li>
+      <li><strong>Regular Audits</strong>: Security assessments and penetration testing</li>
+      <li><strong>Monitoring</strong>: 24/7 system monitoring for suspicious activity</li>
+    </ul>
+
+    <h3>3.3 Data Retention</h3>
+    <ul>
+      <li>Active accounts: Data retained while account is active</li>
+      <li>Deleted accounts: Data permanently deleted within 30 days</li>
+      <li>Legal requirements: Some data may be retained longer for compliance</li>
+      <li>Backups: Removed from backups within 90 days after deletion</li>
+    </ul>
+
+    <h2>4. Data Sharing</h2>
+
+    <h3>4.1 We Share Data With:</h3>
+    <p><strong>Service Providers</strong> (under strict agreements):</p>
+    <ul>
+      <li>Supabase: Database and authentication</li>
+      <li>Apple: Payment processing and app distribution (iOS)</li>
+      <li>Google: Payment processing and app distribution (Android)</li>
+      <li>Sentry: Error tracking and crash reporting</li>
+      <li>Analytics providers: Usage statistics (anonymized)</li>
+    </ul>
+
+    <p><strong>We DO NOT:</strong></p>
+    <ul>
+      <li>Sell your data to advertisers</li>
+      <li>Share your data with data brokers</li>
+      <li>Use your data for third-party marketing</li>
+    </ul>
+
+    <h3>4.2 Legal Requirements</h3>
+    <p>We may disclose information if required by:</p>
+    <ul>
+      <li>Court orders or legal process</li>
+      <li>Law enforcement requests (with valid legal basis)</li>
+      <li>Protection of our rights and safety</li>
+    </ul>
+
+    <h2>5. Your Rights and Choices</h2>
+
+    <h3>5.1 Access and Control</h3>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong>: Request a copy of your personal data</li>
+      <li><strong>Correction</strong>: Update inaccurate information</li>
+      <li><strong>Deletion</strong>: Delete your account and all associated data</li>
+      <li><strong>Export</strong>: Download your learning data</li>
+      <li><strong>Object</strong>: Opt-out of certain data processing</li>
+    </ul>
+
+    <h3>5.2 How to Exercise Your Rights</h3>
+    <ul>
+      <li><strong>In-App</strong>: Go to Settings > Account > Privacy Settings</li>
+      <li><strong>Email</strong>: Contact woxuehanyu.mobile@gmail.com</li>
+      <li><strong>Response Time</strong>: We respond within 30 days</li>
+    </ul>
+
+    <h3>5.3 Manage Communications</h3>
+    <ul>
+      <li><strong>Push Notifications</strong>: Turn off in device settings or app settings</li>
+      <li><strong>Emails</strong>: Unsubscribe link in all emails</li>
+      <li><strong>Account Emails</strong>: Cannot opt-out of critical account notifications</li>
+    </ul>
+
+    <h2>6. Children's Privacy</h2>
+    <p>Wo xue Hanyu is suitable for users 4 years and older. The app is designed to be safe for children, and we are committed to protecting children's privacy. We do not knowingly collect personal information from children without parental consent where required by law.</p>
+    <p><strong>Parents:</strong> If you have any questions or concerns about your child's use of the app, please contact us at woxuehanyu.mobile@gmail.com.</p>
+
+    <h2>7. International Data Transfers</h2>
+    <p>If you are located outside [Your Region], your data may be transferred to and processed in countries with different data protection laws. We ensure appropriate safeguards are in place:</p>
+    <ul>
+      <li>Standard contractual clauses</li>
+      <li>Adequacy decisions</li>
+      <li>Your explicit consent where required</li>
+    </ul>
+
+    <h2>8. Cookies and Tracking</h2>
+
+    <h3>8.1 What We Use</h3>
+    <ul>
+      <li><strong>Essential</strong>: Required for app functionality</li>
+      <li><strong>Analytics</strong>: Understand usage patterns (can be disabled)</li>
+      <li><strong>Preferences</strong>: Remember your settings</li>
+    </ul>
+
+    <h3>8.2 Third-Party Tracking</h3>
+    <p>We do NOT allow third-party advertising trackers in our app.</p>
+
+    <h2>9. Account Deletion</h2>
+    <p>You can delete your account at any time:</p>
+
+    <div class="highlight-box">
+      <p><strong>Steps:</strong></p>
+      <ol style="margin-left: 24px; margin-top: 12px;">
+        <li>Open Wo xue Hanyu app</li>
+        <li>Go to Settings > Account</li>
+        <li>Tap "Delete Account"</li>
+        <li>Confirm deletion</li>
+      </ol>
+    </div>
+
+    <p><strong>What Gets Deleted:</strong></p>
+    <ul>
+      <li>Personal information (name, email)</li>
+      <li>Learning progress and history</li>
+      <li>User preferences and settings</li>
+      <li>All associated data</li>
+    </ul>
+
+    <p><strong>What Happens:</strong></p>
+    <ul>
+      <li>Immediate: Account deactivated</li>
+      <li>Within 30 days: All data permanently deleted</li>
+      <li>Within 90 days: Removed from all backups</li>
+    </ul>
+
+    <p><strong>Note:</strong> Deletion is permanent and cannot be undone. Active subscriptions must be cancelled separately through Apple.</p>
+
+    <h2>10. California Privacy Rights (CCPA)</h2>
+    <p>If you are a California resident, you have additional rights:</p>
+    <ul>
+      <li>Right to know what data we collect</li>
+      <li>Right to delete your data</li>
+      <li>Right to opt-out of data sales (we don't sell data)</li>
+      <li>Right to non-discrimination</li>
+    </ul>
+    <p>Contact us at woxuehanyu.mobile@gmail.com to exercise these rights.</p>
+
+    <h2>11. European Privacy Rights (GDPR)</h2>
+    <p>If you are in the EU/EEA, you have rights under GDPR:</p>
+    <ul>
+      <li>Right to access, rectification, erasure</li>
+      <li>Right to data portability</li>
+      <li>Right to restrict processing</li>
+      <li>Right to object</li>
+      <li>Right to lodge a complaint with your supervisory authority</li>
+    </ul>
+
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy periodically. We will notify you of material changes through:</p>
+    <ul>
+      <li>In-app notification</li>
+      <li>Email to registered users</li>
+      <li>Updated "Last Updated" date</li>
+    </ul>
+    <p>Continued use after changes constitutes acceptance.</p>
+
+    <h2>13. Contact Us</h2>
+    <div class="contact-info">
+      <p><strong>For privacy questions or requests:</strong></p>
+      <p><strong>Email:</strong> woxuehanyu.mobile@gmail.com</p>
+      <p><strong>Support:</strong> woxuehanyu.mobile@gmail.com</p>
+      <p><strong>Website:</strong> <a href="https://woxuehanyu.site/privacy">https://woxuehanyu.site/privacy</a></p>
+      <p style="margin-top: 16px;"><strong>Data Protection Officer:</strong></p>
+      <p>[If applicable in your region]</p>
+      <p>Email: woxuehanyu.mobile@gmail.com</p>
+      <p style="margin-top: 16px;"><strong>Response Time:</strong> We respond to all inquiries within 30 days.</p>
+    </div>
+
+    <hr>
+
+    <p><em>By using Wo xue Hanyu, you acknowledge that you have read and understood this Privacy Policy.</em></p>
+
+    <footer>
+      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p style="margin-top: 12px;">
+        <a href="/">Home</a> •
+        <a href="/terms_and_conditions">Terms & Conditions</a> •
+        <a href="/EULA">Terms of Use</a> •
+        <a href="mailto:woxuehanyu.mobile@gmail.com">Contact</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Smart App Banner
+    (function() {
+      const banner = document.getElementById('smartBanner');
+      const bannerButton = document.getElementById('bannerButton');
+      const bannerClose = document.getElementById('bannerClose');
+      const bannerSubtitle = document.getElementById('bannerSubtitle');
+
+      const bannerDismissed = localStorage.getItem('smartBannerDismissed');
+      if (bannerDismissed) {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      const isAndroid = /android/i.test(userAgent);
+
+      const universalLink = 'https://woxuehanyu.site/app';
+      const appStoreLink = 'https://apps.apple.com/app/id6754384426';
+      const playStoreLink = 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod';
+
+      if (isIOS || isAndroid) {
+        setTimeout(() => {
+          banner.classList.add('show');
+          document.body.classList.add('smart-banner-visible');
+        }, 500);
+
+        if (isIOS) {
+          bannerSubtitle.textContent = 'Free - On the App Store';
+        } else if (isAndroid) {
+          bannerSubtitle.textContent = 'Free - On Google Play';
+        }
+
+        bannerButton.addEventListener('click', () => {
+          window.location.href = universalLink;
+          setTimeout(() => {
+            if (isIOS) {
+              window.location.href = appStoreLink;
+            } else if (isAndroid) {
+              window.location.href = playStoreLink;
+            }
+          }, 1500);
+        });
+
+        bannerClose.addEventListener('click', () => {
+          banner.classList.remove('show');
+          setTimeout(() => {
+            banner.classList.add('hidden');
+            document.body.classList.remove('smart-banner-visible');
+          }, 300);
+          localStorage.setItem('smartBannerDismissed', 'true');
+        });
+      } else {
+        banner.classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>

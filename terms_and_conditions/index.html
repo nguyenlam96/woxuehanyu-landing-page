@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions - Wo xue Hanyu</title>
+  <meta name="description" content="Terms and Conditions for Wo xue Hanyu - Chinese language learning app.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <!-- Smart App Banner for iOS -->
+  <meta name="apple-itunes-app" content="app-id=6754384426">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+      padding: 40px 20px;
+    }
+
+    body.smart-banner-visible {
+      padding-top: 116px;
+    }
+
+    /* Smart App Banner */
+    .smart-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .smart-banner.show {
+      transform: translateY(0);
+    }
+
+    .smart-banner.hidden {
+      display: none;
+    }
+
+    .smart-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .smart-banner-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .smart-banner-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .smart-banner-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .smart-banner-button {
+      padding: 8px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .smart-banner-button:hover {
+      background: #5568d3;
+    }
+
+    .smart-banner-close {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .smart-banner-close:hover {
+      color: #6b7280;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #764ba2;
+      transform: translateX(-4px);
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 12px;
+    }
+
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .service-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .service-links a {
+      display: inline-block;
+    }
+
+    .contact-info {
+      background: #f9fafb;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    .effective-date {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #764ba2;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 28px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Smart App Banner -->
+  <div class="smart-banner" id="smartBanner">
+    <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
+    <div class="smart-banner-info">
+      <div class="smart-banner-title">Wo xue Hanyu</div>
+      <div class="smart-banner-subtitle" id="bannerSubtitle">Get the app</div>
+    </div>
+    <button class="smart-banner-button" id="bannerButton">VIEW</button>
+    <button class="smart-banner-close" id="bannerClose">&times;</button>
+  </div>
+
+  <div class="container">
+    <a href="/" class="back-link">
+      <span>←</span>
+      <span>Back to Home</span>
+    </a>
+
+    <h1>Terms & Conditions</h1>
+
+    <p>These terms and conditions apply to the Wo xue Hanyu app (hereby referred to as "Application") for mobile devices that was created by Leo (hereby referred to as "Service Provider") as a Free service.</p>
+
+    <p>Upon downloading or utilizing the Application, you are automatically agreeing to the following terms. It is strongly advised that you thoroughly read and understand these terms prior to using the Application.</p>
+
+    <p>Unauthorized copying, modification of the Application, any part of the Application, or our trademarks is strictly prohibited. Any attempts to extract the source code of the Application, translate the Application into other languages, or create derivative versions are not permitted. All trademarks, copyrights, database rights, and other intellectual property rights related to the Application remain the property of the Service Provider.</p>
+
+    <p>The Service Provider is dedicated to ensuring that the Application is as beneficial and efficient as possible. As such, they reserve the right to modify the Application or charge for their services at any time and for any reason. The Service Provider assures you that any charges for the Application or its services will be clearly communicated to you.</p>
+
+    <p>The Application stores and processes personal data that you have provided to the Service Provider in order to provide the Service. It is your responsibility to maintain the security of your phone and access to the Application. The Service Provider strongly advise against jailbreaking or rooting your phone, which involves removing software restrictions and limitations imposed by the official operating system of your device. Such actions could expose your phone to malware, viruses, malicious programs, compromise your phone's security features, and may result in the Application not functioning correctly or at all.</p>
+
+    <div class="highlight-box">
+      <p>Please note that the Application utilizes third-party services that have their own Terms and Conditions. Below are the links to the Terms and Conditions of the third-party service providers used by the Application:</p>
+      <div class="service-links">
+        <a href="https://www.facebook.com/legal/terms" target="_blank" rel="noopener noreferrer">• Facebook</a>
+        <a href="https://sentry.io/terms/" target="_blank" rel="noopener noreferrer">• Sentry</a>
+        <a href="https://www.revenuecat.com/terms" target="_blank" rel="noopener noreferrer">• RevenueCat</a>
+      </div>
+    </div>
+
+    <p>Please be aware that the Service Provider does not assume responsibility for certain aspects. Some functions of the Application require an active internet connection, which can be Wi-Fi or provided by your mobile network provider. The Service Provider cannot be held responsible if the Application does not function at full capacity due to lack of access to Wi-Fi or if you have exhausted your data allowance.</p>
+
+    <p>If you are using the application outside of a Wi-Fi area, please be aware that your mobile network provider's agreement terms still apply. Consequently, you may incur charges from your mobile provider for data usage during the connection to the application, or other third-party charges. By using the application, you accept responsibility for any such charges, including roaming data charges if you use the application outside of your home territory (i.e., region or country) without disabling data roaming. If you are not the bill payer for the device on which you are using the application, they assume that you have obtained permission from the bill payer.</p>
+
+    <p>Similarly, the Service Provider cannot always assume responsibility for your usage of the application. For instance, it is your responsibility to ensure that your device remains charged. If your device runs out of battery and you are unable to access the Service, the Service Provider cannot be held responsible.</p>
+
+    <p>In terms of the Service Provider's responsibility for your use of the application, it is important to note that while they strive to ensure that it is updated and accurate at all times, they do rely on third parties to provide information to them so that they can make it available to you. The Service Provider accepts no liability for any loss, direct or indirect, that you experience as a result of relying entirely on this functionality of the application.</p>
+
+    <p>The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. However, you agree to always accept updates to the application when offered to you. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must cease using the application, and (if necessary) delete it from your device.</p>
+
+    <h2>Changes to These Terms and Conditions</h2>
+
+    <p>The Service Provider may periodically update their Terms and Conditions. Therefore, you are advised to review this page regularly for any changes. The Service Provider will notify you of any changes by posting the new Terms and Conditions on this page.</p>
+
+    <div class="effective-date">
+      These terms and conditions are effective as of 2025-12-04
+    </div>
+
+    <h2>Contact Us</h2>
+
+    <div class="contact-info">
+      <p>If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at:</p>
+      <p><strong>Email:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p style="margin-top: 12px;">
+        <a href="/">Home</a> •
+        <a href="/EULA">Terms of Use</a> •
+        <a href="/privacy_policy">Privacy Policy</a> •
+        <a href="mailto:woxuehanyu.mobile@gmail.com">Contact</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Smart App Banner
+    (function() {
+      const banner = document.getElementById('smartBanner');
+      const bannerButton = document.getElementById('bannerButton');
+      const bannerClose = document.getElementById('bannerClose');
+      const bannerSubtitle = document.getElementById('bannerSubtitle');
+
+      const bannerDismissed = localStorage.getItem('smartBannerDismissed');
+      if (bannerDismissed) {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      const isAndroid = /android/i.test(userAgent);
+
+      const universalLink = 'https://woxuehanyu.site/app';
+      const appStoreLink = 'https://apps.apple.com/app/id6754384426';
+      const playStoreLink = 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod';
+
+      if (isIOS || isAndroid) {
+        setTimeout(() => {
+          banner.classList.add('show');
+          document.body.classList.add('smart-banner-visible');
+        }, 500);
+
+        if (isIOS) {
+          bannerSubtitle.textContent = 'Free - On the App Store';
+        } else if (isAndroid) {
+          bannerSubtitle.textContent = 'Free - On Google Play';
+        }
+
+        bannerButton.addEventListener('click', () => {
+          window.location.href = universalLink;
+          setTimeout(() => {
+            if (isIOS) {
+              window.location.href = appStoreLink;
+            } else if (isAndroid) {
+              window.location.href = playStoreLink;
+            }
+          }, 1500);
+        });
+
+        bannerClose.addEventListener('click', () => {
+          banner.classList.remove('show');
+          setTimeout(() => {
+            banner.classList.add('hidden');
+            document.body.classList.remove('smart-banner-visible');
+          }, 300);
+          localStorage.setItem('smartBannerDismissed', 'true');
+        });
+      } else {
+        banner.classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>

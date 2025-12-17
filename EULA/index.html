@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use - Wo xue Hanyu</title>
+  <meta name="description" content="Terms of Use and End User License Agreement for Wo xue Hanyu - Chinese language learning app.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <!-- Smart App Banner for iOS -->
+  <meta name="apple-itunes-app" content="app-id=6754384426">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+      padding: 40px 20px;
+    }
+
+    body.smart-banner-visible {
+      padding-top: 116px;
+    }
+
+    /* Smart App Banner */
+    .smart-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .smart-banner.show {
+      transform: translateY(0);
+    }
+
+    .smart-banner.hidden {
+      display: none;
+    }
+
+    .smart-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .smart-banner-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .smart-banner-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .smart-banner-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .smart-banner-button {
+      padding: 8px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .smart-banner-button:hover {
+      background: #5568d3;
+    }
+
+    .smart-banner-close {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .smart-banner-close:hover {
+      color: #6b7280;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #764ba2;
+      transform: translateX(-4px);
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .last-updated {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #374151;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #e5e7eb;
+      margin: 40px 0;
+    }
+
+    .contact-info {
+      background: #f9fafb;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #764ba2;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 28px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Smart App Banner -->
+  <div class="smart-banner" id="smartBanner">
+    <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
+    <div class="smart-banner-info">
+      <div class="smart-banner-title">Wo xue Hanyu</div>
+      <div class="smart-banner-subtitle" id="bannerSubtitle">Get the app</div>
+    </div>
+    <button class="smart-banner-button" id="bannerButton">VIEW</button>
+    <button class="smart-banner-close" id="bannerClose">&times;</button>
+  </div>
+
+  <div class="container">
+    <a href="/" class="back-link">
+      <span>←</span>
+      <span>Back to Home</span>
+    </a>
+
+    <h1>Terms of Use</h1>
+    <p class="last-updated"><strong>Last Updated: December 17, 2025</strong></p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By downloading, installing, or using Wo xue Hanyu ("the App"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the App.</p>
+
+    <h2>2. Description of Service</h2>
+    <p>Wo xue Hanyu is a Chinese language learning application that provides:</p>
+    <ul>
+      <li>Interactive lessons and vocabulary exercises</li>
+      <li>Audio pronunciation guides</li>
+      <li>Progress tracking and personalized learning paths</li>
+      <li>Premium subscription features</li>
+    </ul>
+
+    <h2>3. Subscription Terms</h2>
+
+    <h3>3.1 Auto-Renewable Subscriptions</h3>
+    <ul>
+      <li>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period</li>
+      <li>Your account will be charged for renewal within 24 hours prior to the end of the current period</li>
+      <li>You can manage subscriptions and turn off auto-renewal in your Apple ID Account Settings (iOS) or Google Play Account Settings (Android) after purchase</li>
+    </ul>
+
+    <h3>3.2 Subscription Plans</h3>
+    <p>Available subscription options and pricing will be displayed within the App. Prices may vary by region.</p>
+
+    <h3>3.3 Free Trial</h3>
+    <ul>
+      <li>If offered, free trials allow access to premium features for a limited period</li>
+      <li>If you don't cancel before the trial ends, you will be automatically charged for the subscription</li>
+      <li>Cancel anytime during the trial to avoid charges</li>
+    </ul>
+
+    <h3>3.4 Cancellation</h3>
+    <ul>
+      <li>You can cancel your subscription at any time through your Apple ID Account Settings (iOS) or Google Play Account Settings (Android)</li>
+      <li>Cancellation takes effect at the end of the current billing period</li>
+      <li>No refunds for partial periods</li>
+    </ul>
+
+    <h3>3.5 Refund Policy</h3>
+    <p>All purchases are processed through Apple's App Store (iOS) or Google Play Store (Android) and are subject to their respective refund policies. Contact Apple Support or Google Play Support for refund requests.</p>
+
+    <h2>4. User Accounts</h2>
+
+    <h3>4.1 Account Creation</h3>
+    <ul>
+      <li>Account registration is optional but recommended for syncing progress across devices</li>
+      <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+      <li>You must provide accurate and complete information</li>
+    </ul>
+
+    <h3>4.2 Account Deletion</h3>
+    <p>You have the right to delete your account at any time through the App Settings. This will permanently remove your personal data from our servers.</p>
+
+    <h2>5. User Conduct</h2>
+    <p>You agree NOT to:</p>
+    <ul>
+      <li>Use the App for any illegal purposes</li>
+      <li>Share your account credentials with others</li>
+      <li>Attempt to hack, reverse engineer, or compromise the App</li>
+      <li>Upload harmful or malicious content</li>
+      <li>Violate any applicable laws or regulations</li>
+    </ul>
+
+    <h2>6. Intellectual Property</h2>
+    <p>All content, features, and functionality of the App, including but not limited to text, graphics, logos, audio clips, and software, are owned by Wo xue Hanyu and are protected by international copyright, trademark, and other intellectual property laws.</p>
+
+    <h2>7. User Content and Data</h2>
+
+    <h3>7.1 Your Learning Data</h3>
+    <ul>
+      <li>Progress data, notes, and preferences you create remain yours</li>
+      <li>We use this data to provide and improve the service</li>
+      <li>You can export or delete your data at any time</li>
+    </ul>
+
+    <h3>7.2 License to Use</h3>
+    <p>By using the App, you grant us a limited license to store and process your data solely for providing the service.</p>
+
+    <h2>8. Disclaimers</h2>
+
+    <h3>8.1 Service Availability</h3>
+    <ul>
+      <li>We strive for 99.9% uptime but cannot guarantee uninterrupted access</li>
+      <li>We may perform maintenance that temporarily limits access</li>
+      <li>We are not liable for service interruptions</li>
+    </ul>
+
+    <h3>8.2 Educational Content</h3>
+    <ul>
+      <li>The App is designed for language learning but does not guarantee proficiency</li>
+      <li>Results vary based on individual effort and learning approach</li>
+      <li>We make no warranties regarding learning outcomes</li>
+    </ul>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, Wo xue Hanyu shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, or other intangible losses.</p>
+
+    <h2>10. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms at any time. We will notify users of material changes through the App or via email. Continued use of the App after changes constitutes acceptance of the new Terms.</p>
+
+    <h2>11. Governing Law</h2>
+    <p>These Terms shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.</p>
+
+    <h2>12. Contact Information</h2>
+    <div class="contact-info">
+      <p>For questions about these Terms, please contact us at:</p>
+      <p><strong>Email:</strong> woxuehanyu.mobile@gmail.com</p>
+      <p><strong>Website:</strong> <a href="https://woxuehanyu.site/support">https://woxuehanyu.site/support</a></p>
+    </div>
+
+    <h2>13. Platform-Specific Terms</h2>
+    <p><strong>For iOS Users:</strong> These Terms are between you and Wo xue Hanyu, not Apple. Apple is not responsible for the App or its content. Apple has no obligation to provide maintenance or support services for the App.</p>
+    <p><strong>For Android Users:</strong> These Terms are between you and Wo xue Hanyu, not Google. Google is not responsible for the App or its content. Google has no obligation to provide maintenance or support services for the App.</p>
+
+    <h2>14. Severability</h2>
+    <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions will remain in full force and effect.</p>
+
+    <hr>
+
+    <p><em>By using Wo xue Hanyu, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use.</em></p>
+
+    <footer>
+      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p style="margin-top: 12px;">
+        <a href="/">Home</a> •
+        <a href="/terms_and_conditions">Terms & Conditions</a> •
+        <a href="/privacy_policy">Privacy Policy</a> •
+        <a href="mailto:woxuehanyu.mobile@gmail.com">Contact</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Smart App Banner
+    (function() {
+      const banner = document.getElementById('smartBanner');
+      const bannerButton = document.getElementById('bannerButton');
+      const bannerClose = document.getElementById('bannerClose');
+      const bannerSubtitle = document.getElementById('bannerSubtitle');
+
+      const bannerDismissed = localStorage.getItem('smartBannerDismissed');
+      if (bannerDismissed) {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      const isAndroid = /android/i.test(userAgent);
+
+      const universalLink = 'https://woxuehanyu.site/app';
+      const appStoreLink = 'https://apps.apple.com/app/id6754384426';
+      const playStoreLink = 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod';
+
+      if (isIOS || isAndroid) {
+        setTimeout(() => {
+          banner.classList.add('show');
+          document.body.classList.add('smart-banner-visible');
+        }, 500);
+
+        if (isIOS) {
+          bannerSubtitle.textContent = 'Free - On the App Store';
+        } else if (isAndroid) {
+          bannerSubtitle.textContent = 'Free - On Google Play';
+        }
+
+        bannerButton.addEventListener('click', () => {
+          window.location.href = universalLink;
+          setTimeout(() => {
+            if (isIOS) {
+              window.location.href = appStoreLink;
+            } else if (isAndroid) {
+              window.location.href = playStoreLink;
+            }
+          }, 1500);
+        });
+
+        bannerClose.addEventListener('click', () => {
+          banner.classList.remove('show');
+          setTimeout(() => {
+            banner.classList.add('hidden');
+            document.body.classList.remove('smart-banner-visible');
+          }, 300);
+          localStorage.setItem('smartBannerDismissed', 'true');
+        });
+      } else {
+        banner.classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
