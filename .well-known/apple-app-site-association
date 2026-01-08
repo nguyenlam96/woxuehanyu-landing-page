@@ -5,15 +5,11 @@
       {
         "appID": "4W3729C9FG.com.woxuehanyu.dev",
         "paths": [
-          "NOT /auth/email-confirmed",
-          "/auth/reset-password-in-app"
         ]
       },
       {
         "appID": "4W3729C9FG.com.woxuehanyu.prod",
         "paths": [
-          "NOT /auth/email-confirmed",
-          "/auth/reset-password-in-app"
         ]
       }
     ]
