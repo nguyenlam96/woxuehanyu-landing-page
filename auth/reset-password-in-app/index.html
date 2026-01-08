@@ -339,7 +339,7 @@
     console.log('Environment:', env);
 
     // Initialize Supabase client with the appropriate config
-    const supabase = window.supabase.createClient(config.url, config.anonKey);
+    const supabaseClient = window.supabase.createClient(config.url, config.anonKey);
 
     // Get URL parameters (reuse urlParams from above)
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
@@ -582,7 +582,7 @@
 
       try {
         // Update password using Supabase
-        const { data, error } = await supabase.auth.updateUser({
+        const { data, error } = await supabaseClient.auth.updateUser({
           password: password
         });
 
@@ -634,7 +634,7 @@
         if (code) {
           console.log('Attempting to exchange code for session...');
           try {
-            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+            const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code);
 
             if (error) {
               console.error('Code exchange error:', error);
@@ -656,7 +656,7 @@
         if (accessToken && refreshToken) {
           console.log('Attempting to set session from tokens...');
           try {
-            const { data, error } = await supabase.auth.setSession({
+            const { data, error } = await supabaseClient.auth.setSession({
               access_token: accessToken,
               refresh_token: refreshToken
             });
@@ -679,7 +679,7 @@
 
         // Check if there's an existing session (user might have refreshed the page)
         console.log('Checking for existing session...');
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
           console.log('Existing session found');
           showResetForm();
