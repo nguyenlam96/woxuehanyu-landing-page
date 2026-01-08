@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wo xue Hanyu - Reset Password</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-  <!-- iOS Smart Banner - Replace YOUR_APP_STORE_ID with actual App Store ID -->
-  <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID">
+  <meta name="apple-itunes-app" content="app-id=6754384426">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -53,15 +53,9 @@
     }
 
     @keyframes bounceIn {
-      0% {
-        transform: scale(0);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     h1 {
@@ -69,7 +63,7 @@
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 12px;
-      animation: fadeIn 0.6s ease-out 0.6s both;
+      animation: fadeIn 0.6s ease-out 0.4s both;
     }
 
     .message {
@@ -77,7 +71,7 @@
       font-size: 16px;
       margin: 16px 0;
       line-height: 1.6;
-      animation: fadeIn 0.6s ease-out 0.7s both;
+      animation: fadeIn 0.6s ease-out 0.5s both;
     }
 
     @keyframes fadeIn {
@@ -100,8 +94,104 @@
       100% { transform: rotate(360deg); }
     }
 
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      animation: fadeIn 0.6s ease-out 0.6s both;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      padding-right: 48px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group input.error {
+      border-color: #ef4444;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 4px;
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+
+    .toggle-password:hover {
+      color: #6b7280;
+    }
+
+    .error-text {
+      color: #ef4444;
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .error-text.show {
+      display: block;
+    }
+
+    .password-requirements {
+      margin-top: 8px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #6b7280;
+      text-align: left;
+    }
+
+    .password-requirements ul {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+
+    .password-requirements li {
+      margin: 4px 0;
+    }
+
+    .password-requirements li.valid {
+      color: #10b981;
+    }
+
+    .password-requirements li.invalid {
+      color: #6b7280;
+    }
+
     .button {
       display: inline-block;
+      width: 100%;
       padding: 16px 32px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
@@ -109,22 +199,72 @@
       border-radius: 16px;
       font-weight: 600;
       font-size: 16px;
-      margin-top: 24px;
+      margin-top: 8px;
       transition: all 0.3s ease;
       box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-      animation: fadeIn 0.6s ease-out 0.8s both;
       border: none;
       cursor: pointer;
       font-family: inherit;
     }
 
-    .button:hover {
+    .button:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
     }
 
-    .button:active {
+    .button:active:not(:disabled) {
       transform: translateY(0);
+    }
+
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .button.loading {
+      position: relative;
+      color: transparent;
+    }
+
+    .button.loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      margin-left: -10px;
+      margin-top: -10px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .success-icon {
+      width: 88px;
+      height: 88px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      color: white;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
     }
 
     .info {
@@ -134,12 +274,38 @@
       border-radius: 12px;
       font-size: 14px;
       color: #6b7280;
-      animation: fadeIn 0.6s ease-out 0.9s both;
     }
 
-    .error {
-      color: #ef4444;
-      margin-top: 16px;
+    .info.success {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .error-message {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .back-to-app {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .back-to-app a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-to-app a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -148,18 +314,43 @@
     <div id="status">
       <div class="logo">🔐</div>
       <div class="loader"></div>
-      <p class="message">Preparing your password reset...</p>
+      <p class="message" id="loadingMessage">Preparing your password reset...</p>
     </div>
   </div>
 
   <script>
-    // Get error params
+    // Supabase configuration for multiple environments
+    const SUPABASE_CONFIG = {
+      dev: {
+        url: 'https://bjenzsjiidjkslgeaxah.supabase.co',
+        anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZW56c2ppaWRqa3NsZ2VheGFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NTc4OTcsImV4cCI6MjA3NzQzMzg5N30.oJ0Gja_IzrtpQJjdKi0KDMr1BmJWXf393bnqLeVUoUI'
+      },
+      prod: {
+        url: 'https://pbibvjownugsilzmwwyv.supabase.co',
+        anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiaWJ2am93bnVnc2lsem13d3l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2MzU2MjgsImV4cCI6MjA3ODIxMTYyOH0.3wvdLlljrFdyirwkd0KELiXhtGzljoy61MlRk7KbEIE'
+      }
+    };
+
+    // Detect environment from URL parameter (default to prod)
     const urlParams = new URLSearchParams(window.location.search);
+    const env = urlParams.get('env') === 'dev' ? 'dev' : 'prod';
+    const config = SUPABASE_CONFIG[env];
+
+    console.log('Environment:', env);
+
+    // Initialize Supabase client with the appropriate config
+    const supabase = window.supabase.createClient(config.url, config.anonKey);
+
+    // Get URL parameters (reuse urlParams from above)
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
+
+    const code = urlParams.get('code');
+    const accessToken = hashParams.get('access_token');
+    const refreshToken = hashParams.get('refresh_token');
     const errorCode = urlParams.get('error') || hashParams.get('error_code');
     const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
 
-    // Localization: Detect language from URL param or browser
+    // Localization
     const langParam = urlParams.get('lang');
     const browserLang = navigator.language || navigator.userLanguage;
     const userLang = langParam || (browserLang.startsWith('vi') ? 'vi' : 'en');
@@ -167,85 +358,331 @@
     // Translations
     const translations = {
       en: {
+        pageTitle: 'Wo xue Hanyu - Reset Password',
         loading: 'Preparing your password reset...',
         title: 'Reset Your Password',
-        message: 'To reset your password, you need to have the <strong>Wo xue Hanyu</strong> app installed on your device.',
-        installTitle: 'Install the app:',
-        installText: 'Download Wo xue Hanyu from the App Store (iOS) or Google Play (Android).',
-        thenTitle: 'Then:',
-        thenText: 'Click the password reset link again from this device to open it in the app and complete your password reset.',
-        errorTitle: 'Error',
-        errorTryAgain: 'Please try requesting a new password reset link from the app.',
-        errorDefault: 'Invalid or expired password reset link.'
+        subtitle: 'Enter your new password below.',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+        submitButton: 'Reset Password',
+        submitting: 'Resetting...',
+        requirements: 'Password requirements:',
+        reqLength: 'At least 8 characters',
+        reqUppercase: 'One uppercase letter',
+        reqLowercase: 'One lowercase letter',
+        reqNumber: 'One number',
+        errorMismatch: 'Passwords do not match',
+        errorWeak: 'Password does not meet requirements',
+        errorGeneric: 'An error occurred. Please try again.',
+        errorExpired: 'This password reset link has expired or is invalid.',
+        errorTryAgain: 'Please request a new password reset link from the app.',
+        successTitle: 'Password Reset Successful!',
+        successMessage: 'Your password has been updated successfully.',
+        successInfo: 'You can now sign in with your new password.',
+        openApp: 'Open Wo xue Hanyu App',
+        backToApp: 'Return to the app to sign in'
       },
       vi: {
+        pageTitle: 'Wo xue Hanyu - Đặt Lại Mật Khẩu',
         loading: 'Đang chuẩn bị đặt lại mật khẩu...',
         title: 'Đặt Lại Mật Khẩu',
-        message: 'Để đặt lại mật khẩu, bạn cần cài đặt ứng dụng <strong>Wo xue Hanyu</strong> trên thiết bị của mình.',
-        installTitle: 'Cài đặt ứng dụng:',
-        installText: 'Tải Wo xue Hanyu từ App Store (iOS) hoặc Google Play (Android).',
-        thenTitle: 'Sau đó:',
-        thenText: 'Nhấp lại vào liên kết đặt lại mật khẩu từ thiết bị này để mở trong ứng dụng và hoàn tất việc đặt lại mật khẩu.',
-        errorTitle: 'Lỗi',
+        subtitle: 'Nhập mật khẩu mới của bạn bên dưới.',
+        newPassword: 'Mật khẩu mới',
+        confirmPassword: 'Xác nhận mật khẩu',
+        submitButton: 'Đặt lại mật khẩu',
+        submitting: 'Đang xử lý...',
+        requirements: 'Yêu cầu mật khẩu:',
+        reqLength: 'Ít nhất 8 ký tự',
+        reqUppercase: 'Một chữ cái viết hoa',
+        reqLowercase: 'Một chữ cái viết thường',
+        reqNumber: 'Một chữ số',
+        errorMismatch: 'Mật khẩu không khớp',
+        errorWeak: 'Mật khẩu không đáp ứng yêu cầu',
+        errorGeneric: 'Đã xảy ra lỗi. Vui lòng thử lại.',
+        errorExpired: 'Liên kết đặt lại mật khẩu đã hết hạn hoặc không hợp lệ.',
         errorTryAgain: 'Vui lòng yêu cầu liên kết đặt lại mật khẩu mới từ ứng dụng.',
-        errorDefault: 'Liên kết đặt lại mật khẩu không hợp lệ hoặc đã hết hạn.'
+        successTitle: 'Đặt Lại Mật Khẩu Thành Công!',
+        successMessage: 'Mật khẩu của bạn đã được cập nhật thành công.',
+        successInfo: 'Bạn có thể đăng nhập với mật khẩu mới.',
+        openApp: 'Mở Ứng Dụng Wo xue Hanyu',
+        backToApp: 'Quay lại ứng dụng để đăng nhập'
       }
     };
 
-    // Get current language translations
     const t = translations[userLang] || translations.en;
 
     // Update page title
-    document.title = userLang === 'vi' ? 'Wo xue Hanyu - Đặt Lại Mật Khẩu' : 'Wo xue Hanyu - Reset Password';
+    document.title = t.pageTitle;
+    document.getElementById('loadingMessage').textContent = t.loading;
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
     }
 
-    function showError(message) {
+    function showError(message, showRetry = true) {
       updateUI(`
         <div class="logo">⚠️</div>
-        <h1>${t.errorTitle}</h1>
-        <p class="message error">${message}</p>
-        <p class="message">${t.errorTryAgain}</p>
-      `);
-    }
-
-    function showFallback() {
-      // This page should only display if the Universal Link didn't open the app
-      // (app is not installed or user is on desktop/web browser)
-      updateUI(`
-        <div class="logo">🔐</div>
-        <h1>${t.title}</h1>
-        <p class="message">${t.message}</p>
-        <div class="info">
-          📱 <strong>${t.installTitle}</strong><br>
-          ${t.installText}<br><br>
-          🔑 <strong>${t.thenTitle}</strong><br>
-          ${t.thenText}
+        <h1>${userLang === 'vi' ? 'Lỗi' : 'Error'}</h1>
+        <p class="message" style="color: #ef4444;">${message}</p>
+        ${showRetry ? `<p class="message">${t.errorTryAgain}</p>` : ''}
+        <div class="back-to-app">
+          <a href="woxuehanyu://home">${t.backToApp}</a>
         </div>
       `);
     }
 
-    // Update initial loading message with localized text
-    document.querySelector('.message').textContent = t.loading;
+    function showSuccess() {
+      updateUI(`
+        <div class="success-icon">✓</div>
+        <h1>${t.successTitle}</h1>
+        <p class="message">${t.successMessage}</p>
+        <div class="info success">
+          ${t.successInfo}
+        </div>
+        <a href="woxuehanyu://login" class="button">${t.openApp}</a>
+        <div class="back-to-app">
+          <a href="woxuehanyu://login">${t.backToApp}</a>
+        </div>
+      `);
+    }
 
-    // Initialize page
-    window.onload = function() {
-      console.log('=== PASSWORD RESET PAGE ===');
-      console.log('Full URL:', window.location.href);
-      console.log('Detected language:', userLang);
-      console.log('============================');
+    function showResetForm() {
+      updateUI(`
+        <div class="logo">🔐</div>
+        <h1>${t.title}</h1>
+        <p class="message">${t.subtitle}</p>
 
-      // Check for errors
-      if (errorCode) {
-        showError(errorDescription || t.errorDefault);
+        <form id="resetForm">
+          <div id="formError" class="error-message" style="display: none;"></div>
+
+          <div class="form-group">
+            <label for="newPassword">${t.newPassword}</label>
+            <div class="input-wrapper">
+              <input type="password" id="newPassword" name="newPassword" required autocomplete="new-password">
+              <button type="button" class="toggle-password" onclick="togglePassword('newPassword', this)">👁️</button>
+            </div>
+            <span class="error-text" id="newPasswordError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">${t.confirmPassword}</label>
+            <div class="input-wrapper">
+              <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password">
+              <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', this)">👁️</button>
+            </div>
+            <span class="error-text" id="confirmPasswordError"></span>
+          </div>
+
+          <div class="password-requirements">
+            <strong>${t.requirements}</strong>
+            <ul>
+              <li id="req-length" class="invalid">${t.reqLength}</li>
+              <li id="req-uppercase" class="invalid">${t.reqUppercase}</li>
+              <li id="req-lowercase" class="invalid">${t.reqLowercase}</li>
+              <li id="req-number" class="invalid">${t.reqNumber}</li>
+            </ul>
+          </div>
+
+          <button type="submit" class="button" id="submitBtn">${t.submitButton}</button>
+        </form>
+
+        <div class="back-to-app">
+          <a href="woxuehanyu://home">${t.backToApp}</a>
+        </div>
+      `);
+
+      // Add event listeners
+      const form = document.getElementById('resetForm');
+      const newPasswordInput = document.getElementById('newPassword');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+
+      newPasswordInput.addEventListener('input', validatePasswordRequirements);
+      confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+      form.addEventListener('submit', handleSubmit);
+    }
+
+    function togglePassword(inputId, button) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+      }
+    }
+
+    function validatePasswordRequirements() {
+      const password = document.getElementById('newPassword').value;
+
+      const requirements = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password)
+      };
+
+      document.getElementById('req-length').className = requirements.length ? 'valid' : 'invalid';
+      document.getElementById('req-uppercase').className = requirements.uppercase ? 'valid' : 'invalid';
+      document.getElementById('req-lowercase').className = requirements.lowercase ? 'valid' : 'invalid';
+      document.getElementById('req-number').className = requirements.number ? 'valid' : 'invalid';
+
+      return requirements.length && requirements.uppercase && requirements.lowercase && requirements.number;
+    }
+
+    function validateConfirmPassword() {
+      const password = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const confirmInput = document.getElementById('confirmPassword');
+      const errorSpan = document.getElementById('confirmPasswordError');
+
+      if (confirmPassword && password !== confirmPassword) {
+        confirmInput.classList.add('error');
+        errorSpan.textContent = t.errorMismatch;
+        errorSpan.classList.add('show');
+        return false;
+      } else {
+        confirmInput.classList.remove('error');
+        errorSpan.classList.remove('show');
+        return true;
+      }
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const password = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const submitBtn = document.getElementById('submitBtn');
+      const formError = document.getElementById('formError');
+
+      // Validate
+      const isPasswordValid = validatePasswordRequirements();
+      const isConfirmValid = validateConfirmPassword();
+
+      if (!isPasswordValid) {
+        formError.textContent = t.errorWeak;
+        formError.style.display = 'block';
         return;
       }
 
-      // Show fallback message
-      showFallback();
-    };
+      if (!isConfirmValid || password !== confirmPassword) {
+        formError.textContent = t.errorMismatch;
+        formError.style.display = 'block';
+        return;
+      }
+
+      // Hide error
+      formError.style.display = 'none';
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = t.submitting;
+
+      try {
+        // Update password using Supabase
+        const { data, error } = await supabase.auth.updateUser({
+          password: password
+        });
+
+        if (error) {
+          console.error('Password update error:', error);
+          formError.textContent = error.message || t.errorGeneric;
+          formError.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = t.submitButton;
+          return;
+        }
+
+        console.log('Password updated successfully:', data);
+        showSuccess();
+
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        formError.textContent = t.errorGeneric;
+        formError.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = t.submitButton;
+      }
+    }
+
+    // Initialize page
+    async function init() {
+      console.log('=== PASSWORD RESET PAGE ===');
+      console.log('Full URL:', window.location.href);
+      console.log('Code:', code || 'Not provided');
+      console.log('Access Token:', accessToken ? 'Present' : 'Not available');
+      console.log('Detected language:', userLang);
+      console.log('===========================');
+
+      // Check for errors first
+      if (errorCode) {
+        showError(errorDescription || t.errorExpired);
+        return;
+      }
+
+      // If we have a code (PKCE flow), exchange it for a session
+      if (code) {
+        try {
+          const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+          if (error) {
+            console.error('Code exchange error:', error);
+            showError(t.errorExpired);
+            return;
+          }
+
+          console.log('Session established:', data.session ? 'Yes' : 'No');
+          showResetForm();
+
+        } catch (err) {
+          console.error('Code exchange exception:', err);
+          showError(t.errorExpired);
+        }
+        return;
+      }
+
+      // If we have tokens in the hash (implicit flow)
+      if (accessToken && refreshToken) {
+        try {
+          const { data, error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+          });
+
+          if (error) {
+            console.error('Set session error:', error);
+            showError(t.errorExpired);
+            return;
+          }
+
+          console.log('Session set from tokens');
+          showResetForm();
+
+        } catch (err) {
+          console.error('Set session exception:', err);
+          showError(t.errorExpired);
+        }
+        return;
+      }
+
+      // Check if there's an existing session (user might have refreshed the page)
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        console.log('Existing session found');
+        showResetForm();
+        return;
+      }
+
+      // No valid token or code - show error
+      showError(t.errorExpired);
+    }
+
+    // Run initialization
+    window.onload = init;
   </script>
 </body>
 </html>
