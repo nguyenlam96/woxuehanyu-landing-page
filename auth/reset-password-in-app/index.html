@@ -345,6 +345,8 @@
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
 
     const code = urlParams.get('code');
+    const tokenHash = urlParams.get('token_hash');
+    const type = urlParams.get('type') || 'recovery';
     const accessToken = hashParams.get('access_token');
     const refreshToken = hashParams.get('refresh_token');
     const errorCode = urlParams.get('error') || hashParams.get('error_code');
@@ -617,6 +619,8 @@
         console.log('Environment:', env);
         console.log('Supabase URL:', config.url);
         console.log('Code:', code || 'Not provided');
+        console.log('Token Hash:', tokenHash || 'Not provided');
+        console.log('Type:', type);
         console.log('Access Token:', accessToken ? 'Present' : 'Not available');
         console.log('Refresh Token:', refreshToken ? 'Present' : 'Not available');
         console.log('Error Code:', errorCode || 'None');
@@ -630,7 +634,32 @@
           return;
         }
 
-        // If we have a code (PKCE flow), exchange it for a session
+        // If we have a token_hash (direct from email link), verify it
+        if (tokenHash) {
+          console.log('Attempting to verify OTP with token_hash...');
+          try {
+            const { data, error } = await supabaseClient.auth.verifyOtp({
+              token_hash: tokenHash,
+              type: type
+            });
+
+            if (error) {
+              console.error('OTP verification error:', error);
+              showError(error.message || t.errorExpired);
+              return;
+            }
+
+            console.log('OTP verified, session established:', data.session ? 'Yes' : 'No');
+            showResetForm();
+
+          } catch (err) {
+            console.error('OTP verification exception:', err);
+            showError(err.message || t.errorExpired);
+          }
+          return;
+        }
+
+        // If we have a code (PKCE flow), try to exchange it for a session
         if (code) {
           console.log('Attempting to exchange code for session...');
           try {
@@ -638,7 +667,8 @@
 
             if (error) {
               console.error('Code exchange error:', error);
-              showError(error.message || t.errorExpired);
+              // PKCE failed, show helpful error
+              showError('Password reset link format not supported. Please request a new link.');
               return;
             }
 
@@ -647,7 +677,7 @@
 
           } catch (err) {
             console.error('Code exchange exception:', err);
-            showError(err.message || t.errorExpired);
+            showError('Password reset link format not supported. Please request a new link.');
           }
           return;
         }
