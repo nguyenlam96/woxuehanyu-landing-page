@@ -611,78 +611,107 @@
 
     // Initialize page
     async function init() {
-      console.log('=== PASSWORD RESET PAGE ===');
-      console.log('Full URL:', window.location.href);
-      console.log('Code:', code || 'Not provided');
-      console.log('Access Token:', accessToken ? 'Present' : 'Not available');
-      console.log('Detected language:', userLang);
-      console.log('===========================');
+      try {
+        console.log('=== PASSWORD RESET PAGE ===');
+        console.log('Full URL:', window.location.href);
+        console.log('Environment:', env);
+        console.log('Supabase URL:', config.url);
+        console.log('Code:', code || 'Not provided');
+        console.log('Access Token:', accessToken ? 'Present' : 'Not available');
+        console.log('Refresh Token:', refreshToken ? 'Present' : 'Not available');
+        console.log('Error Code:', errorCode || 'None');
+        console.log('Detected language:', userLang);
+        console.log('===========================');
 
-      // Check for errors first
-      if (errorCode) {
-        showError(errorDescription || t.errorExpired);
-        return;
-      }
-
-      // If we have a code (PKCE flow), exchange it for a session
-      if (code) {
-        try {
-          const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-
-          if (error) {
-            console.error('Code exchange error:', error);
-            showError(t.errorExpired);
-            return;
-          }
-
-          console.log('Session established:', data.session ? 'Yes' : 'No');
-          showResetForm();
-
-        } catch (err) {
-          console.error('Code exchange exception:', err);
-          showError(t.errorExpired);
+        // Check for errors first
+        if (errorCode) {
+          console.log('Showing error due to errorCode');
+          showError(errorDescription || t.errorExpired);
+          return;
         }
-        return;
-      }
 
-      // If we have tokens in the hash (implicit flow)
-      if (accessToken && refreshToken) {
-        try {
-          const { data, error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
-          });
+        // If we have a code (PKCE flow), exchange it for a session
+        if (code) {
+          console.log('Attempting to exchange code for session...');
+          try {
+            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
-          if (error) {
-            console.error('Set session error:', error);
-            showError(t.errorExpired);
-            return;
+            if (error) {
+              console.error('Code exchange error:', error);
+              showError(error.message || t.errorExpired);
+              return;
+            }
+
+            console.log('Session established:', data.session ? 'Yes' : 'No');
+            showResetForm();
+
+          } catch (err) {
+            console.error('Code exchange exception:', err);
+            showError(err.message || t.errorExpired);
           }
-
-          console.log('Session set from tokens');
-          showResetForm();
-
-        } catch (err) {
-          console.error('Set session exception:', err);
-          showError(t.errorExpired);
+          return;
         }
-        return;
-      }
 
-      // Check if there's an existing session (user might have refreshed the page)
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        console.log('Existing session found');
-        showResetForm();
-        return;
-      }
+        // If we have tokens in the hash (implicit flow)
+        if (accessToken && refreshToken) {
+          console.log('Attempting to set session from tokens...');
+          try {
+            const { data, error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken
+            });
 
-      // No valid token or code - show error
-      showError(t.errorExpired);
+            if (error) {
+              console.error('Set session error:', error);
+              showError(error.message || t.errorExpired);
+              return;
+            }
+
+            console.log('Session set from tokens');
+            showResetForm();
+
+          } catch (err) {
+            console.error('Set session exception:', err);
+            showError(err.message || t.errorExpired);
+          }
+          return;
+        }
+
+        // Check if there's an existing session (user might have refreshed the page)
+        console.log('Checking for existing session...');
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          console.log('Existing session found');
+          showResetForm();
+          return;
+        }
+
+        // No valid token or code - show error
+        console.log('No code, tokens, or session found - showing error');
+        showError(t.errorExpired);
+
+      } catch (err) {
+        console.error('Init error:', err);
+        showError(err.message || t.errorGeneric);
+      }
     }
 
-    // Run initialization
-    window.onload = init;
+    // Set a timeout to show error if page is stuck loading
+    const loadingTimeout = setTimeout(() => {
+      console.error('Loading timeout - page stuck');
+      showError(t.errorGeneric + ' (Timeout)');
+    }, 15000);
+
+    // Run initialization and clear timeout when done
+    window.onload = async function() {
+      await init();
+      clearTimeout(loadingTimeout);
+    };
+
+    // Also try to init immediately if DOM is already ready
+    if (document.readyState === 'complete') {
+      init().then(() => clearTimeout(loadingTimeout));
+    }
   </script>
 </body>
 </html>
