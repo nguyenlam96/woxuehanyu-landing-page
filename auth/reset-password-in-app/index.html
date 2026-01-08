@@ -369,10 +369,7 @@
         submitButton: 'Reset Password',
         submitting: 'Resetting...',
         requirements: 'Password requirements:',
-        reqLength: 'At least 8 characters',
-        reqUppercase: 'One uppercase letter',
-        reqLowercase: 'One lowercase letter',
-        reqNumber: 'One number',
+        reqLength: 'At least 6 characters',
         errorMismatch: 'Passwords do not match',
         errorWeak: 'Password does not meet requirements',
         errorGeneric: 'An error occurred. Please try again.',
@@ -394,10 +391,7 @@
         submitButton: 'Đặt lại mật khẩu',
         submitting: 'Đang xử lý...',
         requirements: 'Yêu cầu mật khẩu:',
-        reqLength: 'Ít nhất 8 ký tự',
-        reqUppercase: 'Một chữ cái viết hoa',
-        reqLowercase: 'Một chữ cái viết thường',
-        reqNumber: 'Một chữ số',
+        reqLength: 'Ít nhất 6 ký tự',
         errorMismatch: 'Mật khẩu không khớp',
         errorWeak: 'Mật khẩu không đáp ứng yêu cầu',
         errorGeneric: 'Đã xảy ra lỗi. Vui lòng thử lại.',
@@ -479,9 +473,6 @@
             <strong>${t.requirements}</strong>
             <ul>
               <li id="req-length" class="invalid">${t.reqLength}</li>
-              <li id="req-uppercase" class="invalid">${t.reqUppercase}</li>
-              <li id="req-lowercase" class="invalid">${t.reqLowercase}</li>
-              <li id="req-number" class="invalid">${t.reqNumber}</li>
             </ul>
           </div>
 
@@ -516,20 +507,11 @@
 
     function validatePasswordRequirements() {
       const password = document.getElementById('newPassword').value;
+      const isValid = password.length >= 6;
 
-      const requirements = {
-        length: password.length >= 8,
-        uppercase: /[A-Z]/.test(password),
-        lowercase: /[a-z]/.test(password),
-        number: /[0-9]/.test(password)
-      };
+      document.getElementById('req-length').className = isValid ? 'valid' : 'invalid';
 
-      document.getElementById('req-length').className = requirements.length ? 'valid' : 'invalid';
-      document.getElementById('req-uppercase').className = requirements.uppercase ? 'valid' : 'invalid';
-      document.getElementById('req-lowercase').className = requirements.lowercase ? 'valid' : 'invalid';
-      document.getElementById('req-number').className = requirements.number ? 'valid' : 'invalid';
-
-      return requirements.length && requirements.uppercase && requirements.lowercase && requirements.number;
+      return isValid;
     }
 
     function validateConfirmPassword() {
