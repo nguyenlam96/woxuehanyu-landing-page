@@ -1,19 +1,12 @@
 {
   "applinks": {
-    "apps": [],
     "details": [
       {
-        "appID": "4W3729C9FG.com.woxuehanyu.dev",
-        "paths": [
-          "NOT /auth/email-confirmed",
-          "NOT /auth/reset-password-in-app"
-        ]
-      },
-      {
-        "appID": "4W3729C9FG.com.woxuehanyu.prod",
-        "paths": [
-          "NOT /auth/email-confirmed",
-          "NOT /auth/reset-password-in-app"
+        "appIDs": ["4W3729C9FG.com.woxuehanyu.dev", "4W3729C9FG.com.woxuehanyu.prod"],
+        "components": [
+          { "/": "/auth/email-confirmed", "exclude": true },
+          { "/": "/auth/reset-password-in-app", "exclude": true },
+          { "/": "*" }
         ]
       }
     ]
