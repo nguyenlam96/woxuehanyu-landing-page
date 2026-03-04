@@ -450,7 +450,7 @@
       <p class="tagline" id="hero-tagline">Learn Chinese Your Way</p>
 
       <div class="download-buttons">
-        <a href="#" class="download-btn" id="btn-ios">
+        <a href="https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426" class="download-btn" id="btn-ios" target="_blank">
           <span class="icon">🍎</span>
           <span id="download-ios-text">Download on App Store</span>
         </a>
@@ -582,6 +582,7 @@
       localStorage.setItem('woxuehanyu-lang', lang);
       updateContent();
       updateActiveButton();
+      if (typeof updateAppStoreLink === 'function') updateAppStoreLink();
     }
 
     // Update content based on language
@@ -633,14 +634,15 @@
     updateActiveButton();
 
     // App store links (update these with actual links when apps are published)
-    document.getElementById('btn-ios').addEventListener('click', (e) => {
-      e.preventDefault();
+    function updateAppStoreLink() {
+      const iosBtn = document.getElementById('btn-ios');
       if (currentLang === 'vi') {
-        window.location.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426?l=vi';
+        iosBtn.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426?l=vi';
       } else {
-        window.location.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426';
+        iosBtn.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426';
       }
-    });
+    }
+    updateAppStoreLink();
 
     document.getElementById('btn-android').addEventListener('click', (e) => {
       e.preventDefault();
