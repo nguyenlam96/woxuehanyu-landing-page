@@ -635,10 +635,11 @@
     // App store links (update these with actual links when apps are published)
     document.getElementById('btn-ios').addEventListener('click', (e) => {
       e.preventDefault();
-      // Update with actual App Store link when available
-      alert(currentLang === 'vi'
-        ? 'Ứng dụng iOS sẽ sớm ra mắt!'
-        : 'iOS app coming soon!');
+      if (currentLang === 'vi') {
+        window.location.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426?l=vi';
+      } else {
+        window.location.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426';
+      }
     });
 
     document.getElementById('btn-android').addEventListener('click', (e) => {
