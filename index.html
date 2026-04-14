@@ -454,7 +454,7 @@
           <span class="icon">🍎</span>
           <span id="download-ios-text">Download on App Store</span>
         </a>
-        <a href="#" class="download-btn" id="btn-android">
+        <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
           <span class="icon">🤖</span>
           <span id="download-android-text">Get it on Google Play</span>
         </a>
@@ -643,14 +643,6 @@
       }
     }
     updateAppStoreLink();
-
-    document.getElementById('btn-android').addEventListener('click', (e) => {
-      e.preventDefault();
-      // Update with actual Google Play link when available
-      alert(currentLang === 'vi'
-        ? 'Ứng dụng Android sẽ sớm ra mắt!'
-        : 'Android app coming soon!');
-    });
 
     console.log('Wo xue Hanyu - 我学汉语');
     console.log('Language:', currentLang);
