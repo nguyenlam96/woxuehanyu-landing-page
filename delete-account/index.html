@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Wo xue Hanyu</title>
-  <meta name="description" content="Get in touch with Wo xue Hanyu. We're here to help with any questions or feedback.">
+  <title>Account Deletion - Wo xue Hanyu</title>
+  <meta name="description" content="How to delete your Wo xue Hanyu account and what data is deleted or retained.">
   <link rel="icon" href="/assets/app_icon.png">
 
-  <!-- Smart App Banner for iOS -->
   <meta name="apple-itunes-app" content="app-id=6754384426">
 
   <style>
@@ -29,7 +28,6 @@
       padding-top: 116px;
     }
 
-    /* Smart App Banner */
     .smart-banner {
       position: fixed;
       top: 0;
@@ -118,7 +116,7 @@
     }
 
     .container {
-      max-width: 700px;
+      max-width: 980px;
       margin: 0 auto;
       background: white;
       border-radius: 24px;
@@ -164,129 +162,110 @@
       margin-bottom: 16px;
     }
 
-    .subtitle {
+    .last-updated {
       color: #6b7280;
-      font-size: 18px;
-      margin-bottom: 40px;
-      line-height: 1.6;
+      font-size: 16px;
+      margin-bottom: 32px;
+      font-weight: 500;
     }
 
-    .contact-info {
-      background: #f0f9ff;
+    .lead {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 28px;
+    }
+
+    .notice {
+      background: #eff6ff;
       border-left: 4px solid #3b82f6;
       padding: 20px;
-      margin-bottom: 40px;
-      border-radius: 8px;
+      border-radius: 10px;
+      margin-bottom: 32px;
     }
 
-    .contact-info p {
+    .notice p {
       margin-bottom: 8px;
-      color: #1e40af;
-      font-size: 16px;
+      color: #1f2937;
+      line-height: 1.7;
     }
 
-    .contact-info p:last-child {
+    .notice p:last-child {
       margin-bottom: 0;
     }
 
-    .contact-info a {
-      color: #1e40af;
-      font-weight: 600;
+    .language-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .section-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 12px;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #111827;
+    }
+
+    .cta-box {
+      margin-top: 32px;
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .cta-box a {
+      color: #6d28d9;
+      font-weight: 700;
       text-decoration: none;
     }
 
-    .contact-info a:hover {
+    .cta-box a:hover {
       text-decoration: underline;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      color: #111827;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 16px;
-      font-family: inherit;
-      transition: all 0.2s;
-      background: white;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-
-    .required {
-      color: #ef4444;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 16px 32px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .submit-btn:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .success-message {
-      background: #d1fae5;
-      border-left: 4px solid #10b981;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      border-radius: 8px;
-      color: #065f46;
-      display: none;
-    }
-
-    .success-message.show {
-      display: block;
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 60px;
       padding-top: 40px;
       border-top: 2px solid #e5e7eb;
       color: #6b7280;
@@ -306,21 +285,20 @@
 
     @media (max-width: 768px) {
       .container {
-        padding: 40px 28px;
+        padding: 40px 24px;
       }
 
       h1 {
         font-size: 32px;
       }
 
-      .subtitle {
-        font-size: 16px;
+      h2 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Smart App Banner -->
   <div class="smart-banner" id="smartBanner">
     <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
     <div class="smart-banner-info">
@@ -337,56 +315,101 @@
       <span>Back to Home</span>
     </a>
 
-    <h1>Contact Us</h1>
-    <p class="subtitle">Have a question or feedback? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+    <h1>Account Deletion</h1>
+    <p class="last-updated"><strong>Last Updated: April 30, 2026</strong></p>
+    <p class="lead">This page explains how to delete your Wo xue Hanyu account, what data will be deleted, and what limited data may be retained for legal or financial compliance.</p>
 
-    <div class="contact-info">
-      <p><strong>Email us directly:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
-      <p><strong>Response time:</strong> We typically respond within 24-48 hours</p>
+    <div class="notice">
+      <p><strong>Account deletion URL for Google Play:</strong> <a href="https://woxuehanyu.site/delete-account">https://woxuehanyu.site/delete-account</a></p>
+      <p>You can request deletion inside the app or by email at <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
     </div>
 
-    <div class="success-message" id="successMessage">
-      Thank you for your message! We'll get back to you soon.
+    <div class="language-sections">
+      <section class="section-card" aria-labelledby="en-section">
+        <h2 id="en-section">English</h2>
+
+        <h3>How to delete your account</h3>
+        <ol>
+          <li>Open the Wo xue Hanyu app.</li>
+          <li>Go to <strong>Settings &gt; Account</strong>.</li>
+          <li>Tap <strong>Delete Account</strong>.</li>
+          <li>Confirm the deletion request.</li>
+        </ol>
+        <p>If you cannot access the app, send an email to <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a> with the subject <strong>Account Deletion Request</strong> and include your registered email address.</p>
+
+        <h3>What data will be deleted</h3>
+        <ul>
+          <li>Account information such as your name, email address, and profile details</li>
+          <li>Your Boya and HSK learning progress</li>
+          <li>Saved vocabulary, bookmarks, and study preferences</li>
+          <li>Practice history, lesson activity, and related learning records</li>
+        </ul>
+
+        <h3>What data may be retained</h3>
+        <ul>
+          <li>Transaction, invoice, and subscription records when retention is required by law, tax, accounting, or payment-provider obligations</li>
+          <li>Limited technical or security logs when necessary to prevent fraud, resolve disputes, or comply with legal requests</li>
+        </ul>
+
+        <h3>Deletion timeline</h3>
+        <ul>
+          <li>Your account is deactivated after the deletion request is confirmed.</li>
+          <li>Deletion of applicable account data is completed within 30 days.</li>
+          <li>Backup removal may take longer based on backup rotation schedules.</li>
+        </ul>
+      </section>
+
+      <section class="section-card" aria-labelledby="vi-section">
+        <h2 id="vi-section">Tiếng Việt</h2>
+
+        <h3>Cách xóa tài khoản</h3>
+        <ol>
+          <li>Mở ứng dụng Wo xue Hanyu.</li>
+          <li>Vào <strong>Cài đặt &gt; Tài khoản</strong>.</li>
+          <li>Chọn <strong>Xóa tài khoản</strong>.</li>
+          <li>Xác nhận yêu cầu xóa.</li>
+        </ol>
+        <p>Nếu bạn không thể truy cập ứng dụng, hãy gửi email tới <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a> với tiêu đề <strong>Account Deletion Request</strong> và cung cấp email đã đăng ký.</p>
+
+        <h3>Dữ liệu sẽ bị xóa</h3>
+        <ul>
+          <li>Thông tin tài khoản như tên, email và thông tin hồ sơ</li>
+          <li>Tiến trình học Boya và HSK</li>
+          <li>Từ vựng đã lưu, dấu trang và tùy chọn học tập</li>
+          <li>Lịch sử luyện tập, hoạt động bài học và dữ liệu học liên quan</li>
+        </ul>
+
+        <h3>Dữ liệu có thể được lưu giữ</h3>
+        <ul>
+          <li>Bản ghi giao dịch, hóa đơn và thuê bao khi pháp luật, thuế, kế toán hoặc nhà cung cấp thanh toán yêu cầu lưu giữ</li>
+          <li>Một số nhật ký kỹ thuật hoặc bảo mật ở mức giới hạn khi cần để chống gian lận, giải quyết tranh chấp hoặc tuân thủ yêu cầu pháp lý</li>
+        </ul>
+
+        <h3>Thời gian xử lý</h3>
+        <ul>
+          <li>Tài khoản sẽ bị vô hiệu hóa sau khi yêu cầu xóa được xác nhận.</li>
+          <li>Việc xóa dữ liệu tài khoản áp dụng sẽ hoàn tất trong vòng 30 ngày.</li>
+          <li>Dữ liệu trong bản sao lưu có thể mất thêm thời gian để được xóa theo chu kỳ backup.</li>
+        </ul>
+      </section>
     </div>
 
-    <form id="contactForm" method="POST">
-      <div class="form-group">
-        <label for="name">Name <span class="required">*</span></label>
-        <input type="text" id="name" name="name" required placeholder="Your name">
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email <span class="required">*</span></label>
-        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-      </div>
-
-      <div class="form-group">
-        <label for="subject">Subject <span class="required">*</span></label>
-        <input type="text" id="subject" name="subject" required placeholder="What is this regarding?">
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message <span class="required">*</span></label>
-        <textarea id="message" name="message" required placeholder="Tell us more about your inquiry..."></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
-    </form>
+    <div class="cta-box">
+      <p><strong>Need more details?</strong> See our <a href="/privacy_policy">Privacy Policy</a> or contact <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
+    </div>
 
     <footer>
-      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p>&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
         <a href="/">Home</a> •
-        <a href="/terms_and_conditions">Terms & Conditions</a> •
-        <a href="/EULA">Terms of Use</a> •
         <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/delete-account">Delete Account</a>
+        <a href="/terms_and_conditions">Terms &amp; Conditions</a> •
+        <a href="/contact">Contact</a>
       </p>
     </footer>
   </div>
 
   <script>
-    // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');
       const bannerButton = document.getElementById('bannerButton');
@@ -442,41 +465,6 @@
         banner.classList.add('hidden');
       }
     })();
-
-    // Contact Form Handling
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const successMessage = document.getElementById('successMessage');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Get form data
-      const formData = new FormData(form);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const subject = formData.get('subject');
-      const message = formData.get('message');
-
-      // Create mailto link with form data
-      const mailtoLink = `mailto:woxuehanyu.mobile@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-      )}`;
-
-      // Open user's email client
-      window.location.href = mailtoLink;
-
-      // Show success message
-      setTimeout(() => {
-        successMessage.classList.add('show');
-        form.reset();
-
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          successMessage.classList.remove('show');
-        }, 5000);
-      }, 500);
-    });
   </script>
 </body>
 </html>
