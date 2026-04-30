@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foreground Service Media Playback - Wo xue Hanyu</title>
+  <meta name="description" content="Demonstration page for Wo xue Hanyu foreground service media playback usage.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 56px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .back-link:hover {
+      color: #764ba2;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .summary {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .summary p {
+      color: #1f2937;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+      color: #111827;
+    }
+
+    p, li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b5563;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 24px;
+    }
+
+    .video-frame {
+      background: #111827;
+      border-radius: 20px;
+      padding: 16px;
+      margin: 28px 0;
+      box-shadow: 0 16px 40px rgba(17, 24, 39, 0.25);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      background: black;
+    }
+
+    .video-note {
+      margin-top: 12px;
+      color: #d1d5db;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .link-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .link-box a {
+      color: #4f46e5;
+      font-weight: 600;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .link-box a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #764ba2;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 36px 24px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">
+      <span>←</span>
+      <span>Back to Home</span>
+    </a>
+
+    <h1>Foreground Service Media Playback</h1>
+    <p class="subtitle">This page is provided for Google Play policy review of the <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code> permission used by Wo xue Hanyu.</p>
+
+    <div class="summary">
+      <p><strong>Declared task:</strong> Media playback</p>
+      <p><strong>Use case:</strong> The app plays user-requested learning audio and other lesson media, and playback may continue while the user is no longer directly interacting with the app.</p>
+      <p><strong>Review material:</strong> The video below demonstrates the in-app media playback flow for this permission.</p>
+    </div>
+
+    <h2>Policy Description</h2>
+    <ul>
+      <li>The permission is used only for foreground media playback started by the user.</li>
+      <li>The playback task is noticeable to the user because audio continues while the app is backgrounded or the user switches away from the current screen.</li>
+      <li>This page hosts the demonstration video requested for Google Play review.</li>
+    </ul>
+
+    <div class="video-frame">
+      <video controls playsinline preload="metadata">
+        <source src="/assets/videos/foreground-playback-compressed.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p class="video-note">If playback does not start in your browser, use the direct video file link below.</p>
+    </div>
+
+    <div class="link-box">
+      <p><strong>Direct video link:</strong></p>
+      <p><a href="/assets/videos/foreground-playback-compressed.mp4">https://woxuehanyu.site/assets/videos/foreground-playback-compressed.mp4</a></p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
+      <p style="margin-top: 12px;">
+        <a href="/">Home</a> •
+        <a href="/privacy_policy">Privacy Policy</a> •
+        <a href="/delete-account">Delete Account</a> •
+        <a href="/contact">Contact</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
