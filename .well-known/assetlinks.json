@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.woxuehanyu.dev",
+      "sha256_cert_fingerprints": [
+        "6C:21:CF:4C:DF:37:B7:D9:BD:E9:F9:B8:DB:5C:37:ED:6F:37:25:73:D5:44:F6:C3:89:88:06:75:1B:10:4E:44"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.woxuehanyu.prod",
+      "sha256_cert_fingerprints": [
+        "REPLACE_WITH_RELEASE_OR_PLAY_APP_SIGNING_SHA256_FINGERPRINT"
+      ]
+    }
+  }
+]

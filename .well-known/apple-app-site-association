@@ -1,6 +1,19 @@
 {
   "applinks": {
-    "details": []
+    "details": [
+      {
+        "appIDs": [
+          "4W3729C9FG.com.woxuehanyu.dev",
+          "4W3729C9FG.com.woxuehanyu.prod"
+        ],
+        "components": [
+          {
+            "/": "/tube/video/*",
+            "comment": "Open shared Tube video in app"
+          }
+        ]
+      }
+    ]
   },
   "webcredentials": {
     "apps": [
