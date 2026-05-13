@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.woxuehanyu.dev",
       "sha256_cert_fingerprints": [
-        "6C:21:CF:4C:DF:37:B7:D9:BD:E9:F9:B8:DB:5C:37:ED:6F:37:25:73:D5:44:F6:C3:89:88:06:75:1B:10:4E:44"
+        "6C:21:CF:4C:DF:37:B7:D9:BD:E9:F9:B8:DB:5C:37:ED:6F:37:25:73:D5:44:F6:C3:89:88:06:75:1B:10:4E:44",
+        "17:38:B9:DB:46:F5:52:19:BB:FC:83:14:C1:28:51:57:8C:A2:6E:23:6A:DA:BA:3B:AC:F8:E3:39:7D:F1:79:5E"
       ]
     }
   },
@@ -15,7 +16,8 @@
       "namespace": "android_app",
       "package_name": "com.woxuehanyu.prod",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_RELEASE_OR_PLAY_APP_SIGNING_SHA256_FINGERPRINT"
+        "73:67:0B:81:64:C1:ED:EB:F3:0F:FA:C4:9D:8C:14:8E:E4:19:32:7F:25:85:5F:28:E7:44:E3:8B:CD:08:3E:A2",
+        "EB:7A:7A:B0:23:B9:BD:B1:6F:87:0E:6C:06:0A:AF:EE:47:01:37:15:EA:05:27:32:DA:28:F6:90:64:8E:C6:D6"
       ]
     }
   }
