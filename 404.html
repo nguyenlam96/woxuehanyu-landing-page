@@ -231,29 +231,76 @@
     (function () {
       const pathname = window.location.pathname || '';
       const isTubeVideo = /^\/tube\/video\/[^/]+\/?$/.test(pathname);
+      const browserLang = navigator.language || navigator.userLanguage || '';
+      let currentLang = browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en';
+      const savedLang = localStorage.getItem('woxuehanyu-lang');
+      if (savedLang) {
+        currentLang = savedLang;
+      }
+      const translations = {
+        en: {
+          title: 'Wo xue Hanyu',
+          videoHeadline: 'Open this video in the app',
+          videoCopy: 'This shared video link works best inside the Wo xue Hanyu app. Install the app to watch the full video experience.',
+          videoLink: 'Video link:',
+          videoNote: 'If the app is already installed, open the original link again from your device.',
+          pageHeadline: 'Page not found',
+          pageCopy: 'The page you requested does not exist. If you were trying to open a shared video link, install the app to continue.',
+          appStore: 'Download on App Store',
+          playStore: 'Get it on Google Play',
+          home: 'Go back home'
+        },
+        vi: {
+          title: 'Wo xue Hanyu',
+          videoHeadline: 'Mở video này trong ứng dụng',
+          videoCopy: 'Liên kết video này hoạt động tốt nhất trong ứng dụng Wo xue Hanyu. Hãy cài ứng dụng để xem đầy đủ video.',
+          videoLink: 'Liên kết video:',
+          videoNote: 'Nếu bạn đã cài ứng dụng, hãy mở lại liên kết gốc từ thiết bị của bạn.',
+          pageHeadline: 'Không tìm thấy trang',
+          pageCopy: 'Trang bạn yêu cầu không tồn tại. Nếu bạn đang mở một liên kết video được chia sẻ, hãy cài ứng dụng để tiếp tục.',
+          appStore: 'Tải trên App Store',
+          playStore: 'Tải trên Google Play',
+          home: 'Về trang chủ'
+        }
+      };
+      const t = translations[currentLang];
       const videoFallback = document.getElementById('videoFallback');
       const genericFallback = document.getElementById('genericFallback');
       const videoMeta = document.getElementById('videoMeta');
       const actions = document.querySelector('.actions');
       const noteText = document.getElementById('noteText');
       const genericText = document.getElementById('genericText');
+      const title = document.querySelector('title');
+      const appStoreBtn = document.querySelector('.button.primary');
+      const playStoreBtn = document.querySelector('.button.secondary');
+      const homeLink = document.querySelector('#genericText a');
+
+      document.documentElement.lang = currentLang;
+      title.textContent = t.title;
+      appStoreBtn.textContent = t.appStore;
+      playStoreBtn.textContent = t.playStore;
 
       if (isTubeVideo) {
+        document.querySelector('.headline').textContent = t.videoHeadline;
+        document.querySelector('.copy').textContent = t.videoCopy;
         videoMeta.style.display = 'block';
         videoMeta.textContent = '';
         const label = document.createElement('strong');
-        label.textContent = 'Video link: ';
+        label.textContent = t.videoLink + ' ';
         const value = document.createElement('span');
         value.textContent = pathname.replace(/^\/tube\/video\//, '').replace(/\/$/, '');
         videoMeta.appendChild(label);
         videoMeta.appendChild(value);
-        noteText.textContent = 'Open the link again after installing the app, or tap one of the store buttons above.';
+        noteText.textContent = t.videoNote;
       } else {
         videoFallback.style.display = 'none';
         genericFallback.style.display = 'block';
         actions.style.display = 'none';
         noteText.style.display = 'none';
         genericText.style.display = 'block';
+        document.querySelector('#genericFallback .headline').textContent = t.pageHeadline;
+        document.querySelector('#genericFallback .copy').textContent = t.pageCopy;
+        homeLink.textContent = t.home;
       }
     })();
   </script>

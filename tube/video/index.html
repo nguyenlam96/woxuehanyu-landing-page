@@ -209,17 +209,58 @@
     (function () {
       const pathname = window.location.pathname || '';
       const videoId = pathname.replace(/^\/tube\/video\//, '').replace(/\/$/, '');
+      const browserLang = navigator.language || navigator.userLanguage || '';
+      let currentLang = browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en';
+      const savedLang = localStorage.getItem('woxuehanyu-lang');
+      if (savedLang) {
+        currentLang = savedLang;
+      }
+      const translations = {
+        en: {
+          title: 'Wo xue Hanyu',
+          headline: 'Open this video in the app',
+          copy: 'This shared video link works best inside the Wo xue Hanyu app. Install the app to watch the full video experience.',
+          videoLink: 'Video link:',
+          note: 'If the app is already installed, open the original link again from your device.',
+          appStore: 'Download on App Store',
+          playStore: 'Get it on Google Play'
+        },
+        vi: {
+          title: 'Wo xue Hanyu',
+          headline: 'Mở video này trong ứng dụng',
+          copy: 'Liên kết video này hoạt động tốt nhất trong ứng dụng Wo xue Hanyu. Hãy cài ứng dụng để xem đầy đủ video.',
+          videoLink: 'Liên kết video:',
+          note: 'Nếu bạn đã cài ứng dụng, hãy mở lại liên kết gốc từ thiết bị của bạn.',
+          appStore: 'Tải trên App Store',
+          playStore: 'Tải trên Google Play'
+        }
+      };
+      const t = translations[currentLang];
       const videoMeta = document.getElementById('videoMeta');
+      const title = document.querySelector('title');
+      const headline = document.querySelector('.headline');
+      const copy = document.querySelector('.copy');
+      const note = document.querySelector('.note');
+      const appStoreBtn = document.querySelector('.button.primary');
+      const playStoreBtn = document.querySelector('.button.secondary');
+
+      document.documentElement.lang = currentLang;
+      title.textContent = t.title;
+      headline.textContent = t.headline;
+      copy.textContent = t.copy;
+      note.textContent = t.note;
+      appStoreBtn.textContent = t.appStore;
+      playStoreBtn.textContent = t.playStore;
 
       if (videoId) {
         const label = document.createElement('strong');
-        label.textContent = 'Video link: ';
+        label.textContent = t.videoLink + ' ';
         const value = document.createElement('span');
         value.textContent = videoId;
         videoMeta.appendChild(label);
         videoMeta.appendChild(value);
       } else {
-        videoMeta.textContent = 'Video link';
+        videoMeta.textContent = t.videoLink;
       }
     })();
   </script>
