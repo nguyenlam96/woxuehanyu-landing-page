@@ -183,6 +183,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <main class="shell" aria-live="polite">
@@ -209,12 +212,9 @@
     (function () {
       const pathname = window.location.pathname || '';
       const videoId = pathname.replace(/^\/tube\/video\//, '').replace(/\/$/, '');
-      const browserLang = navigator.language || navigator.userLanguage || '';
-      let currentLang = browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en';
-      const savedLang = localStorage.getItem('woxuehanyu-lang');
-      if (savedLang) {
-        currentLang = savedLang;
-      }
+      let currentLang = typeof window.getWoXueHanyuLanguage === 'function'
+        ? window.getWoXueHanyuLanguage()
+        : ((navigator.language || navigator.userLanguage || '').toLowerCase().startsWith('vi') ? 'vi' : 'en');
       const translations = {
         en: {
           title: 'Wo xue Hanyu',
@@ -235,7 +235,6 @@
           playStore: 'Tải trên Google Play'
         }
       };
-      const t = translations[currentLang];
       const videoMeta = document.getElementById('videoMeta');
       const title = document.querySelector('title');
       const headline = document.querySelector('.headline');
@@ -244,24 +243,31 @@
       const appStoreBtn = document.querySelector('.button.primary');
       const playStoreBtn = document.querySelector('.button.secondary');
 
-      document.documentElement.lang = currentLang;
-      title.textContent = t.title;
-      headline.textContent = t.headline;
-      copy.textContent = t.copy;
-      note.textContent = t.note;
-      appStoreBtn.textContent = t.appStore;
-      playStoreBtn.textContent = t.playStore;
-
-      if (videoId) {
+      function render(lang) {
+        currentLang = translations[lang] ? lang : 'en';
+        const t = translations[currentLang];
+        document.documentElement.lang = currentLang;
+        title.textContent = t.title;
+        headline.textContent = t.headline;
+        copy.textContent = t.copy;
+        note.textContent = t.note;
+        appStoreBtn.textContent = t.appStore;
+        playStoreBtn.textContent = t.playStore;
+        videoMeta.textContent = '';
+        if (videoId) {
         const label = document.createElement('strong');
         label.textContent = t.videoLink + ' ';
         const value = document.createElement('span');
         value.textContent = videoId;
         videoMeta.appendChild(label);
         videoMeta.appendChild(value);
-      } else {
-        videoMeta.textContent = t.videoLink;
+        } else {
+          videoMeta.textContent = t.videoLink;
+        }
       }
+
+      window.applyLanguage = render;
+      render(currentLang);
     })();
   </script>
 </body>

@@ -208,6 +208,10 @@
       font-weight: 600;
     }
 
+    [data-lang-panel][hidden] {
+      display: none;
+    }
+
     .highlight-box {
       background: #f0f9ff;
       border-left: 4px solid #3b82f6;
@@ -291,6 +295,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <!-- Smart App Banner -->
@@ -307,9 +314,10 @@
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
+    <div data-lang-panel="en">
     <h1>Terms & Conditions</h1>
 
     <p>These terms and conditions apply to the Wo xue Hanyu app (hereby referred to as "Application") for mobile devices that was created by Leo Ng (hereby referred to as "Service Provider") as a Free service.</p>
@@ -355,19 +363,94 @@
       <p>If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at:</p>
       <p><strong>Email:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
     </div>
+    </div>
+
+    <div data-lang-panel="vi" hidden>
+      <h1>Điều Khoản & Điều Kiện</h1>
+      <p>Các điều khoản và điều kiện này áp dụng cho ứng dụng Wo xue Hanyu trên thiết bị di động, được tạo bởi Leo Ng với tư cách dịch vụ miễn phí.</p>
+      <p>Khi tải xuống hoặc sử dụng ứng dụng, bạn đồng ý với các điều khoản bên dưới. Vui lòng đọc kỹ trước khi sử dụng.</p>
+      <p>Nghiêm cấm sao chép, chỉnh sửa ứng dụng, thương hiệu hoặc bất kỳ phần nào của ứng dụng. Bạn không được trích xuất mã nguồn, dịch ứng dụng sang ngôn ngữ khác hoặc tạo phiên bản phái sinh trái phép.</p>
+      <p>Nhà cung cấp dịch vụ có thể sửa đổi ứng dụng hoặc tính phí dịch vụ vào bất kỳ thời điểm nào với lý do phù hợp. Mọi khoản phí sẽ được thông báo rõ ràng cho bạn.</p>
+      <p>Ứng dụng lưu trữ và xử lý dữ liệu cá nhân bạn cung cấp để vận hành dịch vụ. Bạn chịu trách nhiệm giữ an toàn cho thiết bị và quyền truy cập ứng dụng. Chúng tôi không khuyến nghị jailbreak/root thiết bị vì có thể làm giảm bảo mật và khiến ứng dụng hoạt động không chính xác.</p>
+
+      <div class="highlight-box">
+        <p>Ứng dụng sử dụng một số dịch vụ bên thứ ba có điều khoản riêng:</p>
+        <div class="service-links">
+          <a href="https://www.facebook.com/legal/terms" target="_blank" rel="noopener noreferrer">• Facebook</a>
+          <a href="https://sentry.io/terms/" target="_blank" rel="noopener noreferrer">• Sentry</a>
+          <a href="https://www.revenuecat.com/terms" target="_blank" rel="noopener noreferrer">• RevenueCat</a>
+        </div>
+      </div>
+
+      <p>Một số chức năng cần kết nối internet. Nhà cung cấp dịch vụ không chịu trách nhiệm nếu ứng dụng không hoạt động đầy đủ do không có Wi-Fi, hết dữ liệu di động hoặc điều kiện mạng không ổn định.</p>
+      <p>Khi dùng ứng dụng ngoài vùng Wi-Fi, các điều khoản của nhà mạng vẫn áp dụng. Bạn chịu trách nhiệm cho phí dữ liệu, phí chuyển vùng hoặc phí bên thứ ba phát sinh.</p>
+      <p>Bạn cũng chịu trách nhiệm bảo đảm thiết bị đủ pin và có điều kiện hoạt động phù hợp để truy cập dịch vụ.</p>
+      <p>Chúng tôi cố gắng duy trì thông tin chính xác và cập nhật, nhưng có thể dựa vào dữ liệu từ bên thứ ba. Nhà cung cấp dịch vụ không chịu trách nhiệm cho tổn thất trực tiếp hoặc gián tiếp phát sinh từ việc phụ thuộc hoàn toàn vào chức năng của ứng dụng.</p>
+      <p>Ứng dụng có thể được cập nhật để phù hợp với yêu cầu hệ điều hành. Bạn đồng ý nhận các bản cập nhật khi được cung cấp. Nhà cung cấp dịch vụ cũng có thể ngừng cung cấp ứng dụng; khi đó quyền sử dụng của bạn sẽ chấm dứt và bạn phải ngừng dùng, xóa ứng dụng nếu cần.</p>
+
+      <h2>Thay Đổi Điều Khoản</h2>
+      <p>Nhà cung cấp dịch vụ có thể cập nhật Điều Khoản & Điều Kiện định kỳ. Bạn nên xem lại trang này thường xuyên. Các thay đổi sẽ được đăng trên trang này.</p>
+
+      <div class="effective-date">
+        Các điều khoản và điều kiện này có hiệu lực từ ngày 2025-12-04
+      </div>
+
+      <h2>Liên Hệ</h2>
+      <div class="contact-info">
+        <p>Nếu bạn có câu hỏi hoặc góp ý về Điều Khoản & Điều Kiện, vui lòng liên hệ:</p>
+        <p><strong>Email:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
+      </div>
+    </div>
 
     <footer>
-      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/EULA">Terms of Use</a> •
-        <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/EULA" id="footerTerms">Terms of Use</a> •
+        <a href="/privacy_policy" id="footerPrivacy">Privacy Policy</a> •
+        <a href="/contact" id="footerContact">Contact</a>
       </p>
     </footer>
   </div>
 
   <script>
+    const termsConditionsTranslations = {
+      en: {
+        title: 'Terms & Conditions - Wo xue Hanyu',
+        back: 'Back to Home',
+        footer: '© 2025 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        terms: 'Terms of Use',
+        privacy: 'Privacy Policy',
+        contact: 'Contact'
+      },
+      vi: {
+        title: 'Điều Khoản & Điều Kiện - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        footer: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        terms: 'Điều Khoản Sử Dụng',
+        privacy: 'Chính Sách Bảo Mật',
+        contact: 'Liên Hệ'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const activeLang = termsConditionsTranslations[lang] ? lang : 'en';
+      const t = termsConditionsTranslations[activeLang];
+      document.documentElement.lang = activeLang;
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerTerms').textContent = t.terms;
+      document.getElementById('footerPrivacy').textContent = t.privacy;
+      document.getElementById('footerContact').textContent = t.contact;
+      document.querySelectorAll('[data-lang-panel]').forEach(function(panel) {
+        panel.hidden = panel.getAttribute('data-lang-panel') !== activeLang;
+      });
+    };
+
     // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');

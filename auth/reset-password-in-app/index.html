@@ -308,6 +308,9 @@
       text-decoration: underline;
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <div class="container">
@@ -354,8 +357,7 @@
 
     // Localization
     const langParam = urlParams.get('lang');
-    const browserLang = navigator.language || navigator.userLanguage;
-    const userLang = langParam || (browserLang.startsWith('vi') ? 'vi' : 'en');
+    let userLang = langParam || localStorage.getItem('woxuehanyu-lang') || ((navigator.language || navigator.userLanguage || '').startsWith('vi') ? 'vi' : 'en');
 
     // Translations
     const translations = {
@@ -405,17 +407,35 @@
       }
     };
 
-    const t = translations[userLang] || translations.en;
+    let t = translations[userLang] || translations.en;
+    let pageState = 'loading';
 
     // Update page title
     document.title = t.pageTitle;
     document.getElementById('loadingMessage').textContent = t.loading;
+
+    window.applyLanguage = function(lang) {
+      userLang = translations[lang] ? lang : 'en';
+      t = translations[userLang] || translations.en;
+      document.documentElement.lang = userLang;
+      document.title = t.pageTitle;
+
+      if (pageState === 'form') {
+        showResetForm();
+      } else if (pageState === 'success') {
+        showSuccess();
+      } else if (pageState === 'loading') {
+        const loadingMessage = document.getElementById('loadingMessage');
+        if (loadingMessage) loadingMessage.textContent = t.loading;
+      }
+    };
 
     function updateUI(content) {
       document.getElementById('status').innerHTML = content;
     }
 
     function showError(message, showRetry = true) {
+      pageState = 'error';
       updateUI(`
         <div class="logo">⚠️</div>
         <h1>${userLang === 'vi' ? 'Lỗi' : 'Error'}</h1>
@@ -428,6 +448,7 @@
     }
 
     function showSuccess() {
+      pageState = 'success';
       updateUI(`
         <div class="success-icon">✓</div>
         <h1>${t.successTitle}</h1>
@@ -443,6 +464,7 @@
     }
 
     function showResetForm() {
+      pageState = 'form';
       updateUI(`
         <div class="logo">🔐</div>
         <h1>${t.title}</h1>

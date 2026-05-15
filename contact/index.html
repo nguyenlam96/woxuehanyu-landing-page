@@ -318,6 +318,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <!-- Smart App Banner -->
@@ -334,15 +337,15 @@
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
-    <h1>Contact Us</h1>
-    <p class="subtitle">Have a question or feedback? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+    <h1 id="pageTitle">Contact Us</h1>
+    <p class="subtitle" id="subtitle">Have a question or feedback? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
 
     <div class="contact-info">
-      <p><strong>Email us directly:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
-      <p><strong>Response time:</strong> We typically respond within 24-48 hours</p>
+      <p><strong id="directEmailLabel">Email us directly:</strong> <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a></p>
+      <p><strong id="responseLabel">Response time:</strong> <span id="responseText">We typically respond within 24-48 hours</span></p>
     </div>
 
     <div class="success-message" id="successMessage">
@@ -351,22 +354,22 @@
 
     <form id="contactForm" method="POST">
       <div class="form-group">
-        <label for="name">Name <span class="required">*</span></label>
+        <label for="name" id="nameLabel">Name <span class="required">*</span></label>
         <input type="text" id="name" name="name" required placeholder="Your name">
       </div>
 
       <div class="form-group">
-        <label for="email">Email <span class="required">*</span></label>
+        <label for="email" id="emailLabel">Email <span class="required">*</span></label>
         <input type="email" id="email" name="email" required placeholder="your.email@example.com">
       </div>
 
       <div class="form-group">
-        <label for="subject">Subject <span class="required">*</span></label>
+        <label for="subject" id="subjectLabel">Subject <span class="required">*</span></label>
         <input type="text" id="subject" name="subject" required placeholder="What is this regarding?">
       </div>
 
       <div class="form-group">
-        <label for="message">Message <span class="required">*</span></label>
+        <label for="message" id="messageLabel">Message <span class="required">*</span></label>
         <textarea id="message" name="message" required placeholder="Tell us more about your inquiry..."></textarea>
       </div>
 
@@ -374,18 +377,99 @@
     </form>
 
     <footer>
-      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/terms_and_conditions">Terms & Conditions</a> •
-        <a href="/EULA">Terms of Use</a> •
-        <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/delete-account">Delete Account</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/terms_and_conditions" id="footerTermsConditions">Terms & Conditions</a> •
+        <a href="/EULA" id="footerTerms">Terms of Use</a> •
+        <a href="/privacy_policy" id="footerPrivacy">Privacy Policy</a> •
+        <a href="/delete-account" id="footerDelete">Delete Account</a>
       </p>
     </footer>
   </div>
 
   <script>
+    const contactTranslations = {
+      en: {
+        title: 'Contact Us - Wo xue Hanyu',
+        back: 'Back to Home',
+        pageTitle: 'Contact Us',
+        subtitle: "Have a question or feedback? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.",
+        directEmail: 'Email us directly:',
+        responseLabel: 'Response time:',
+        response: 'We typically respond within 24-48 hours',
+        success: "Thank you for your message! We'll get back to you soon.",
+        name: 'Name <span class="required">*</span>',
+        email: 'Email <span class="required">*</span>',
+        subject: 'Subject <span class="required">*</span>',
+        message: 'Message <span class="required">*</span>',
+        namePlaceholder: 'Your name',
+        emailPlaceholder: 'your.email@example.com',
+        subjectPlaceholder: 'What is this regarding?',
+        messagePlaceholder: 'Tell us more about your inquiry...',
+        send: 'Send Message',
+        footer: '© 2025 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        termsConditions: 'Terms & Conditions',
+        terms: 'Terms of Use',
+        privacy: 'Privacy Policy',
+        deleteAccount: 'Delete Account'
+      },
+      vi: {
+        title: 'Liên Hệ - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        pageTitle: 'Liên Hệ',
+        subtitle: 'Bạn có câu hỏi hoặc góp ý? Hãy gửi thông tin bên dưới, chúng tôi sẽ phản hồi sớm nhất có thể.',
+        directEmail: 'Gửi email trực tiếp:',
+        responseLabel: 'Thời gian phản hồi:',
+        response: 'Chúng tôi thường phản hồi trong vòng 24-48 giờ',
+        success: 'Cảm ơn bạn đã gửi tin nhắn! Chúng tôi sẽ phản hồi sớm.',
+        name: 'Tên <span class="required">*</span>',
+        email: 'Email <span class="required">*</span>',
+        subject: 'Chủ đề <span class="required">*</span>',
+        message: 'Nội dung <span class="required">*</span>',
+        namePlaceholder: 'Tên của bạn',
+        emailPlaceholder: 'email.cua.ban@example.com',
+        subjectPlaceholder: 'Bạn muốn liên hệ về vấn đề gì?',
+        messagePlaceholder: 'Hãy cho chúng tôi biết thêm về yêu cầu của bạn...',
+        send: 'Gửi Tin Nhắn',
+        footer: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        termsConditions: 'Điều Khoản & Điều Kiện',
+        terms: 'Điều Khoản Sử Dụng',
+        privacy: 'Chính Sách Bảo Mật',
+        deleteAccount: 'Xóa Tài Khoản'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const t = contactTranslations[lang] || contactTranslations.en;
+      document.documentElement.lang = contactTranslations[lang] ? lang : 'en';
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('pageTitle').textContent = t.pageTitle;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('directEmailLabel').textContent = t.directEmail;
+      document.getElementById('responseLabel').textContent = t.responseLabel;
+      document.getElementById('responseText').textContent = t.response;
+      document.getElementById('successMessage').textContent = t.success;
+      document.getElementById('nameLabel').innerHTML = t.name;
+      document.getElementById('emailLabel').innerHTML = t.email;
+      document.getElementById('subjectLabel').innerHTML = t.subject;
+      document.getElementById('messageLabel').innerHTML = t.message;
+      document.getElementById('name').placeholder = t.namePlaceholder;
+      document.getElementById('email').placeholder = t.emailPlaceholder;
+      document.getElementById('subject').placeholder = t.subjectPlaceholder;
+      document.getElementById('message').placeholder = t.messagePlaceholder;
+      document.getElementById('submitBtn').textContent = t.send;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerTermsConditions').textContent = t.termsConditions;
+      document.getElementById('footerTerms').textContent = t.terms;
+      document.getElementById('footerPrivacy').textContent = t.privacy;
+      document.getElementById('footerDelete').textContent = t.deleteAccount;
+    };
+
     // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');

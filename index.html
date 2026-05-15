@@ -122,40 +122,6 @@
       padding-top: 76px;
     }
 
-    .language-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: flex;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 8px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .language-toggle button {
-      padding: 8px 16px;
-      border: none;
-      background: transparent;
-      color: #6b7280;
-      cursor: pointer;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      font-size: 14px;
-    }
-
-    .language-toggle button.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-    }
-
-    .language-toggle button:hover:not(.active) {
-      background: #f3f4f6;
-    }
-
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -422,6 +388,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <!-- Smart App Banner -->
@@ -433,11 +402,6 @@
     </div>
     <button class="smart-banner-button" id="bannerButton">VIEW</button>
     <button class="smart-banner-close" id="bannerClose">&times;</button>
-  </div>
-
-  <div class="language-toggle">
-    <button onclick="setLanguage('en')" id="lang-en">English</button>
-    <button onclick="setLanguage('vi')" id="lang-vi">Tiếng Việt</button>
   </div>
 
   <div class="container">
@@ -582,9 +546,14 @@
       currentLang = lang;
       localStorage.setItem('woxuehanyu-lang', lang);
       updateContent();
-      updateActiveButton();
       if (typeof updateAppStoreLink === 'function') updateAppStoreLink();
     }
+
+    window.applyLanguage = function(lang) {
+      currentLang = translations[lang] ? lang : 'en';
+      updateContent();
+      if (typeof updateAppStoreLink === 'function') updateAppStoreLink();
+    };
 
     // Update content based on language
     function updateContent() {
@@ -623,16 +592,8 @@
       document.documentElement.lang = currentLang;
     }
 
-    // Update active language button
-    function updateActiveButton() {
-      document.getElementById('lang-en').classList.remove('active');
-      document.getElementById('lang-vi').classList.remove('active');
-      document.getElementById('lang-' + currentLang).classList.add('active');
-    }
-
     // Initialize on page load
     updateContent();
-    updateActiveButton();
 
     // App store links (update these with actual links when apps are published)
     function updateAppStoreLink() {

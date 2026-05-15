@@ -198,6 +198,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <main class="shell" aria-live="polite">
@@ -231,12 +234,9 @@
     (function () {
       const pathname = window.location.pathname || '';
       const isTubeVideo = /^\/tube\/video\/[^/]+\/?$/.test(pathname);
-      const browserLang = navigator.language || navigator.userLanguage || '';
-      let currentLang = browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en';
-      const savedLang = localStorage.getItem('woxuehanyu-lang');
-      if (savedLang) {
-        currentLang = savedLang;
-      }
+      let currentLang = typeof window.getWoXueHanyuLanguage === 'function'
+        ? window.getWoXueHanyuLanguage()
+        : ((navigator.language || navigator.userLanguage || '').toLowerCase().startsWith('vi') ? 'vi' : 'en');
       const translations = {
         en: {
           title: 'Wo xue Hanyu',
@@ -263,7 +263,6 @@
           home: 'Về trang chủ'
         }
       };
-      const t = translations[currentLang];
       const videoFallback = document.getElementById('videoFallback');
       const genericFallback = document.getElementById('genericFallback');
       const videoMeta = document.getElementById('videoMeta');
@@ -275,12 +274,15 @@
       const playStoreBtn = document.querySelector('.button.secondary');
       const homeLink = document.querySelector('#genericText a');
 
-      document.documentElement.lang = currentLang;
-      title.textContent = t.title;
-      appStoreBtn.textContent = t.appStore;
-      playStoreBtn.textContent = t.playStore;
+      function render(lang) {
+        currentLang = translations[lang] ? lang : 'en';
+        const t = translations[currentLang];
+        document.documentElement.lang = currentLang;
+        title.textContent = t.title;
+        appStoreBtn.textContent = t.appStore;
+        playStoreBtn.textContent = t.playStore;
 
-      if (isTubeVideo) {
+        if (isTubeVideo) {
         document.querySelector('.headline').textContent = t.videoHeadline;
         document.querySelector('.copy').textContent = t.videoCopy;
         videoMeta.style.display = 'block';
@@ -292,7 +294,7 @@
         videoMeta.appendChild(label);
         videoMeta.appendChild(value);
         noteText.textContent = t.videoNote;
-      } else {
+        } else {
         videoFallback.style.display = 'none';
         genericFallback.style.display = 'block';
         actions.style.display = 'none';
@@ -301,7 +303,11 @@
         document.querySelector('#genericFallback .headline').textContent = t.pageHeadline;
         document.querySelector('#genericFallback .copy').textContent = t.pageCopy;
         homeLink.textContent = t.home;
+        }
       }
+
+      window.applyLanguage = render;
+      render(currentLang);
     })();
   </script>
 </body>

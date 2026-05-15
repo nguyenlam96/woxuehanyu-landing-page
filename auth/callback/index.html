@@ -163,6 +163,9 @@
       margin-top: 16px;
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <div class="container">
@@ -191,6 +194,64 @@
 
     // Determine the type (from either query or hash)
     const type = hashType || verificationType;
+    let currentLang = urlParams.get('lang') || localStorage.getItem('woxuehanyu-lang') || ((navigator.language || navigator.userLanguage || '').startsWith('vi') ? 'vi' : 'en');
+    const translations = {
+      en: {
+        verifying: 'Verifying your email...',
+        passwordVerifiedTitle: 'Password Reset Link Verified!',
+        emailVerifiedTitle: 'Email Verified!',
+        passwordReady: 'Ready to reset your password.',
+        accountActivated: 'Your account has been successfully activated.',
+        openingApp: 'Opening <strong>Wo xue Hanyu</strong> app...',
+        openApp: 'Open Wo xue Hanyu App',
+        fallbackHint: 'If the app does not open automatically, please click the button above.',
+        verifyingTitle: 'Verifying Email...',
+        verifyingCopy: 'Your account is being activated.',
+        waitCopy: 'Please wait a moment...',
+        errorTitle: 'An Error Occurred',
+        errorFallback: 'Link is invalid or has expired.',
+        errorHelp: 'Please try again or contact support.',
+        returnCopy: 'You are all set! Return to the app.'
+      },
+      vi: {
+        verifying: 'Đang xác minh email...',
+        passwordVerifiedTitle: 'Liên kết đặt lại mật khẩu đã xác minh!',
+        emailVerifiedTitle: 'Email đã được xác minh!',
+        passwordReady: 'Bạn đã có thể đặt lại mật khẩu.',
+        accountActivated: 'Tài khoản của bạn đã được kích hoạt thành công.',
+        openingApp: 'Đang mở ứng dụng <strong>Wo xue Hanyu</strong>...',
+        openApp: 'Mở ứng dụng Wo xue Hanyu',
+        fallbackHint: 'Nếu ứng dụng không tự mở, hãy bấm nút ở trên.',
+        verifyingTitle: 'Đang xác minh email...',
+        verifyingCopy: 'Tài khoản của bạn đang được kích hoạt.',
+        waitCopy: 'Vui lòng chờ trong giây lát...',
+        errorTitle: 'Đã xảy ra lỗi',
+        errorFallback: 'Liên kết không hợp lệ hoặc đã hết hạn.',
+        errorHelp: 'Vui lòng thử lại hoặc liên hệ hỗ trợ.',
+        returnCopy: 'Hoàn tất! Hãy quay lại ứng dụng.'
+      }
+    };
+
+    function getText() {
+      currentLang = translations[currentLang] ? currentLang : 'en';
+      document.documentElement.lang = currentLang;
+      return translations[currentLang];
+    }
+
+    let currentView = 'loading';
+
+    window.applyLanguage = function(lang) {
+      currentLang = translations[lang] ? lang : 'en';
+      if (currentView === 'success') {
+        showSuccessAndRedirect(false);
+      } else if (currentView === 'verifying') {
+        showVerifyingUI();
+      } else if (currentView === 'error') {
+        showErrorUI();
+      } else if (currentView === 'done') {
+        showDoneUI();
+      }
+    };
 
     // Base deep link URL - will be modified based on type
     const DEEP_LINK_BASE = 'woxuehanyu://auth/';
@@ -230,37 +291,69 @@
       return deepLink + params.toString();
     }
 
-    function showSuccessAndRedirect() {
+    function showSuccessAndRedirect(shouldRedirect = true) {
+      currentView = 'success';
+      const t = getText();
       const deepLink = buildDeepLink();
       const isPasswordReset = type === 'recovery';
 
       // Display success UI immediately
       updateUI(`
         <div class="success-icon">✓</div>
-        <h1>${isPasswordReset ? 'Password Reset Link Verified!' : 'Email Verified!'}</h1>
-        <p class="message">${isPasswordReset ? 'Ready to reset your password.' : 'Your account has been successfully activated.'}</p>
-        <p class="message">Opening <strong>Wo xue Hanyu</strong> app...</p>
-        <a href="${deepLink}" class="button">🚀 Open Wo xue Hanyu App</a>
+        <h1>${isPasswordReset ? t.passwordVerifiedTitle : t.emailVerifiedTitle}</h1>
+        <p class="message">${isPasswordReset ? t.passwordReady : t.accountActivated}</p>
+        <p class="message">${t.openingApp}</p>
+        <a href="${deepLink}" class="button">${t.openApp}</a>
         <div class="info">
-          💡 If the app doesn't open automatically, please click the button above.
+          ${t.fallbackHint}
         </div>
       `);
 
       console.log('Deep link ready:', deepLink);
 
-      // Auto-redirect after a short delay
-      setTimeout(() => {
-        window.location.href = deepLink;
-      }, 1500);
+      if (shouldRedirect) {
+        setTimeout(() => {
+          window.location.href = deepLink;
+        }, 1500);
+      }
     }
 
     function showVerifyingUI() {
+      currentView = 'verifying';
+      const t = getText();
       // Display verification UI when user just clicked email
       updateUI(`
         <div class="success-icon">✓</div>
-        <h1>Verifying Email...</h1>
-        <p class="message">Your account is being activated.</p>
-        <p class="message">Please wait a moment...</p>
+        <h1>${t.verifyingTitle}</h1>
+        <p class="message">${t.verifyingCopy}</p>
+        <p class="message">${t.waitCopy}</p>
+      `);
+    }
+
+    function showErrorUI() {
+      currentView = 'error';
+      const t = getText();
+      updateUI(`
+        <div class="logo">⚠️</div>
+        <h1>${t.errorTitle}</h1>
+        <p class="message error">${errorDescription || t.errorFallback}</p>
+        <p class="message">${t.errorHelp}</p>
+      `);
+    }
+
+    function showDoneUI() {
+      currentView = 'done';
+      const t = getText();
+      const deepLink = buildDeepLink();
+      updateUI(`
+        <div class="success-icon">✓</div>
+        <h1>${type === 'recovery' ? t.passwordVerifiedTitle : t.emailVerifiedTitle}</h1>
+        <p class="message">${type === 'recovery' ? t.passwordReady : t.accountActivated}</p>
+        <p class="message">${t.returnCopy}</p>
+        <a href="${deepLink}" class="button">${t.openApp}</a>
+        <div class="info">
+          ${t.fallbackHint}
+        </div>
       `);
     }
 
@@ -275,6 +368,7 @@
         errorCode,
         fullURL: window.location.href
       });
+      getText();
 
       // Case 1: Has access token in hash (after Supabase redirect)
       if (accessToken) {
@@ -286,12 +380,7 @@
       }
       // Case 3: Has error in hash
       else if (errorCode) {
-        updateUI(`
-          <div class="logo">⚠️</div>
-          <h1>An Error Occurred</h1>
-          <p class="message error">${errorDescription || 'Link is invalid or has expired.'}</p>
-          <p class="message">Please try again or contact support.</p>
-        `);
+        showErrorUI();
       }
       // Case 4: Has verify token in query params (user just clicked email)
       else if (verifyToken && verificationType) {
@@ -302,18 +391,8 @@
       // Case 5: On callback page (after Supabase verify success)
       // Supabase with PKCE flow doesn't return token in URL, app will get session later
       else {
-        const deepLink = buildDeepLink();
         setTimeout(() => {
-          updateUI(`
-            <div class="success-icon">✓</div>
-            <h1>${type === 'recovery' ? 'Password Reset Verified!' : 'Email Verified!'}</h1>
-            <p class="message">${type === 'recovery' ? 'Ready to reset your password.' : 'Your account has been successfully activated.'}</p>
-            <p class="message">You're all set! Return to the app.</p>
-            <a href="${deepLink}" class="button">🚀 Open Wo xue Hanyu App</a>
-            <div class="info">
-              💡 Click the button above to open the app.
-            </div>
-          `);
+          showDoneUI();
         }, 500);
       }
     };

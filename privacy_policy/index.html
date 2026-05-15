@@ -222,6 +222,10 @@
       margin: 40px 0;
     }
 
+    [data-lang-panel][hidden] {
+      display: none;
+    }
+
     .intro {
       background: #f0f9ff;
       border-left: 4px solid #3b82f6;
@@ -296,6 +300,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <!-- Smart App Banner -->
@@ -312,9 +319,10 @@
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
+    <div data-lang-panel="en">
     <h1>Privacy Policy</h1>
     <p class="last-updated"><strong>Last Updated: December 17, 2025</strong></p>
 
@@ -562,20 +570,151 @@
     <hr>
 
     <p><em>By using Wo xue Hanyu, you acknowledge that you have read and understood this Privacy Policy.</em></p>
+    </div>
+
+    <div data-lang-panel="vi" hidden>
+      <h1>Chính Sách Bảo Mật</h1>
+      <p class="last-updated"><strong>Cập nhật lần cuối: 17 tháng 12, 2025</strong></p>
+
+      <div class="intro">
+        <p>Wo xue Hanyu tôn trọng quyền riêng tư của bạn và cam kết bảo vệ dữ liệu cá nhân khi bạn sử dụng ứng dụng học tiếng Trung của chúng tôi.</p>
+      </div>
+
+      <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
+      <h3>1.1 Thông tin bạn cung cấp</h3>
+      <ul>
+        <li><strong>Thông tin tài khoản</strong> (tùy chọn): email, tên, ảnh hồ sơ</li>
+        <li><strong>Dữ liệu học tập</strong>: tiến độ, bài học đã hoàn thành, kết quả luyện tập, chuỗi ngày học</li>
+        <li><strong>Tùy chọn người dùng</strong>: cài đặt ứng dụng, thông báo, tùy chọn ngôn ngữ</li>
+        <li><strong>Liên hệ</strong>: yêu cầu hỗ trợ, phản hồi, khảo sát</li>
+      </ul>
+
+      <h3>1.2 Thông tin tự động thu thập</h3>
+      <ul>
+        <li>Dữ liệu sử dụng, thông tin thiết bị, phiên bản ứng dụng, báo cáo lỗi và thống kê tổng hợp để cải thiện ứng dụng</li>
+      </ul>
+
+      <h3>1.3 Thông tin chúng tôi không thu thập</h3>
+      <ul>
+        <li>Chúng tôi không thu thập thông tin thanh toán trực tiếp; Apple và Google xử lý thanh toán.</li>
+        <li>Chúng tôi không bán dữ liệu cá nhân và không theo dõi bạn trên ứng dụng hoặc website khác.</li>
+      </ul>
+
+      <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
+      <ul>
+        <li>Cung cấp nội dung học cá nhân hóa, đồng bộ tiến độ và hỗ trợ khách hàng</li>
+        <li>Phân tích cách sử dụng để sửa lỗi, tối ưu hiệu năng và phát triển tính năng mới</li>
+        <li>Gửi thông báo quan trọng, phản hồi hỗ trợ và nhắc học nếu bạn chọn nhận</li>
+        <li>Tuân thủ nghĩa vụ pháp lý, bảo vệ quyền lợi và ngăn chặn lạm dụng</li>
+      </ul>
+
+      <h2>3. Lưu Trữ Và Bảo Mật Dữ Liệu</h2>
+      <p>Dữ liệu được lưu trên Supabase và các dịch vụ đám mây liên quan. Chúng tôi áp dụng mã hóa khi truyền tải, kiểm soát truy cập và theo dõi hệ thống để bảo vệ dữ liệu.</p>
+      <p>Dữ liệu tài khoản đang hoạt động được lưu trong thời gian tài khoản còn tồn tại. Dữ liệu của tài khoản đã xóa sẽ được xóa trong vòng 30 ngày, còn bản sao lưu có thể mất đến 90 ngày để được loại bỏ theo chu kỳ backup.</p>
+
+      <h2>4. Chia Sẻ Dữ Liệu</h2>
+      <p>Chúng tôi có thể chia sẻ dữ liệu với nhà cung cấp dịch vụ cần thiết như Supabase, Apple, Google, Sentry và nhà cung cấp phân tích tổng hợp. Chúng tôi không bán dữ liệu cho quảng cáo, data broker hoặc tiếp thị bên thứ ba.</p>
+      <p>Thông tin cũng có thể được tiết lộ khi pháp luật, tòa án hoặc cơ quan có thẩm quyền yêu cầu hợp lệ.</p>
+
+      <h2>5. Quyền Và Lựa Chọn Của Bạn</h2>
+      <ul>
+        <li>Yêu cầu truy cập, chỉnh sửa, xuất hoặc xóa dữ liệu cá nhân</li>
+        <li>Quản lý thông báo trong thiết bị hoặc trong ứng dụng</li>
+        <li>Liên hệ <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>; chúng tôi phản hồi trong vòng 30 ngày</li>
+      </ul>
+
+      <h2>6. Quyền Riêng Tư Của Trẻ Em</h2>
+      <p>Wo xue Hanyu phù hợp với người dùng từ 4 tuổi. Chúng tôi cam kết bảo vệ quyền riêng tư của trẻ em và không cố ý thu thập thông tin cá nhân của trẻ khi chưa có sự đồng ý cần thiết theo luật.</p>
+
+      <h2>7. Chuyển Dữ Liệu Quốc Tế</h2>
+      <p>Dữ liệu có thể được xử lý tại quốc gia khác với nơi bạn sinh sống. Khi cần, chúng tôi áp dụng các biện pháp bảo vệ phù hợp như điều khoản hợp đồng tiêu chuẩn hoặc sự đồng ý rõ ràng.</p>
+
+      <h2>8. Cookie Và Theo Dõi</h2>
+      <p>Ứng dụng có thể dùng dữ liệu thiết yếu, phân tích và tùy chọn để vận hành và cải thiện trải nghiệm. Chúng tôi không cho phép tracker quảng cáo bên thứ ba trong ứng dụng.</p>
+
+      <h2>9. Xóa Tài Khoản</h2>
+      <p>Bạn có thể xóa tài khoản trong ứng dụng hoặc xem hướng dẫn tại <a href="/delete-account">https://woxuehanyu.site/delete-account</a>.</p>
+      <div class="highlight-box">
+        <p><strong>Các bước:</strong></p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>Mở ứng dụng Wo xue Hanyu</li>
+          <li>Vào Settings &gt; Account</li>
+          <li>Chọn Delete Account</li>
+          <li>Xác nhận yêu cầu xóa</li>
+        </ol>
+      </div>
+      <p>Bạn cũng có thể gửi email với tiêu đề <strong>Account Deletion Request</strong> tới <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
+
+      <h2>10. Quyền Riêng Tư Theo Khu Vực</h2>
+      <p>Nếu bạn cư trú tại California, EU/EEA hoặc khu vực có luật bảo vệ dữ liệu riêng, bạn có thể có thêm quyền như quyền biết, xóa, truy cập, chỉnh sửa, hạn chế xử lý, phản đối hoặc khiếu nại với cơ quan giám sát.</p>
+
+      <h2>11. Thay Đổi Chính Sách</h2>
+      <p>Chúng tôi có thể cập nhật chính sách này định kỳ và sẽ thông báo các thay đổi quan trọng qua ứng dụng, email hoặc ngày cập nhật mới trên trang này.</p>
+
+      <h2>12. Liên Hệ</h2>
+      <div class="contact-info">
+        <p><strong>Email:</strong> woxuehanyu.mobile@gmail.com</p>
+        <p><strong>Website:</strong> <a href="https://woxuehanyu.site/privacy_policy">https://woxuehanyu.site/privacy_policy</a></p>
+        <p><strong>Thời gian phản hồi:</strong> Chúng tôi phản hồi các yêu cầu trong vòng 30 ngày.</p>
+      </div>
+
+      <hr>
+      <p><em>Bằng việc sử dụng Wo xue Hanyu, bạn xác nhận rằng bạn đã đọc và hiểu Chính Sách Bảo Mật này.</em></p>
+    </div>
 
     <footer>
-      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/terms_and_conditions">Terms & Conditions</a> •
-        <a href="/EULA">Terms of Use</a> •
-        <a href="/delete-account">Delete Account</a> •
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/terms_and_conditions" id="footerTermsConditions">Terms & Conditions</a> •
+        <a href="/EULA" id="footerTerms">Terms of Use</a> •
+        <a href="/delete-account" id="footerDelete">Delete Account</a> •
+        <a href="/contact" id="footerContact">Contact</a>
       </p>
     </footer>
   </div>
 
   <script>
+    const privacyTranslations = {
+      en: {
+        title: 'Privacy Policy - Wo xue Hanyu',
+        back: 'Back to Home',
+        footer: '© 2025 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        termsConditions: 'Terms & Conditions',
+        terms: 'Terms of Use',
+        deleteAccount: 'Delete Account',
+        contact: 'Contact'
+      },
+      vi: {
+        title: 'Chính Sách Bảo Mật - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        footer: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        termsConditions: 'Điều Khoản & Điều Kiện',
+        terms: 'Điều Khoản Sử Dụng',
+        deleteAccount: 'Xóa Tài Khoản',
+        contact: 'Liên Hệ'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const activeLang = privacyTranslations[lang] ? lang : 'en';
+      const t = privacyTranslations[activeLang];
+      document.documentElement.lang = activeLang;
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerTermsConditions').textContent = t.termsConditions;
+      document.getElementById('footerTerms').textContent = t.terms;
+      document.getElementById('footerDelete').textContent = t.deleteAccount;
+      document.getElementById('footerContact').textContent = t.contact;
+      document.querySelectorAll('[data-lang-panel]').forEach(function(panel) {
+        panel.hidden = panel.getAttribute('data-lang-panel') !== activeLang;
+      });
+    };
+
     // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');

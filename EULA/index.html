@@ -211,6 +211,10 @@
       font-weight: 600;
     }
 
+    [data-lang-panel][hidden] {
+      display: none;
+    }
+
     hr {
       border: none;
       border-top: 2px solid #e5e7eb;
@@ -267,6 +271,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <!-- Smart App Banner -->
@@ -283,9 +290,10 @@
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
+    <div data-lang-panel="en">
     <h1>Terms of Use</h1>
     <p class="last-updated"><strong>Last Updated: December 17, 2025</strong></p>
 
@@ -409,19 +417,123 @@
     <hr>
 
     <p><em>By using Wo xue Hanyu, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use.</em></p>
+    </div>
+
+    <div data-lang-panel="vi" hidden>
+      <h1>Điều Khoản Sử Dụng</h1>
+      <p class="last-updated"><strong>Cập nhật lần cuối: 17 tháng 12, 2025</strong></p>
+
+      <h2>1. Chấp Nhận Điều Khoản</h2>
+      <p>Khi tải xuống, cài đặt hoặc sử dụng Wo xue Hanyu, bạn đồng ý tuân thủ các Điều Khoản Sử Dụng này. Nếu không đồng ý, vui lòng không sử dụng ứng dụng.</p>
+
+      <h2>2. Mô Tả Dịch Vụ</h2>
+      <p>Wo xue Hanyu là ứng dụng học tiếng Trung cung cấp bài học tương tác, luyện từ vựng, hướng dẫn phát âm, theo dõi tiến độ, lộ trình học cá nhân hóa và các tính năng thuê bao cao cấp.</p>
+
+      <h2>3. Điều Khoản Thuê Bao</h2>
+      <h3>3.1 Thuê bao tự động gia hạn</h3>
+      <ul>
+        <li>Thuê bao tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kỳ hiện tại kết thúc.</li>
+        <li>Tài khoản của bạn sẽ bị tính phí gia hạn trong vòng 24 giờ trước khi kỳ hiện tại kết thúc.</li>
+        <li>Bạn có thể quản lý hoặc tắt tự động gia hạn trong Apple ID Account Settings hoặc Google Play Account Settings.</li>
+      </ul>
+
+      <h3>3.2 Gói thuê bao, dùng thử và hủy</h3>
+      <p>Giá và gói thuê bao hiển thị trong ứng dụng và có thể khác nhau theo khu vực. Nếu có dùng thử miễn phí, bạn cần hủy trước khi hết thời gian dùng thử để tránh bị tính phí. Việc hủy có hiệu lực vào cuối kỳ thanh toán hiện tại.</p>
+
+      <h3>3.3 Hoàn tiền</h3>
+      <p>Mọi giao dịch được xử lý qua App Store hoặc Google Play và tuân theo chính sách hoàn tiền của từng nền tảng.</p>
+
+      <h2>4. Tài Khoản Người Dùng</h2>
+      <p>Đăng ký tài khoản là tùy chọn nhưng được khuyến nghị để đồng bộ tiến độ. Bạn chịu trách nhiệm bảo mật thông tin đăng nhập và cung cấp thông tin chính xác. Bạn có thể xóa tài khoản trong phần cài đặt ứng dụng.</p>
+
+      <h2>5. Hành Vi Người Dùng</h2>
+      <p>Bạn đồng ý không sử dụng ứng dụng cho mục đích bất hợp pháp, chia sẻ thông tin đăng nhập, tấn công hoặc đảo ngược kỹ thuật ứng dụng, tải nội dung độc hại hoặc vi phạm luật áp dụng.</p>
+
+      <h2>6. Sở Hữu Trí Tuệ</h2>
+      <p>Nội dung, tính năng, giao diện, logo, âm thanh và phần mềm của ứng dụng thuộc sở hữu của Wo xue Hanyu và được bảo vệ bởi luật bản quyền, nhãn hiệu và sở hữu trí tuệ.</p>
+
+      <h2>7. Nội Dung Và Dữ Liệu Người Dùng</h2>
+      <p>Dữ liệu học tập, ghi chú và tùy chọn do bạn tạo vẫn thuộc về bạn. Chúng tôi chỉ lưu trữ và xử lý dữ liệu này để cung cấp và cải thiện dịch vụ. Bạn có thể xuất hoặc xóa dữ liệu theo khả năng được hỗ trợ.</p>
+
+      <h2>8. Tuyên Bố Miễn Trừ</h2>
+      <p>Chúng tôi cố gắng duy trì dịch vụ ổn định nhưng không bảo đảm truy cập không gián đoạn. Ứng dụng hỗ trợ học ngôn ngữ nhưng không bảo đảm mức độ thành thạo cụ thể; kết quả phụ thuộc vào nỗ lực và cách học của từng người.</p>
+
+      <h2>9. Giới Hạn Trách Nhiệm</h2>
+      <p>Trong phạm vi tối đa pháp luật cho phép, Wo xue Hanyu không chịu trách nhiệm đối với thiệt hại gián tiếp, ngẫu nhiên, đặc biệt, hệ quả, mất lợi nhuận, mất dữ liệu hoặc tổn thất vô hình khác.</p>
+
+      <h2>10. Thay Đổi Điều Khoản</h2>
+      <p>Chúng tôi có thể sửa đổi các điều khoản bất kỳ lúc nào. Thay đổi quan trọng sẽ được thông báo qua ứng dụng hoặc email. Việc tiếp tục sử dụng sau khi thay đổi có nghĩa là bạn chấp nhận điều khoản mới.</p>
+
+      <h2>11. Luật Áp Dụng</h2>
+      <p>Các điều khoản này được điều chỉnh theo luật của khu vực áp dụng, không xét đến quy tắc xung đột pháp luật.</p>
+
+      <h2>12. Liên Hệ</h2>
+      <div class="contact-info">
+        <p>Nếu có câu hỏi về các điều khoản này, vui lòng liên hệ:</p>
+        <p><strong>Email:</strong> woxuehanyu.mobile@gmail.com</p>
+        <p><strong>Website:</strong> <a href="https://woxuehanyu.site/support">https://woxuehanyu.site/support</a></p>
+      </div>
+
+      <h2>13. Điều Khoản Theo Nền Tảng</h2>
+      <p><strong>Người dùng iOS:</strong> Các điều khoản này là giữa bạn và Wo xue Hanyu, không phải Apple. Apple không chịu trách nhiệm về ứng dụng hoặc nội dung ứng dụng.</p>
+      <p><strong>Người dùng Android:</strong> Các điều khoản này là giữa bạn và Wo xue Hanyu, không phải Google. Google không chịu trách nhiệm về ứng dụng hoặc nội dung ứng dụng.</p>
+
+      <h2>14. Tính Hiệu Lực Từng Phần</h2>
+      <p>Nếu bất kỳ điều khoản nào không thể thực thi hoặc không hợp lệ, điều khoản đó sẽ được giới hạn hoặc loại bỏ ở mức tối thiểu cần thiết; các điều khoản còn lại vẫn có hiệu lực.</p>
+
+      <hr>
+      <p><em>Bằng việc sử dụng Wo xue Hanyu, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý bị ràng buộc bởi Điều Khoản Sử Dụng này.</em></p>
+    </div>
 
     <footer>
-      <p>&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/terms_and_conditions">Terms & Conditions</a> •
-        <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/terms_and_conditions" id="footerTermsConditions">Terms & Conditions</a> •
+        <a href="/privacy_policy" id="footerPrivacy">Privacy Policy</a> •
+        <a href="/contact" id="footerContact">Contact</a>
       </p>
     </footer>
   </div>
 
   <script>
+    const eulaTranslations = {
+      en: {
+        title: 'Terms of Use - Wo xue Hanyu',
+        back: 'Back to Home',
+        footer: '© 2025 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        termsConditions: 'Terms & Conditions',
+        privacy: 'Privacy Policy',
+        contact: 'Contact'
+      },
+      vi: {
+        title: 'Điều Khoản Sử Dụng - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        footer: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        termsConditions: 'Điều Khoản & Điều Kiện',
+        privacy: 'Chính Sách Bảo Mật',
+        contact: 'Liên Hệ'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const activeLang = eulaTranslations[lang] ? lang : 'en';
+      const t = eulaTranslations[activeLang];
+      document.documentElement.lang = activeLang;
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerTermsConditions').textContent = t.termsConditions;
+      document.getElementById('footerPrivacy').textContent = t.privacy;
+      document.getElementById('footerContact').textContent = t.contact;
+      document.querySelectorAll('[data-lang-panel]').forEach(function(panel) {
+        panel.hidden = panel.getAttribute('data-lang-panel') !== activeLang;
+      });
+    };
+
     // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');

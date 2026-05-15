@@ -167,28 +167,31 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
-    <h1>Foreground Service Media Playback</h1>
-    <p class="subtitle">This page is provided for Google Play policy review of the <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code> permission used by Wo xue Hanyu.</p>
+    <h1 id="pageTitle">Foreground Service Media Playback</h1>
+    <p class="subtitle" id="subtitle">This page is provided for Google Play policy review of the <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code> permission used by Wo xue Hanyu.</p>
 
     <div class="summary">
-      <p><strong>Declared task:</strong> Media playback</p>
-      <p><strong>Use case:</strong> The app plays user-requested learning audio and other lesson media, and playback may continue while the user is no longer directly interacting with the app.</p>
-      <p><strong>Review material:</strong> The video below demonstrates the in-app media playback flow for this permission.</p>
+      <p><strong id="declaredTaskLabel">Declared task:</strong> <span id="declaredTask">Media playback</span></p>
+      <p><strong id="useCaseLabel">Use case:</strong> <span id="useCase">The app plays user-requested learning audio and other lesson media, and playback may continue while the user is no longer directly interacting with the app.</span></p>
+      <p><strong id="reviewMaterialLabel">Review material:</strong> <span id="reviewMaterial">The video below demonstrates the in-app media playback flow for this permission.</span></p>
     </div>
 
-    <h2>Policy Description</h2>
+    <h2 id="policyTitle">Policy Description</h2>
     <ul>
-      <li>The permission is used only for foreground media playback started by the user.</li>
-      <li>The playback task is noticeable to the user because audio continues while the app is backgrounded or the user switches away from the current screen.</li>
-      <li>This page hosts the demonstration video requested for Google Play review.</li>
+      <li id="policy1">The permission is used only for foreground media playback started by the user.</li>
+      <li id="policy2">The playback task is noticeable to the user because audio continues while the app is backgrounded or the user switches away from the current screen.</li>
+      <li id="policy3">This page hosts the demonstration video requested for Google Play review.</li>
     </ul>
 
     <div class="video-frame">
@@ -196,23 +199,99 @@
         <source src="/assets/videos/foreground-playback-compressed.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <p class="video-note">If playback does not start in your browser, use the direct video file link below.</p>
+      <p class="video-note" id="videoNote">If playback does not start in your browser, use the direct video file link below.</p>
     </div>
 
     <div class="link-box">
-      <p><strong>Direct video link:</strong></p>
+      <p><strong id="directVideoLabel">Direct video link:</strong></p>
       <p><a href="/assets/videos/foreground-playback-compressed.mp4">https://woxuehanyu.site/assets/videos/foreground-playback-compressed.mp4</a></p>
     </div>
 
     <footer>
-      <p>&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/delete-account">Delete Account</a> •
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/privacy_policy" id="footerPrivacy">Privacy Policy</a> •
+        <a href="/delete-account" id="footerDelete">Delete Account</a> •
+        <a href="/contact" id="footerContact">Contact</a>
       </p>
     </footer>
   </div>
+  <script>
+    const foregroundTranslations = {
+      en: {
+        title: 'Foreground Service Media Playback - Wo xue Hanyu',
+        back: 'Back to Home',
+        pageTitle: 'Foreground Service Media Playback',
+        subtitle: 'This page is provided for Google Play policy review of the FOREGROUND_SERVICE_MEDIA_PLAYBACK permission used by Wo xue Hanyu.',
+        declaredTaskLabel: 'Declared task:',
+        declaredTask: 'Media playback',
+        useCaseLabel: 'Use case:',
+        useCase: 'The app plays user-requested learning audio and other lesson media, and playback may continue while the user is no longer directly interacting with the app.',
+        reviewMaterialLabel: 'Review material:',
+        reviewMaterial: 'The video below demonstrates the in-app media playback flow for this permission.',
+        policyTitle: 'Policy Description',
+        policy1: 'The permission is used only for foreground media playback started by the user.',
+        policy2: 'The playback task is noticeable to the user because audio continues while the app is backgrounded or the user switches away from the current screen.',
+        policy3: 'This page hosts the demonstration video requested for Google Play review.',
+        videoNote: 'If playback does not start in your browser, use the direct video file link below.',
+        directVideoLabel: 'Direct video link:',
+        footer: '© 2026 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        privacy: 'Privacy Policy',
+        deleteAccount: 'Delete Account',
+        contact: 'Contact'
+      },
+      vi: {
+        title: 'Phát Media Bằng Foreground Service - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        pageTitle: 'Phát Media Bằng Foreground Service',
+        subtitle: 'Trang này được cung cấp cho quá trình xét duyệt chính sách Google Play đối với quyền FOREGROUND_SERVICE_MEDIA_PLAYBACK mà Wo xue Hanyu sử dụng.',
+        declaredTaskLabel: 'Tác vụ khai báo:',
+        declaredTask: 'Phát media',
+        useCaseLabel: 'Trường hợp sử dụng:',
+        useCase: 'Ứng dụng phát âm thanh học tập và media bài học do người dùng yêu cầu; quá trình phát có thể tiếp tục khi người dùng không còn tương tác trực tiếp với ứng dụng.',
+        reviewMaterialLabel: 'Tài liệu xét duyệt:',
+        reviewMaterial: 'Video bên dưới minh họa luồng phát media trong ứng dụng cho quyền này.',
+        policyTitle: 'Mô Tả Chính Sách',
+        policy1: 'Quyền này chỉ được dùng cho foreground media playback do người dùng khởi động.',
+        policy2: 'Tác vụ phát có thể nhận biết được vì âm thanh tiếp tục khi ứng dụng ở nền hoặc khi người dùng chuyển khỏi màn hình hiện tại.',
+        policy3: 'Trang này lưu video minh họa được yêu cầu cho quá trình xét duyệt Google Play.',
+        videoNote: 'Nếu video không phát trong trình duyệt, hãy dùng liên kết tệp video trực tiếp bên dưới.',
+        directVideoLabel: 'Liên kết video trực tiếp:',
+        footer: '© 2026 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        privacy: 'Chính Sách Bảo Mật',
+        deleteAccount: 'Xóa Tài Khoản',
+        contact: 'Liên Hệ'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const t = foregroundTranslations[lang] || foregroundTranslations.en;
+      document.documentElement.lang = foregroundTranslations[lang] ? lang : 'en';
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('pageTitle').textContent = t.pageTitle;
+      document.getElementById('subtitle').innerHTML = t.subtitle.replace('FOREGROUND_SERVICE_MEDIA_PLAYBACK', '<code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code>');
+      document.getElementById('declaredTaskLabel').textContent = t.declaredTaskLabel;
+      document.getElementById('declaredTask').textContent = t.declaredTask;
+      document.getElementById('useCaseLabel').textContent = t.useCaseLabel;
+      document.getElementById('useCase').textContent = t.useCase;
+      document.getElementById('reviewMaterialLabel').textContent = t.reviewMaterialLabel;
+      document.getElementById('reviewMaterial').textContent = t.reviewMaterial;
+      document.getElementById('policyTitle').textContent = t.policyTitle;
+      document.getElementById('policy1').textContent = t.policy1;
+      document.getElementById('policy2').textContent = t.policy2;
+      document.getElementById('policy3').textContent = t.policy3;
+      document.getElementById('videoNote').textContent = t.videoNote;
+      document.getElementById('directVideoLabel').textContent = t.directVideoLabel;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerPrivacy').textContent = t.privacy;
+      document.getElementById('footerDelete').textContent = t.deleteAccount;
+      document.getElementById('footerContact').textContent = t.contact;
+    };
+  </script>
 </body>
 </html>

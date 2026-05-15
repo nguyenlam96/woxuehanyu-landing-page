@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Confirmed - Wo xue Hanyu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-  <!-- iOS Smart Banner - Replace YOUR_APP_STORE_ID with actual App Store ID -->
-  <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID">
+  <!-- iOS Smart Banner -->
+  <meta name="apple-itunes-app" content="app-id=6754384426">
   <style>
     * {
       margin: 0;
@@ -198,6 +198,9 @@
       transform: translateY(0);
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <div class="container">
@@ -237,8 +240,7 @@
 
     // Localization: Detect language from URL param or browser
     const langParam = urlParams.get('lang');
-    const browserLang = navigator.language || navigator.userLanguage;
-    const userLang = langParam || (browserLang.startsWith('vi') ? 'vi' : 'en');
+    let userLang = langParam || (localStorage.getItem('woxuehanyu-lang')) || ((navigator.language || navigator.userLanguage || '').startsWith('vi') ? 'vi' : 'en');
 
     // Translations
     const translations = {
@@ -266,26 +268,27 @@
       }
     };
 
-    // Get current language translations
-    const t = translations[userLang] || translations.en;
+    function applyPageLanguage(lang) {
+      userLang = translations[lang] ? lang : 'en';
+      const t = translations[userLang] || translations.en;
+      document.documentElement.lang = userLang;
+      document.title = t.pageTitle;
+      document.getElementById('heading').textContent = t.heading;
+      document.getElementById('message').textContent = t.message;
+      document.getElementById('infoMessage').textContent = t.infoMessage;
+      document.getElementById('openAppBtn').textContent = t.buttonText;
+      document.getElementById('nextStepsHeading').textContent = t.nextStepsHeading;
 
-    // Update page title
-    document.title = t.pageTitle;
+      const nextStepsList = document.getElementById('nextStepsList');
+      nextStepsList.innerHTML = `
+        <li>${t.nextStep1}</li>
+        <li>${t.nextStep2}</li>
+        <li>${t.nextStep3}</li>
+      `;
+    }
 
-    // Update UI with translations
-    document.getElementById('heading').textContent = t.heading;
-    document.getElementById('message').textContent = t.message;
-    document.getElementById('infoMessage').textContent = t.infoMessage;
-    document.getElementById('openAppBtn').textContent = t.buttonText;
-    document.getElementById('nextStepsHeading').textContent = t.nextStepsHeading;
-
-    // Update next steps list
-    const nextStepsList = document.getElementById('nextStepsList');
-    nextStepsList.innerHTML = `
-      <li>${t.nextStep1}</li>
-      <li>${t.nextStep2}</li>
-      <li>${t.nextStep3}</li>
-    `;
+    window.applyLanguage = applyPageLanguage;
+    applyPageLanguage(userLang);
 
     // Display email if available
     if (email) {

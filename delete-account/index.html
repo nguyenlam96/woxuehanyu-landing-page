@@ -207,6 +207,10 @@
       padding: 28px;
     }
 
+    .section-card[hidden] {
+      display: none;
+    }
+
     h2 {
       font-size: 28px;
       font-weight: 700;
@@ -297,6 +301,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+
 </head>
 <body>
   <div class="smart-banner" id="smartBanner">
@@ -312,20 +319,20 @@
   <div class="container">
     <a href="/" class="back-link">
       <span>←</span>
-      <span>Back to Home</span>
+      <span id="backText">Back to Home</span>
     </a>
 
-    <h1>Account Deletion</h1>
-    <p class="last-updated"><strong>Last Updated: April 30, 2026</strong></p>
-    <p class="lead">This page explains how to delete your Wo xue Hanyu account, what data will be deleted, and what limited data may be retained for legal or financial compliance.</p>
+    <h1 id="pageTitle">Account Deletion</h1>
+    <p class="last-updated"><strong id="lastUpdated">Last Updated: April 30, 2026</strong></p>
+    <p class="lead" id="leadText">This page explains how to delete your Wo xue Hanyu account, what data will be deleted, and what limited data may be retained for legal or financial compliance.</p>
 
     <div class="notice">
-      <p><strong>Account deletion URL for Google Play:</strong> <a href="https://woxuehanyu.site/delete-account">https://woxuehanyu.site/delete-account</a></p>
-      <p>You can request deletion inside the app or by email at <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
+      <p><strong id="googlePlayLabel">Account deletion URL for Google Play:</strong> <a href="https://woxuehanyu.site/delete-account">https://woxuehanyu.site/delete-account</a></p>
+      <p id="requestText">You can request deletion inside the app or by email at <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
     </div>
 
     <div class="language-sections">
-      <section class="section-card" aria-labelledby="en-section">
+      <section class="section-card" data-lang-panel="en" aria-labelledby="en-section">
         <h2 id="en-section">English</h2>
 
         <h3>How to delete your account</h3>
@@ -358,7 +365,7 @@
         </ul>
       </section>
 
-      <section class="section-card" aria-labelledby="vi-section">
+      <section class="section-card" data-lang-panel="vi" aria-labelledby="vi-section">
         <h2 id="vi-section">Tiếng Việt</h2>
 
         <h3>Cách xóa tài khoản</h3>
@@ -393,21 +400,76 @@
     </div>
 
     <div class="cta-box">
-      <p><strong>Need more details?</strong> See our <a href="/privacy_policy">Privacy Policy</a> or contact <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
+      <p id="ctaText"><strong>Need more details?</strong> See our <a href="/privacy_policy">Privacy Policy</a> or contact <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.</p>
     </div>
 
     <footer>
-      <p>&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
+      <p id="footerCopyright">&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
       <p style="margin-top: 12px;">
-        <a href="/">Home</a> •
-        <a href="/privacy_policy">Privacy Policy</a> •
-        <a href="/terms_and_conditions">Terms &amp; Conditions</a> •
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a> •
+        <a href="/privacy_policy" id="footerPrivacy">Privacy Policy</a> •
+        <a href="/terms_and_conditions" id="footerTerms">Terms &amp; Conditions</a> •
+        <a href="/contact" id="footerContact">Contact</a>
       </p>
     </footer>
   </div>
 
   <script>
+    const deleteAccountTranslations = {
+      en: {
+        title: 'Account Deletion - Wo xue Hanyu',
+        back: 'Back to Home',
+        pageTitle: 'Account Deletion',
+        lastUpdated: 'Last Updated: April 30, 2026',
+        lead: 'This page explains how to delete your Wo xue Hanyu account, what data will be deleted, and what limited data may be retained for legal or financial compliance.',
+        googlePlay: 'Account deletion URL for Google Play:',
+        request: 'You can request deletion inside the app or by email at <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.',
+        cta: '<strong>Need more details?</strong> See our <a href="/privacy_policy">Privacy Policy</a> or contact <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.',
+        footer: '© 2026 Wo xue Hanyu. All rights reserved.',
+        home: 'Home',
+        privacy: 'Privacy Policy',
+        terms: 'Terms & Conditions',
+        contact: 'Contact'
+      },
+      vi: {
+        title: 'Xóa Tài Khoản - Wo xue Hanyu',
+        back: 'Về trang chủ',
+        pageTitle: 'Xóa Tài Khoản',
+        lastUpdated: 'Cập nhật lần cuối: 30 tháng 4, 2026',
+        lead: 'Trang này giải thích cách xóa tài khoản Wo xue Hanyu, dữ liệu nào sẽ bị xóa và dữ liệu giới hạn nào có thể được lưu giữ vì yêu cầu pháp lý hoặc tài chính.',
+        googlePlay: 'URL xóa tài khoản cho Google Play:',
+        request: 'Bạn có thể yêu cầu xóa trong ứng dụng hoặc qua email tại <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.',
+        cta: '<strong>Cần thêm chi tiết?</strong> Xem <a href="/privacy_policy">Chính Sách Bảo Mật</a> hoặc liên hệ <a href="mailto:woxuehanyu.mobile@gmail.com">woxuehanyu.mobile@gmail.com</a>.',
+        footer: '© 2026 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        home: 'Trang chủ',
+        privacy: 'Chính Sách Bảo Mật',
+        terms: 'Điều Khoản & Điều Kiện',
+        contact: 'Liên Hệ'
+      }
+    };
+
+    window.applyLanguage = function(lang) {
+      const activeLang = deleteAccountTranslations[lang] ? lang : 'en';
+      const t = deleteAccountTranslations[activeLang];
+      document.documentElement.lang = activeLang;
+      document.title = t.title;
+      document.getElementById('backText').textContent = t.back;
+      document.getElementById('pageTitle').textContent = t.pageTitle;
+      document.getElementById('lastUpdated').textContent = t.lastUpdated;
+      document.getElementById('leadText').textContent = t.lead;
+      document.getElementById('googlePlayLabel').textContent = t.googlePlay;
+      document.getElementById('requestText').innerHTML = t.request;
+      document.getElementById('ctaText').innerHTML = t.cta;
+      document.getElementById('footerCopyright').textContent = t.footer;
+      document.getElementById('footerHome').textContent = t.home;
+      document.getElementById('footerPrivacy').textContent = t.privacy;
+      document.getElementById('footerTerms').textContent = t.terms;
+      document.getElementById('footerContact').textContent = t.contact;
+      document.querySelectorAll('[data-lang-panel]').forEach(function(panel) {
+        panel.hidden = panel.getAttribute('data-lang-panel') !== activeLang;
+      });
+    };
+
     (function() {
       const banner = document.getElementById('smartBanner');
       const bannerButton = document.getElementById('bannerButton');
