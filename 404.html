@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wo xue Hanyu</title>
+  <link rel="icon" href="/assets/app_icon.png">
+  <meta name="description" content="Download the Wo xue Hanyu app to view this video.">
+  <meta name="apple-itunes-app" content="app-id=6754384426">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #dbe4ee;
+      --brand: #2563eb;
+      --brand-strong: #1d4ed8;
+      --brand-soft: #eff6ff;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 34%),
+        linear-gradient(180deg, #eff6ff 0%, #f8fafc 42%, #eef2ff 100%);
+      color: var(--text);
+    }
+
+    .shell {
+      width: min(640px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 28px 28px 20px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(99, 102, 241, 0.08));
+      border-bottom: 1px solid rgba(219, 228, 238, 0.8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.18);
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .headline {
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .copy {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 52ch;
+    }
+
+    .content {
+      padding: 24px 28px 28px;
+    }
+
+    .video-meta {
+      display: none;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #f8fbff;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .video-meta strong {
+      color: var(--text);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--brand);
+      color: white;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+    }
+
+    .button.primary:hover {
+      background: var(--brand-strong);
+    }
+
+    .button.secondary {
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+      border-color: rgba(37, 99, 235, 0.16);
+    }
+
+    .button.secondary:hover {
+      background: #dbeafe;
+    }
+
+    .note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .generic {
+      display: none;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .generic a {
+      color: var(--brand-strong);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 16px;
+      }
+
+      .hero,
+      .content {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .headline {
+        font-size: 28px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" aria-live="polite">
+    <section class="hero">
+      <div class="brand">
+        <img src="/assets/app_icon.png" alt="Wo xue Hanyu app icon">
+        <h1>Wo xue Hanyu</h1>
+      </div>
+      <div id="videoFallback">
+        <div class="headline">Open this video in the app</div>
+        <p class="copy">This shared video link works best inside the Wo xue Hanyu app. Install the app to watch the full video experience.</p>
+      </div>
+      <div id="genericFallback" style="display:none;">
+        <div class="headline">Page not found</div>
+        <p class="copy">The page you requested does not exist. If you were trying to open a shared video link, install the app to continue.</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div id="videoMeta" class="video-meta"></div>
+      <div class="actions">
+        <a class="button primary" href="https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426" target="_blank" rel="noopener noreferrer">Download on App Store</a>
+        <a class="button secondary" href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" target="_blank" rel="noopener noreferrer">Get it on Google Play</a>
+      </div>
+      <p class="note" id="noteText">If the app is already installed, open the original link again from your device.</p>
+      <p class="generic" id="genericText"><a href="/">Go back home</a></p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const pathname = window.location.pathname || '';
+      const isTubeVideo = /^\/tube\/video\/[^/]+\/?$/.test(pathname);
+      const videoFallback = document.getElementById('videoFallback');
+      const genericFallback = document.getElementById('genericFallback');
+      const videoMeta = document.getElementById('videoMeta');
+      const actions = document.querySelector('.actions');
+      const noteText = document.getElementById('noteText');
+      const genericText = document.getElementById('genericText');
+
+      if (isTubeVideo) {
+        videoMeta.style.display = 'block';
+        videoMeta.textContent = '';
+        const label = document.createElement('strong');
+        label.textContent = 'Video link: ';
+        const value = document.createElement('span');
+        value.textContent = pathname.replace(/^\/tube\/video\//, '').replace(/\/$/, '');
+        videoMeta.appendChild(label);
+        videoMeta.appendChild(value);
+        noteText.textContent = 'Open the link again after installing the app, or tap one of the store buttons above.';
+      } else {
+        videoFallback.style.display = 'none';
+        genericFallback.style.display = 'block';
+        actions.style.display = 'none';
+        noteText.style.display = 'none';
+        genericText.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>
