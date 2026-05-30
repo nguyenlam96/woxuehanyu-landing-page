@@ -10,6 +10,7 @@
   --legal-red: #bf3630;
   --legal-shadow: 0 24px 70px rgba(50, 42, 33, 0.13);
   --legal-radius: 8px;
+  --legal-font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
@@ -20,7 +21,7 @@ body {
     linear-gradient(180deg, #ffffff 0%, var(--legal-bg) 48%, #eef7f4 100%) !important;
   background-size: 48px 48px, auto !important;
   color: var(--legal-ink) !important;
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: var(--legal-font) !important;
 }
 
 body.smart-banner-visible {
@@ -86,7 +87,7 @@ h1 {
   background: none !important;
   -webkit-text-fill-color: currentColor !important;
   color: var(--legal-ink) !important;
-  font-family: ui-serif, Georgia, "Times New Roman", serif !important;
+  font-family: var(--legal-font) !important;
   font-size: 52px !important;
   line-height: 1.02 !important;
   font-weight: 900 !important;
@@ -97,7 +98,7 @@ h2 {
   margin-top: 42px !important;
   margin-bottom: 14px !important;
   color: var(--legal-ink) !important;
-  font-family: ui-serif, Georgia, "Times New Roman", serif !important;
+  font-family: var(--legal-font) !important;
   font-size: 30px !important;
   line-height: 1.14 !important;
   font-weight: 900 !important;

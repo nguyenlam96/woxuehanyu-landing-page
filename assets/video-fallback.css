@@ -8,6 +8,7 @@
   --fallback-blue-strong: #075f94;
   --fallback-shadow: 0 24px 70px rgba(50, 42, 33, 0.13);
   --fallback-radius: 8px;
+  --fallback-font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
@@ -18,7 +19,7 @@ body {
     linear-gradient(180deg, #ffffff 0%, var(--fallback-bg) 48%, #eef7f4 100%) !important;
   background-size: 48px 48px, auto !important;
   color: var(--fallback-ink) !important;
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: var(--fallback-font) !important;
 }
 
 .shell {
@@ -53,7 +54,7 @@ body {
 .headline {
   max-width: 12ch;
   color: var(--fallback-ink) !important;
-  font-family: ui-serif, Georgia, "Times New Roman", serif !important;
+  font-family: var(--fallback-font) !important;
   font-size: 48px !important;
   line-height: 1.02 !important;
   font-weight: 900 !important;
