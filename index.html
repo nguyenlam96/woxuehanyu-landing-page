@@ -1035,27 +1035,12 @@
               </div>
             </div>
 
-            <div class="screenshot-grid" aria-label="App screenshots">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss.png" src="/assets/Preview/phone-en/0x0ss.png" alt="Wo xue Hanyu phone preview 1" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-2.png" src="/assets/Preview/phone-en/0x0ss-2.png" alt="Wo xue Hanyu phone preview 2" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-3.png" src="/assets/Preview/phone-en/0x0ss-3.png" alt="Wo xue Hanyu phone preview 3" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-4.png" src="/assets/Preview/phone-en/0x0ss-4.png" alt="Wo xue Hanyu phone preview 4" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-5.png" src="/assets/Preview/phone-en/0x0ss-5.png" alt="Wo xue Hanyu phone preview 5" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-6.png" src="/assets/Preview/phone-en/0x0ss-6.png" alt="Wo xue Hanyu phone preview 6" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-7.png" src="/assets/Preview/phone-en/0x0ss-7.png" alt="Wo xue Hanyu phone preview 7" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-8.png" src="/assets/Preview/phone-en/0x0ss-8.png" alt="Wo xue Hanyu phone preview 8" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-9.png" src="/assets/Preview/phone-en/0x0ss-9.png" alt="Wo xue Hanyu phone preview 9" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-10.png" src="/assets/Preview/phone-en/0x0ss-10.png" alt="Wo xue Hanyu phone preview 10" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss.png" src="/assets/Preview/tablet-en/0x0ss.png" alt="Wo xue Hanyu tablet preview 1" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-2.png" src="/assets/Preview/tablet-en/0x0ss-2.png" alt="Wo xue Hanyu tablet preview 2" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-3.png" src="/assets/Preview/tablet-en/0x0ss-3.png" alt="Wo xue Hanyu tablet preview 3" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-4.png" src="/assets/Preview/tablet-en/0x0ss-4.png" alt="Wo xue Hanyu tablet preview 4" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-5.png" src="/assets/Preview/tablet-en/0x0ss-5.png" alt="Wo xue Hanyu tablet preview 5" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-6.png" src="/assets/Preview/tablet-en/0x0ss-6.png" alt="Wo xue Hanyu tablet preview 6" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-7.png" src="/assets/Preview/tablet-en/0x0ss-7.png" alt="Wo xue Hanyu tablet preview 7" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-8.png" src="/assets/Preview/tablet-en/0x0ss-8.png" alt="Wo xue Hanyu tablet preview 8" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-9.png" src="/assets/Preview/tablet-en/0x0ss-9.png" alt="Wo xue Hanyu tablet preview 9" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-10.png" src="/assets/Preview/tablet-en/0x0ss-10.png" alt="Wo xue Hanyu tablet preview 10" loading="lazy">
+            <div>
+              <div class="preview-tabs" role="tablist" aria-label="Preview device">
+                <button class="preview-tab is-active" id="preview-phone-tab" type="button" role="tab" aria-selected="true" data-preview-device="phone">Phone</button>
+                <button class="preview-tab" id="preview-tablet-tab" type="button" role="tab" aria-selected="false" data-preview-device="tablet">Tablet</button>
+              </div>
+              <div class="screenshot-grid" id="previewGrid" aria-label="App screenshots"></div>
             </div>
           </div>
         </div>
@@ -1136,12 +1121,16 @@
         heroLede: 'Learn Mandarin through real videos, contextual vocabulary, HSK exam practice, writing tools, and offline study.',
         downloadIos: 'Download on App Store',
         downloadAndroid: 'Get it on Google Play',
-        heroStat1Number: '6,000+',
-        heroStat1Label: 'HSK vocabulary words',
-        heroStat2Number: '200+',
-        heroStat2Label: 'HSK mock exams',
-        heroStat3Number: 'Offline',
-        heroStat3Label: 'Study anywhere',
+        heroStat1Number: 'Thousands',
+        heroStat1Label: 'Podcasts, vlogs, and shorts with dual subtitles',
+        heroStat2Number: '1,000+',
+        heroStat2Label: 'Structured lessons',
+        heroStat3Number: '6,000+',
+        heroStat3Label: 'HSK vocabulary words',
+        heroStat4Number: '200+',
+        heroStat4Label: 'HSK mock exams',
+        heroStat5Number: 'Offline',
+        heroStat5Label: 'Study anywhere',
         noteWord: '学习',
         notePinyin: 'xuexi',
         noteMeaning: 'Learn with vocabulary, pinyin, audio, and context.',
@@ -1159,6 +1148,8 @@
         previewKicker: 'Inside the app',
         previewTitle: 'Preview the core study screens before you install.',
         previewCopy: 'The landing page uses the same App Store preview images, matched to your selected language.',
+        previewPhone: 'Phone',
+        previewTablet: 'Tablet',
         gallery1Title: 'Watch and read together',
         gallery1Desc: 'Video, subtitles, pinyin, and translation stay aligned for focused listening practice.',
         gallery2Title: 'Save vocabulary instantly',
@@ -1198,12 +1189,16 @@
         heroLede: 'Học tiếng Trung qua video thực tế, từ vựng theo ngữ cảnh, luyện thi HSK, công cụ luyện viết và học offline.',
         downloadIos: 'Tải trên App Store',
         downloadAndroid: 'Tải trên Google Play',
-        heroStat1Number: '6.000+',
-        heroStat1Label: 'Từ vựng HSK',
-        heroStat2Number: '200+',
-        heroStat2Label: 'Đề thi thử HSK',
-        heroStat3Number: 'Offline',
-        heroStat3Label: 'Học mọi lúc',
+        heroStat1Number: 'Hàng nghìn',
+        heroStat1Label: 'Podcast, vlog và shorts có phụ đề song ngữ',
+        heroStat2Number: '1.000+',
+        heroStat2Label: 'Bài học theo cấu trúc chuẩn',
+        heroStat3Number: '6.000+',
+        heroStat3Label: 'Từ vựng HSK',
+        heroStat4Number: '200+',
+        heroStat4Label: 'Đề thi thử HSK',
+        heroStat5Number: 'Offline',
+        heroStat5Label: 'Học mọi lúc',
         noteWord: '学习',
         notePinyin: 'xuexi',
         noteMeaning: 'Học với từ vựng, pinyin, audio và ngữ cảnh.',
@@ -1221,6 +1216,8 @@
         previewKicker: 'Bên trong ứng dụng',
         previewTitle: 'Xem trước các màn hình học chính trước khi cài đặt.',
         previewCopy: 'Landing page dùng cùng bộ ảnh preview App Store và tự đổi theo ngôn ngữ bạn chọn.',
+        previewPhone: 'Điện thoại',
+        previewTablet: 'Tablet',
         gallery1Title: 'Vừa xem vừa đọc',
         gallery1Desc: 'Video, phụ đề, pinyin và bản dịch được căn theo nhau để luyện nghe tập trung.',
         gallery2Title: 'Lưu từ vựng nhanh',
@@ -1268,6 +1265,10 @@
       'hero-stat2-label': 'heroStat2Label',
       'hero-stat3-number': 'heroStat3Number',
       'hero-stat3-label': 'heroStat3Label',
+      'hero-stat4-number': 'heroStat4Number',
+      'hero-stat4-label': 'heroStat4Label',
+      'hero-stat5-number': 'heroStat5Number',
+      'hero-stat5-label': 'heroStat5Label',
       'note-word': 'noteWord',
       'note-pinyin': 'notePinyin',
       'note-meaning': 'noteMeaning',
@@ -1285,6 +1286,8 @@
       'preview-kicker': 'previewKicker',
       'preview-title': 'previewTitle',
       'preview-copy': 'previewCopy',
+      'preview-phone-tab': 'previewPhone',
+      'preview-tablet-tab': 'previewTablet',
       'gallery1-title': 'gallery1Title',
       'gallery1-desc': 'gallery1Desc',
       'gallery2-title': 'gallery2Title',
@@ -1312,6 +1315,19 @@
 
     const browserLang = navigator.language || navigator.userLanguage || '';
     let currentLang = localStorage.getItem('woxuehanyu-lang') || (browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en');
+    let currentPreviewDevice = 'phone';
+    const PREVIEW_FILES = [
+      '0x0ss.png',
+      '0x0ss-2.png',
+      '0x0ss-3.png',
+      '0x0ss-4.png',
+      '0x0ss-5.png',
+      '0x0ss-6.png',
+      '0x0ss-7.png',
+      '0x0ss-8.png',
+      '0x0ss-9.png',
+      '0x0ss-10.png'
+    ];
 
     function normalizeLang(lang) {
       return translations[lang] ? lang : 'en';
@@ -1321,6 +1337,25 @@
       document.querySelectorAll('.js-preview').forEach((image) => {
         const [kind, file] = image.dataset.preview.split(':');
         image.src = `/assets/Preview/${kind}-${lang}/${file}`;
+      });
+    }
+
+    function renderPreviewGrid(lang) {
+      const grid = document.getElementById('previewGrid');
+      if (!grid) return;
+
+      grid.innerHTML = PREVIEW_FILES.map((file, index) => {
+        const device = currentPreviewDevice;
+        const label = device === 'phone' ? 'phone' : 'tablet';
+        return `<img class="gallery-shot" src="/assets/Preview/${device}-${lang}/${file}" alt="Wo xue Hanyu ${label} preview ${index + 1}" loading="lazy">`;
+      }).join('');
+    }
+
+    function updatePreviewTabs() {
+      document.querySelectorAll('.preview-tab').forEach((button) => {
+        const isActive = button.dataset.previewDevice === currentPreviewDevice;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
     }
 
@@ -1354,6 +1389,8 @@
       document.documentElement.lang = currentLang;
       updateMeta(t);
       updatePreviewImages(currentLang);
+      renderPreviewGrid(currentLang);
+      updatePreviewTabs();
       updateStoreLinks(currentLang);
       updateBannerLanguage();
     }
@@ -1370,6 +1407,14 @@
     };
 
     window.setLandingLanguage = setLanguage;
+
+    document.querySelectorAll('.preview-tab').forEach((button) => {
+      button.addEventListener('click', () => {
+        currentPreviewDevice = button.dataset.previewDevice === 'tablet' ? 'tablet' : 'phone';
+        renderPreviewGrid(normalizeLang(currentLang));
+        updatePreviewTabs();
+      });
+    });
 
     function updateBannerLanguage() {
       const bannerSubtitle = document.getElementById('bannerSubtitle');
