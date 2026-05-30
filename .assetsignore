@@ -1,1 +1,8 @@
+.git
+.git/**
+.DS_Store
+.wrangler
+.wrangler/**
+node_modules
+node_modules/**
 assets/videos/foreground-playback.mp4
