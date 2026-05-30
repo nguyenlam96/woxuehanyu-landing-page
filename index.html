@@ -328,7 +328,7 @@
 
     .hero-points {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
       max-width: 620px;
       margin-top: 30px;
@@ -547,9 +547,9 @@
 
     .gallery {
       display: grid;
-      grid-template-columns: 0.75fr 1.25fr;
+      grid-template-columns: 0.34fr 0.66fr;
       gap: 30px;
-      align-items: center;
+      align-items: start;
       margin-top: 44px;
     }
 
@@ -580,35 +580,47 @@
       line-height: 1.5;
     }
 
-    .screenshot-rail {
-      display: flex;
-      gap: 18px;
-      overflow-x: auto;
-      padding: 6px 4px 22px;
-      scroll-snap-type: x mandatory;
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .screenshot-rail::-webkit-scrollbar {
-      height: 10px;
-    }
-
-    .screenshot-rail::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.12);
+    .preview-tabs {
+      display: inline-flex;
+      gap: 6px;
+      margin: 0 0 20px;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    .screenshot-rail::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.36);
+    .preview-tab {
+      min-width: 112px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 0;
       border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.76);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .preview-tab.is-active {
+      background: white;
+      color: var(--blue-strong);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
     }
 
     .gallery-shot {
-      width: 238px;
-      max-width: none;
-      flex: 0 0 238px;
+      width: 100%;
       border-radius: 26px;
       box-shadow: 0 24px 54px rgba(0, 0, 0, 0.22);
-      scroll-snap-align: start;
     }
 
     .stats-band {
@@ -731,6 +743,10 @@
 
       .gallery {
         grid-template-columns: 1fr;
+      }
+
+      .screenshot-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .final-cta {
@@ -856,8 +872,16 @@
       }
 
       .gallery-shot {
-        width: 210px;
-        flex-basis: 210px;
+        border-radius: 20px;
+      }
+
+      .preview-tabs {
+        display: flex;
+      }
+
+      .preview-tab {
+        flex: 1;
+        min-width: 0;
       }
     }
 
@@ -925,16 +949,24 @@
 
           <div class="hero-points" aria-label="Product highlights">
             <div class="hero-point">
-              <strong id="hero-stat1-number">6,000+</strong>
-              <span id="hero-stat1-label">HSK vocabulary words</span>
+              <strong id="hero-stat1-number">Thousands</strong>
+              <span id="hero-stat1-label">Podcasts, vlogs, and shorts with dual subtitles</span>
             </div>
             <div class="hero-point">
-              <strong id="hero-stat2-number">200+</strong>
-              <span id="hero-stat2-label">HSK mock exams</span>
+              <strong id="hero-stat2-number">1,000+</strong>
+              <span id="hero-stat2-label">Structured lessons</span>
             </div>
             <div class="hero-point">
-              <strong id="hero-stat3-number">Offline</strong>
-              <span id="hero-stat3-label">Study anywhere</span>
+              <strong id="hero-stat3-number">6,000+</strong>
+              <span id="hero-stat3-label">HSK vocabulary words</span>
+            </div>
+            <div class="hero-point">
+              <strong id="hero-stat4-number">200+</strong>
+              <span id="hero-stat4-label">HSK mock exams</span>
+            </div>
+            <div class="hero-point">
+              <strong id="hero-stat5-number">Offline</strong>
+              <span id="hero-stat5-label">Study anywhere</span>
             </div>
           </div>
         </div>
@@ -1003,11 +1035,27 @@
               </div>
             </div>
 
-            <div class="screenshot-rail" aria-label="App screenshots">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss.png" src="/assets/Preview/phone-en/0x0ss.png" alt="Wo xue Hanyu video learning screen" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-2.png" src="/assets/Preview/phone-en/0x0ss-2.png" alt="Wo xue Hanyu dialogue screen" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-3.png" src="/assets/Preview/phone-en/0x0ss-3.png" alt="Wo xue Hanyu vocabulary screen" loading="lazy">
-              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-5.png" src="/assets/Preview/phone-en/0x0ss-5.png" alt="Wo xue Hanyu HSK exam screen" loading="lazy">
+            <div class="screenshot-grid" aria-label="App screenshots">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss.png" src="/assets/Preview/phone-en/0x0ss.png" alt="Wo xue Hanyu phone preview 1" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-2.png" src="/assets/Preview/phone-en/0x0ss-2.png" alt="Wo xue Hanyu phone preview 2" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-3.png" src="/assets/Preview/phone-en/0x0ss-3.png" alt="Wo xue Hanyu phone preview 3" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-4.png" src="/assets/Preview/phone-en/0x0ss-4.png" alt="Wo xue Hanyu phone preview 4" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-5.png" src="/assets/Preview/phone-en/0x0ss-5.png" alt="Wo xue Hanyu phone preview 5" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-6.png" src="/assets/Preview/phone-en/0x0ss-6.png" alt="Wo xue Hanyu phone preview 6" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-7.png" src="/assets/Preview/phone-en/0x0ss-7.png" alt="Wo xue Hanyu phone preview 7" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-8.png" src="/assets/Preview/phone-en/0x0ss-8.png" alt="Wo xue Hanyu phone preview 8" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-9.png" src="/assets/Preview/phone-en/0x0ss-9.png" alt="Wo xue Hanyu phone preview 9" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-10.png" src="/assets/Preview/phone-en/0x0ss-10.png" alt="Wo xue Hanyu phone preview 10" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss.png" src="/assets/Preview/tablet-en/0x0ss.png" alt="Wo xue Hanyu tablet preview 1" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-2.png" src="/assets/Preview/tablet-en/0x0ss-2.png" alt="Wo xue Hanyu tablet preview 2" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-3.png" src="/assets/Preview/tablet-en/0x0ss-3.png" alt="Wo xue Hanyu tablet preview 3" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-4.png" src="/assets/Preview/tablet-en/0x0ss-4.png" alt="Wo xue Hanyu tablet preview 4" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-5.png" src="/assets/Preview/tablet-en/0x0ss-5.png" alt="Wo xue Hanyu tablet preview 5" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-6.png" src="/assets/Preview/tablet-en/0x0ss-6.png" alt="Wo xue Hanyu tablet preview 6" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-7.png" src="/assets/Preview/tablet-en/0x0ss-7.png" alt="Wo xue Hanyu tablet preview 7" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-8.png" src="/assets/Preview/tablet-en/0x0ss-8.png" alt="Wo xue Hanyu tablet preview 8" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-9.png" src="/assets/Preview/tablet-en/0x0ss-9.png" alt="Wo xue Hanyu tablet preview 9" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="tablet:0x0ss-10.png" src="/assets/Preview/tablet-en/0x0ss-10.png" alt="Wo xue Hanyu tablet preview 10" loading="lazy">
             </div>
           </div>
         </div>
