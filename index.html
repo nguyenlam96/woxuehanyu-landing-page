@@ -328,7 +328,7 @@
 
     .hero-points {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       max-width: 620px;
       margin-top: 30px;
@@ -336,7 +336,7 @@
     }
 
     .hero-point {
-      padding: 14px;
+      padding: 15px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: rgba(255, 255, 255, 0.78);
@@ -356,6 +356,11 @@
       font-size: 12px;
       line-height: 1.35;
       font-weight: 700;
+    }
+
+    .hero-point:first-child,
+    .hero-point:nth-child(2) {
+      grid-column: span 1;
     }
 
     .hero-visual {
