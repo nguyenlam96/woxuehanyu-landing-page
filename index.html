@@ -3,49 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wo xue Hanyu - A journey to Mandarin</title>
-  <meta name="description" content="Master Chinese with Wo xue Hanyu - Your personal Chinese learning companion. Learn Mandarin through interactive lessons, vocabulary practice, and more.">
+  <title>Wo xue Hanyu - Learn Chinese with real content</title>
+  <meta name="description" content="Learn Mandarin with Wo xue Hanyu through real videos, contextual vocabulary, HSK practice, writing tools, AI explanations, and offline study.">
   <link rel="icon" href="/assets/app_icon.png">
 
-  <!-- Smart App Banner for iOS -->
   <meta name="apple-itunes-app" content="app-id=6754384426">
 
-  <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://woxuehanyu.site/">
-  <meta property="og:title" content="Wo xue Hanyu - A journey to Mandarin">
-  <meta property="og:description" content="Master Chinese with interactive lessons and personalized learning.">
+  <meta property="og:title" content="Wo xue Hanyu - Learn Chinese with real content">
+  <meta property="og:description" content="Mandarin practice with videos, vocabulary, HSK exams, writing tools, and offline learning.">
+  <meta property="og:image" content="https://woxuehanyu.site/assets/app_icon.png">
 
   <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f8f7;
+      --surface: #ffffff;
+      --surface-strong: #ffffff;
+      --ink: #171411;
+      --muted: #596461;
+      --soft: #e3ece9;
+      --line: rgba(20, 33, 29, 0.12);
+      --blue: #0879bd;
+      --blue-strong: #075f94;
+      --red: #bf3630;
+      --gold: #d7a437;
+      --green: #287a60;
+      --shadow: 0 24px 70px rgba(50, 42, 33, 0.16);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      color: #111827;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(90deg, rgba(20, 33, 29, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 44%, #eef7f4 100%);
+      background-size: 48px 48px, auto;
+      color: var(--ink);
     }
 
-    /* Smart App Banner */
+    body.smart-banner-visible {
+      padding-top: 76px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
     .smart-banner {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 12px 16px;
+      z-index: 9999;
       display: flex;
       align-items: center;
       gap: 12px;
-      z-index: 9999;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 10px 32px rgba(23, 20, 17, 0.12);
       transform: translateY(-100%);
       transition: transform 0.3s ease;
+      backdrop-filter: blur(14px);
     }
 
     .smart-banner.show {
@@ -66,603 +104,1277 @@
     .smart-banner-info {
       flex: 1;
       min-width: 0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .smart-banner-title {
-      font-weight: 600;
       font-size: 14px;
-      color: #111827;
-      margin-bottom: 2px;
+      font-weight: 800;
+      color: var(--ink);
     }
 
     .smart-banner-subtitle {
+      margin-top: 2px;
+      color: var(--muted);
       font-size: 12px;
-      color: #6b7280;
+    }
+
+    .smart-banner-button,
+    .smart-banner-close {
+      border: 0;
+      cursor: pointer;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .smart-banner-button {
-      padding: 8px 20px;
-      background: #667eea;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--blue);
       color: white;
-      border: none;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: background 0.2s;
-    }
-
-    .smart-banner-button:hover {
-      background: #5568d3;
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .smart-banner-close {
-      background: none;
-      border: none;
-      color: #9ca3af;
+      width: 28px;
+      height: 28px;
+      background: transparent;
+      color: var(--muted);
       font-size: 24px;
-      cursor: pointer;
-      padding: 0;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
       line-height: 1;
     }
 
-    .smart-banner-close:hover {
-      color: #6b7280;
+    .shell {
+      overflow: hidden;
     }
 
-    body.smart-banner-visible {
-      padding-top: 76px;
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(42, 35, 27, 0.08);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
     }
 
-    .container {
-      max-width: 1200px;
+    .nav {
+      width: min(var(--max), calc(100% - 40px));
+      min-height: 76px;
       margin: 0 auto;
-      padding: 60px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      box-shadow: 0 12px 26px rgba(8, 121, 189, 0.18);
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 17px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .brand-subtitle {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 12px 26px rgba(23, 20, 17, 0.16);
     }
 
     .hero {
-      text-align: center;
-      margin-bottom: 80px;
-      animation: fadeInUp 0.8s ease-out;
+      width: min(var(--max), calc(100% - 40px));
+      min-height: calc(100vh - 76px);
+      margin: 0 auto;
+      padding: 54px 0 70px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.93fr) minmax(410px, 1.07fr);
+      align-items: center;
+      gap: 54px;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .hero-copy {
+      position: relative;
+      z-index: 2;
     }
 
-    .logo {
-      margin-bottom: 24px;
-      animation: bounceIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--blue-strong);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
     }
 
-    .logo img {
-      width: 150px;
-      height: 150px;
-      border-radius: 30px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-
-    @keyframes bounceIn {
-      0% {
-        transform: scale(0);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--red);
     }
 
     h1 {
-      font-size: 56px;
+      max-width: 10ch;
+      font-size: 76px;
+      line-height: 0.96;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hanzi {
+      margin-top: 14px;
+      color: var(--red);
+      font-size: 34px;
+      line-height: 1.15;
       font-weight: 800;
-      color: white;
-      margin-bottom: 16px;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      letter-spacing: 0;
     }
 
-    .tagline {
-      font-size: 24px;
-      color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 48px;
-      font-weight: 400;
-    }
-
-    .chinese-text {
-      font-size: 28px;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 32px;
-      font-weight: 300;
-      letter-spacing: 2px;
+    .hero-lede {
+      max-width: 610px;
+      margin-top: 26px;
+      color: var(--muted);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 520;
     }
 
     .download-buttons {
       display: flex;
-      gap: 20px;
-      justify-content: center;
       flex-wrap: wrap;
-      margin-top: 40px;
+      gap: 14px;
+      margin-top: 34px;
     }
 
     .download-btn {
+      min-height: 58px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 18px 36px;
-      background: white;
-      color: #111827;
+      padding: 0 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-strong);
+      color: var(--ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      font-weight: 850;
       text-decoration: none;
-      border-radius: 16px;
-      font-weight: 600;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 14px 36px rgba(42, 35, 27, 0.1);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .download-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-    }
-
-    .download-btn:active {
       transform: translateY(-2px);
+      border-color: rgba(8, 121, 189, 0.28);
+      box-shadow: 0 18px 46px rgba(42, 35, 27, 0.15);
     }
 
-    .download-btn .icon {
-      font-size: 32px;
-    }
-
-    .features {
+    .store-mark {
+      width: 26px;
+      height: 26px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-      margin-top: 80px;
+      place-items: center;
+      border-radius: 7px;
+      background: #f1f7fb;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 620px;
+      margin-top: 30px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .hero-point {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .hero-point strong {
+      display: block;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .hero-point span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 650px;
+    }
+
+    .blue-panel {
+      position: absolute;
+      inset: 28px 0 18px 62px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(8, 121, 189, 0.94), rgba(10, 101, 147, 0.94)),
+        var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    .phone-stack {
+      position: absolute;
+      inset: 0;
+    }
+
+    .phone-shot {
+      position: absolute;
+      width: min(310px, 50vw);
+      border-radius: 34px;
+      box-shadow: 0 24px 50px rgba(15, 34, 48, 0.22);
+      background: var(--surface);
+    }
+
+    .phone-shot.primary {
+      right: 32px;
+      top: 8px;
+      width: min(350px, 52vw);
+      z-index: 3;
+    }
+
+    .phone-shot.secondary {
+      left: 0;
+      bottom: 26px;
+      z-index: 2;
+    }
+
+    .tablet-shot {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: min(520px, 72vw);
+      border-radius: 28px;
+      box-shadow: 0 22px 54px rgba(15, 34, 48, 0.18);
+      transform: translateX(20%);
+      z-index: 1;
+    }
+
+    .floating-note {
+      position: absolute;
+      left: 22px;
+      top: 74px;
+      z-index: 4;
+      width: 198px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 42px rgba(15, 34, 48, 0.16);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .floating-note .word {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .floating-note .pinyin {
+      display: block;
+      margin-top: 8px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .floating-note .meaning {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-kicker {
+      color: var(--red);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .section-title {
+      max-width: 820px;
+      margin-top: 13px;
+      font-size: 48px;
+      line-height: 1.06;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 690px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+      font-weight: 520;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 42px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
     }
 
     .feature-card {
-      background: white;
-      border-radius: 24px;
-      padding: 40px 32px;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.8s ease-out;
+      min-height: 238px;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.94);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    .feature-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-
-    .feature-card:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-    }
-
-    .feature-icon {
-      font-size: 64px;
-      margin-bottom: 24px;
-      display: block;
+    .feature-card::before {
+      content: attr(data-number);
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 26px;
+      border-radius: 50%;
+      background: rgba(8, 121, 189, 0.1);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
     }
 
     .feature-card h3 {
-      font-size: 24px;
-      margin-bottom: 12px;
-      color: #111827;
+      font-size: 20px;
+      line-height: 1.22;
+      letter-spacing: 0;
     }
 
     .feature-card p {
-      font-size: 16px;
-      color: #6b7280;
-      line-height: 1.6;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.58;
+      font-weight: 520;
     }
 
-    .about {
-      margin-top: 80px;
-      background: white;
-      border-radius: 24px;
-      padding: 48px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-      animation: fadeInUp 0.8s ease-out 0.3s both;
+    .gallery-section {
+      background: #0b5f8f;
+      color: white;
     }
 
-    .about h2 {
-      font-size: 36px;
-      margin-bottom: 24px;
-      text-align: center;
-      color: #111827;
+    .gallery-section .section-kicker,
+    .gallery-section .section-copy {
+      color: rgba(255, 255, 255, 0.76);
     }
 
-    .about p {
-      font-size: 18px;
-      color: #6b7280;
-      line-height: 1.8;
-      margin-bottom: 20px;
-      text-align: center;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+    .gallery-section .section-title {
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 30px;
+      align-items: center;
+      margin-top: 44px;
+    }
+
+    .gallery-copy {
+      display: grid;
+      gap: 14px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .gallery-item {
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .gallery-item strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .gallery-item span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .screenshot-rail {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 6px 4px 22px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .screenshot-rail::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .screenshot-rail::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+    }
+
+    .screenshot-rail::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+    }
+
+    .gallery-shot {
+      width: 238px;
+      max-width: none;
+      flex: 0 0 238px;
+      border-radius: 26px;
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.22);
+      scroll-snap-align: start;
+    }
+
+    .stats-band {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.68);
     }
 
     .stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 48px;
-      flex-wrap: wrap;
-      gap: 32px;
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
     }
 
     .stat {
-      text-align: center;
+      min-height: 154px;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.94);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .stat-number {
-      font-size: 48px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 900;
     }
 
     .stat-label {
-      font-size: 16px;
-      color: #6b7280;
-      font-weight: 500;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 760;
+    }
+
+    .final-cta {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 78px 0 84px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .final-cta h2 {
+      max-width: 690px;
+      font-size: 50px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .final-cta p {
+      max-width: 620px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      line-height: 1.62;
     }
 
     footer {
-      text-align: center;
-      margin-top: 80px;
-      padding: 40px 20px;
-      color: rgba(255, 255, 255, 0.9);
+      border-top: 1px solid var(--line);
+      padding: 34px 20px 46px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.86);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 14px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin-top: 12px;
     }
 
     footer a {
-      color: white;
+      color: var(--ink);
+      font-weight: 750;
       text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.2s;
     }
 
     footer a:hover {
-      opacity: 0.8;
+      color: var(--blue);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 980px) {
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 42px;
+      }
+
       h1 {
-        font-size: 40px;
+        max-width: 11ch;
+        font-size: 62px;
       }
 
-      .tagline {
-        font-size: 18px;
+      .hero-visual {
+        min-height: 560px;
       }
 
-      .chinese-text {
-        font-size: 20px;
+      .feature-grid,
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .logo img {
-        width: 100px;
-        height: 100px;
-        border-radius: 20px;
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .final-cta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body.smart-banner-visible {
+        padding-top: 78px;
+      }
+
+      .nav {
+        width: min(100% - 28px, var(--max));
+        min-height: 68px;
+      }
+
+      .brand-subtitle,
+      .nav-links {
+        display: none;
+      }
+
+      .hero,
+      .section-inner,
+      .stats,
+      .final-cta {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        padding: 34px 0 52px;
+        gap: 32px;
+      }
+
+      .eyebrow {
+        margin-bottom: 16px;
+        font-size: 11px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .hanzi {
+        font-size: 28px;
+      }
+
+      .hero-lede {
+        font-size: 17px;
       }
 
       .download-buttons {
         flex-direction: column;
-        align-items: center;
       }
 
       .download-btn {
         width: 100%;
-        max-width: 300px;
+        justify-content: center;
       }
 
-      .about {
-        padding: 32px 24px;
+      .hero-points {
+        grid-template-columns: 1fr;
       }
 
-      .about h2 {
+      .hero-visual {
+        min-height: 460px;
+      }
+
+      .blue-panel {
+        inset: 24px 0 30px 32px;
+        border-radius: 26px;
+      }
+
+      .phone-shot.primary {
+        right: 0;
+        width: min(255px, 68vw);
+        border-radius: 28px;
+      }
+
+      .phone-shot.secondary {
+        left: 0;
+        bottom: 22px;
+        width: min(220px, 58vw);
+        border-radius: 26px;
+      }
+
+      .tablet-shot {
+        display: none;
+      }
+
+      .floating-note {
+        left: 0;
+        top: 40px;
+        width: 158px;
+        padding: 14px;
+      }
+
+      .floating-note .word {
         font-size: 28px;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .section-title,
+      .final-cta h2 {
+        font-size: 36px;
+      }
+
+      .section-copy,
+      .final-cta p {
+        font-size: 16px;
+      }
+
+      .feature-grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        min-height: auto;
+      }
+
+      .gallery-shot {
+        width: 210px;
+        flex-basis: 210px;
+      }
+    }
+
+    @media (min-width: 641px) {
+      .language-select-wrap {
+        top: 92px !important;
+        right: 24px !important;
+      }
+
+      body.smart-banner-visible .language-select-wrap {
+        top: 168px !important;
       }
     }
   </style>
   <link rel="stylesheet" href="/assets/language.css">
   <script src="/assets/language.js" defer></script>
-
 </head>
 <body>
-  <!-- Smart App Banner -->
   <div class="smart-banner" id="smartBanner">
-    <img src="/assets/app_icon.png" alt="App Icon" class="smart-banner-icon">
+    <img src="/assets/app_icon.png" alt="Wo xue Hanyu app icon" class="smart-banner-icon">
     <div class="smart-banner-info">
       <div class="smart-banner-title">Wo xue Hanyu</div>
       <div class="smart-banner-subtitle" id="bannerSubtitle">Get the app</div>
     </div>
     <button class="smart-banner-button" id="bannerButton">VIEW</button>
-    <button class="smart-banner-close" id="bannerClose">&times;</button>
+    <button class="smart-banner-close" id="bannerClose" aria-label="Close">&times;</button>
   </div>
 
-  <div class="container">
-    <div class="hero">
-      <div class="logo">
-        <img src="/assets/app_icon.png" alt="Wo xue Hanyu App Icon">
-      </div>
-      <h1 id="hero-title">Wo xue Hanyu</h1>
-      <p class="chinese-text" id="hero-chinese">我学汉语</p>
-      <p class="tagline" id="hero-tagline">Learn Chinese Your Way</p>
-
-      <div class="download-buttons">
-        <a href="https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426" class="download-btn" id="btn-ios" target="_blank">
-          <span class="icon">🍎</span>
-          <span id="download-ios-text">Download on App Store</span>
+  <div class="shell">
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/" class="brand">
+          <img src="/assets/app_icon.png" alt="Wo xue Hanyu app icon">
+          <span>
+            <span class="brand-name">Wo xue Hanyu</span>
+            <span class="brand-subtitle" id="brand-subtitle">A journey to Mandarin</span>
+          </span>
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
-          <span class="icon">🤖</span>
-          <span id="download-android-text">Get it on Google Play</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feature-card">
-        <span class="feature-icon">📚</span>
-        <h3 id="feature1-title">Interactive Lessons</h3>
-        <p id="feature1-desc">Learn with engaging, bite-sized lessons designed for all levels, from beginner to advanced.</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">🎯</span>
-        <h3 id="feature2-title">Smart Practice</h3>
-        <p id="feature2-desc">Master vocabulary and characters with spaced repetition and personalized practice sessions.</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">🗣️</span>
-        <h3 id="feature3-title">Pronunciation Guide</h3>
-        <p id="feature3-desc">Perfect your tones and pronunciation with audio from native speakers and instant feedback.</p>
-      </div>
-    </div>
-
-    <div class="about">
-      <h2 id="about-title">Start Your Journey Today</h2>
-      <p id="about-desc1">Wo xue Hanyu makes learning Chinese accessible and enjoyable for everyone. Whether you're a complete beginner or looking to improve your skills, our app adapts to your learning pace.</p>
-      <p id="about-desc2">Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.</p>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-number" id="stat1-number">5000+</div>
-          <div class="stat-label" id="stat1-label">Vocabulary Words</div>
+        <div class="nav-links">
+          <a href="#features" id="nav-features">Features</a>
+          <a href="#preview" id="nav-preview">Preview</a>
+          <a href="#download" class="nav-cta" id="nav-download">Download</a>
         </div>
-        <div class="stat">
-          <div class="stat-number" id="stat2-number">100+</div>
-          <div class="stat-label" id="stat2-label">Interactive Lessons</div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow" id="hero-eyebrow">Chinese learning for real life</p>
+          <h1 id="hero-title">Wo xue Hanyu</h1>
+          <p class="hanzi" id="hero-chinese">我学汉语</p>
+          <p class="hero-lede" id="hero-lede">Learn Mandarin through real videos, contextual vocabulary, HSK exam practice, writing tools, and offline study.</p>
+
+          <div class="download-buttons" aria-label="Download links">
+            <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn" id="btn-ios" target="_blank" rel="noopener noreferrer">
+              <span class="store-mark" aria-hidden="true">iOS</span>
+              <span id="download-ios-text">Download on App Store</span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
+              <span class="store-mark" aria-hidden="true">GP</span>
+              <span id="download-android-text">Get it on Google Play</span>
+            </a>
+          </div>
+
+          <div class="hero-points" aria-label="Product highlights">
+            <div class="hero-point">
+              <strong id="hero-stat1-number">6,000+</strong>
+              <span id="hero-stat1-label">HSK vocabulary words</span>
+            </div>
+            <div class="hero-point">
+              <strong id="hero-stat2-number">200+</strong>
+              <span id="hero-stat2-label">HSK mock exams</span>
+            </div>
+            <div class="hero-point">
+              <strong id="hero-stat3-number">Offline</strong>
+              <span id="hero-stat3-label">Study anywhere</span>
+            </div>
+          </div>
         </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="blue-panel"></div>
+          <div class="phone-stack">
+            <img class="phone-shot primary js-preview" data-preview="phone:0x0ss.png" src="/assets/Preview/phone-en/0x0ss.png" alt="" fetchpriority="high">
+            <img class="phone-shot secondary js-preview" data-preview="phone:0x0ss-3.png" src="/assets/Preview/phone-en/0x0ss-3.png" alt="" fetchpriority="high">
+            <img class="tablet-shot js-preview" data-preview="tablet:0x0ss-5.png" src="/assets/Preview/tablet-en/0x0ss-5.png" alt="" loading="lazy">
+          </div>
+          <div class="floating-note">
+            <span class="word" id="note-word">学习</span>
+            <span class="pinyin" id="note-pinyin">xuexi</span>
+            <span class="meaning" id="note-meaning">Learn with vocabulary, pinyin, audio, and context.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-inner">
+          <p class="section-kicker" id="features-kicker">What makes it useful</p>
+          <h2 class="section-title" id="features-title">A Chinese study app built around the way people actually learn.</h2>
+          <p class="section-copy" id="features-copy">Move from watching and listening to vocabulary, writing, tests, and review without leaving your study flow.</p>
+
+          <div class="feature-grid">
+            <article class="feature-card" data-number="01">
+              <h3 id="feature1-title">Real video learning</h3>
+              <p id="feature1-desc">Study Mandarin with vlogs, podcasts, cartoons, and dialogues that keep language in context.</p>
+            </article>
+            <article class="feature-card" data-number="02">
+              <h3 id="feature2-title">Vocabulary in context</h3>
+              <p id="feature2-desc">Review words from each dialogue with hanzi, pinyin, meaning, bookmarks, and AI help.</p>
+            </article>
+            <article class="feature-card" data-number="03">
+              <h3 id="feature3-title">HSK practice</h3>
+              <p id="feature3-desc">Prepare with HSK 1-6 vocabulary, quizzes, writing practice, and mock exams.</p>
+            </article>
+            <article class="feature-card" data-number="04">
+              <h3 id="feature4-title">Offline study</h3>
+              <p id="feature4-desc">Download lessons and exams so practice continues when your connection does not.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section gallery-section" id="preview">
+        <div class="section-inner">
+          <p class="section-kicker" id="preview-kicker">Inside the app</p>
+          <h2 class="section-title" id="preview-title">Preview the core study screens before you install.</h2>
+          <p class="section-copy" id="preview-copy">The landing page uses the same App Store preview images, matched to your selected language.</p>
+
+          <div class="gallery">
+            <div class="gallery-copy">
+              <div class="gallery-item">
+                <strong id="gallery1-title">Watch and read together</strong>
+                <span id="gallery1-desc">Video, subtitles, pinyin, and translation stay aligned for focused listening practice.</span>
+              </div>
+              <div class="gallery-item">
+                <strong id="gallery2-title">Save vocabulary instantly</strong>
+                <span id="gallery2-desc">Turn a dialogue into a review list with explanations and writing support.</span>
+              </div>
+              <div class="gallery-item">
+                <strong id="gallery3-title">Prepare for HSK</strong>
+                <span id="gallery3-desc">Use structured mock exams and level filters when you need exam practice.</span>
+              </div>
+            </div>
+
+            <div class="screenshot-rail" aria-label="App screenshots">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss.png" src="/assets/Preview/phone-en/0x0ss.png" alt="Wo xue Hanyu video learning screen" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-2.png" src="/assets/Preview/phone-en/0x0ss-2.png" alt="Wo xue Hanyu dialogue screen" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-3.png" src="/assets/Preview/phone-en/0x0ss-3.png" alt="Wo xue Hanyu vocabulary screen" loading="lazy">
+              <img class="gallery-shot js-preview" data-preview="phone:0x0ss-5.png" src="/assets/Preview/phone-en/0x0ss-5.png" alt="Wo xue Hanyu HSK exam screen" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Wo xue Hanyu numbers">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number" id="stat1-number">6,000+</div>
+            <div class="stat-label" id="stat1-label">HSK vocabulary words across levels 1-6</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="stat2-number">200+</div>
+            <div class="stat-label" id="stat2-label">HSK mock exams with offline access</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="stat3-number">AI</div>
+            <div class="stat-label" id="stat3-label">Explanations for vocabulary and dialogue</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="stat4-number">iPad</div>
+            <div class="stat-label" id="stat4-label">Optimized previews for phone and tablet</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta" id="download">
+        <div>
+          <p class="section-kicker" id="download-kicker">Start today</p>
+          <h2 id="download-title">Build a daily Mandarin habit with one app.</h2>
+          <p id="download-copy">Download Wo xue Hanyu and practice with real content, structured HSK material, and tools that keep study moving.</p>
+        </div>
+        <div class="download-buttons" aria-label="Download links">
+          <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn js-ios-link" target="_blank" rel="noopener noreferrer">
+            <span class="store-mark" aria-hidden="true">iOS</span>
+            <span id="download-ios-text-bottom">Download on App Store</span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" target="_blank" rel="noopener noreferrer">
+            <span class="store-mark" aria-hidden="true">GP</span>
+            <span id="download-android-text-bottom">Get it on Google Play</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p id="footer-text">&copy; 2026 Wo xue Hanyu. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/terms_and_conditions" id="footer-terms-conditions">Terms & Conditions</a>
+        <a href="/EULA" id="footer-terms">Terms of Use</a>
+        <a href="/privacy_policy" id="footer-privacy">Privacy Policy</a>
+        <a href="/delete-account" id="footer-delete-account">Delete Account</a>
+        <a href="/contact" id="footer-contact">Contact</a>
       </div>
-    </div>
+    </footer>
   </div>
-
-  <footer>
-    <p id="footer-text">&copy; 2025 Wo xue Hanyu. All rights reserved.</p>
-    <p style="margin-top: 12px;">
-      <a href="/terms_and_conditions" id="footer-terms-conditions">Terms & Conditions</a> •
-      <a href="/EULA" id="footer-terms">Terms of Use</a> •
-      <a href="/privacy_policy" id="footer-privacy">Privacy Policy</a> •
-      <a href="/delete-account" id="footer-delete-account">Delete Account</a> •
-      <a href="/contact" id="footer-contact">Contact</a>
-    </p>
-  </footer>
 
   <script>
-    // Translations
+    const STORE_LINKS = {
+      ios: {
+        en: 'https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426',
+        vi: 'https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426?l=vi'
+      },
+      android: 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod'
+    };
+
     const translations = {
       en: {
+        pageTitle: 'Wo xue Hanyu - Learn Chinese with real content',
+        pageDescription: 'Learn Mandarin with Wo xue Hanyu through real videos, contextual vocabulary, HSK practice, writing tools, AI explanations, and offline study.',
+        brandSubtitle: 'A journey to Mandarin',
+        navFeatures: 'Features',
+        navPreview: 'Preview',
+        navDownload: 'Download',
+        heroEyebrow: 'Chinese learning for real life',
         heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
-        heroTagline: 'A journey to Mandarin',
+        heroLede: 'Learn Mandarin through real videos, contextual vocabulary, HSK exam practice, writing tools, and offline study.',
         downloadIos: 'Download on App Store',
         downloadAndroid: 'Get it on Google Play',
-        feature1Title: 'Interactive Lessons',
-        feature1Desc: 'Learn with engaging, bite-sized lessons designed for all levels, from beginner to advanced.',
-        feature2Title: 'Smart Practice',
-        feature2Desc: 'Master vocabulary and characters with spaced repetition and personalized practice sessions.',
-        feature3Title: 'Pronunciation Guide',
-        feature3Desc: 'Perfect your tones and pronunciation with audio from native speakers and instant feedback.',
-        aboutTitle: 'Start Your Journey Today',
-        aboutDesc1: 'Wo xue Hanyu makes learning Chinese accessible and enjoyable for everyone. Whether you\'re a complete beginner or looking to improve your skills, our app adapts to your learning pace.',
-        aboutDesc2: 'Join thousands of learners mastering Mandarin Chinese with our comprehensive, interactive approach.',
-        stat1Number: '5000+',
-        stat1Label: 'Vocabulary Words',
-        stat2Number: '100+',
-        stat2Label: 'Interactive Lessons',
-        footerText: '© 2025 Wo xue Hanyu. All rights reserved.',
+        heroStat1Number: '6,000+',
+        heroStat1Label: 'HSK vocabulary words',
+        heroStat2Number: '200+',
+        heroStat2Label: 'HSK mock exams',
+        heroStat3Number: 'Offline',
+        heroStat3Label: 'Study anywhere',
+        noteWord: '学习',
+        notePinyin: 'xuexi',
+        noteMeaning: 'Learn with vocabulary, pinyin, audio, and context.',
+        featuresKicker: 'What makes it useful',
+        featuresTitle: 'A Chinese study app built around the way people actually learn.',
+        featuresCopy: 'Move from watching and listening to vocabulary, writing, tests, and review without leaving your study flow.',
+        feature1Title: 'Real video learning',
+        feature1Desc: 'Study Mandarin with vlogs, podcasts, cartoons, and dialogues that keep language in context.',
+        feature2Title: 'Vocabulary in context',
+        feature2Desc: 'Review words from each dialogue with hanzi, pinyin, meaning, bookmarks, and AI help.',
+        feature3Title: 'HSK practice',
+        feature3Desc: 'Prepare with HSK 1-6 vocabulary, quizzes, writing practice, and mock exams.',
+        feature4Title: 'Offline study',
+        feature4Desc: 'Download lessons and exams so practice continues when your connection does not.',
+        previewKicker: 'Inside the app',
+        previewTitle: 'Preview the core study screens before you install.',
+        previewCopy: 'The landing page uses the same App Store preview images, matched to your selected language.',
+        gallery1Title: 'Watch and read together',
+        gallery1Desc: 'Video, subtitles, pinyin, and translation stay aligned for focused listening practice.',
+        gallery2Title: 'Save vocabulary instantly',
+        gallery2Desc: 'Turn a dialogue into a review list with explanations and writing support.',
+        gallery3Title: 'Prepare for HSK',
+        gallery3Desc: 'Use structured mock exams and level filters when you need exam practice.',
+        stat1Number: '6,000+',
+        stat1Label: 'HSK vocabulary words across levels 1-6',
+        stat2Number: '200+',
+        stat2Label: 'HSK mock exams with offline access',
+        stat3Number: 'AI',
+        stat3Label: 'Explanations for vocabulary and dialogue',
+        stat4Number: 'iPad',
+        stat4Label: 'Optimized previews for phone and tablet',
+        downloadKicker: 'Start today',
+        downloadTitle: 'Build a daily Mandarin habit with one app.',
+        downloadCopy: 'Download Wo xue Hanyu and practice with real content, structured HSK material, and tools that keep study moving.',
+        footerText: '© 2026 Wo xue Hanyu. All rights reserved.',
         footerTermsConditions: 'Terms & Conditions',
         footerTerms: 'Terms of Use',
         footerPrivacy: 'Privacy Policy',
         footerDeleteAccount: 'Delete Account',
-        footerContact: 'Contact'
+        footerContact: 'Contact',
+        bannerSubtitleIos: 'Free - On the App Store',
+        bannerSubtitleAndroid: 'Free - On Google Play'
       },
       vi: {
+        pageTitle: 'Wo xue Hanyu - Học tiếng Trung với nội dung thực tế',
+        pageDescription: 'Học tiếng Trung với Wo xue Hanyu qua video thực tế, từ vựng theo ngữ cảnh, luyện HSK, luyện viết, giải thích AI và học offline.',
+        brandSubtitle: 'Hành trình đến tiếng Quan Thoại',
+        navFeatures: 'Tính năng',
+        navPreview: 'Xem trước',
+        navDownload: 'Tải app',
+        heroEyebrow: 'Học tiếng Trung cho đời sống thật',
         heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
-        heroTagline: 'Hành trình đến tiếng Quan Thoại',
+        heroLede: 'Học tiếng Trung qua video thực tế, từ vựng theo ngữ cảnh, luyện thi HSK, công cụ luyện viết và học offline.',
         downloadIos: 'Tải trên App Store',
         downloadAndroid: 'Tải trên Google Play',
-        feature1Title: 'Bài Học Tương Tác',
-        feature1Desc: 'Học với các bài học hấp dẫn, ngắn gọn được thiết kế cho mọi trình độ, từ cơ bản đến nâng cao.',
-        feature2Title: 'Luyện Tập Thông Minh',
-        feature2Desc: 'Thành thạo từ vựng và chữ Hán với phương pháp lặp lại ngắt quãng và bài luyện tập cá nhân hóa.',
-        feature3Title: 'Hướng Dẫn Phát Âm',
-        feature3Desc: 'Hoàn thiện thanh điệu và phát âm với audio từ người bản ngữ và phản hồi tức thì.',
-        aboutTitle: 'Bắt Đầu Hành Trình Ngay Hôm Nay',
-        aboutDesc1: 'Wo xue Hanyu làm cho việc học tiếng Trung trở nên dễ tiếp cận và thú vị cho mọi người. Dù bạn là người mới bắt đầu hay muốn cải thiện kỹ năng, ứng dụng sẽ thích ứng với tốc độ học của bạn.',
-        aboutDesc2: 'Tham gia cùng hàng nghìn người đang thành thạo tiếng Trung Quốc với phương pháp tương tác toàn diện của chúng tôi.',
-        stat1Number: '5000+',
-        stat1Label: 'Từ Vựng',
-        stat2Number: '100+',
-        stat2Label: 'Bài Học',
-        footerText: '© 2025 Wo xue Hanyu. Bảo lưu mọi quyền.',
+        heroStat1Number: '6.000+',
+        heroStat1Label: 'Từ vựng HSK',
+        heroStat2Number: '200+',
+        heroStat2Label: 'Đề thi thử HSK',
+        heroStat3Number: 'Offline',
+        heroStat3Label: 'Học mọi lúc',
+        noteWord: '学习',
+        notePinyin: 'xuexi',
+        noteMeaning: 'Học với từ vựng, pinyin, audio và ngữ cảnh.',
+        featuresKicker: 'Điểm nổi bật',
+        featuresTitle: 'Một ứng dụng học tiếng Trung theo đúng cách người học cần.',
+        featuresCopy: 'Chuyển từ xem, nghe sang học từ vựng, luyện viết, làm bài kiểm tra và ôn tập trong cùng một luồng học.',
+        feature1Title: 'Học qua video thực tế',
+        feature1Desc: 'Luyện tiếng Trung với vlog, podcast, hoạt hình và hội thoại giữ nguyên ngữ cảnh sử dụng.',
+        feature2Title: 'Từ vựng theo ngữ cảnh',
+        feature2Desc: 'Ôn từ trong từng hội thoại với chữ Hán, pinyin, nghĩa, đánh dấu và trợ giúp AI.',
+        feature3Title: 'Luyện HSK',
+        feature3Desc: 'Chuẩn bị với từ vựng HSK 1-6, quiz, luyện viết và đề thi thử.',
+        feature4Title: 'Học offline',
+        feature4Desc: 'Tải bài học và đề thi để tiếp tục luyện tập ngay cả khi không có mạng.',
+        previewKicker: 'Bên trong ứng dụng',
+        previewTitle: 'Xem trước các màn hình học chính trước khi cài đặt.',
+        previewCopy: 'Landing page dùng cùng bộ ảnh preview App Store và tự đổi theo ngôn ngữ bạn chọn.',
+        gallery1Title: 'Vừa xem vừa đọc',
+        gallery1Desc: 'Video, phụ đề, pinyin và bản dịch được căn theo nhau để luyện nghe tập trung.',
+        gallery2Title: 'Lưu từ vựng nhanh',
+        gallery2Desc: 'Biến hội thoại thành danh sách ôn tập với giải thích và hỗ trợ luyện viết.',
+        gallery3Title: 'Chuẩn bị cho HSK',
+        gallery3Desc: 'Dùng đề thi thử có cấu trúc và bộ lọc cấp độ khi cần luyện thi.',
+        stat1Number: '6.000+',
+        stat1Label: 'Từ vựng HSK từ cấp 1 đến 6',
+        stat2Number: '200+',
+        stat2Label: 'Đề thi thử HSK có thể học offline',
+        stat3Number: 'AI',
+        stat3Label: 'Giải thích từ vựng và hội thoại',
+        stat4Number: 'iPad',
+        stat4Label: 'Tối ưu preview cho điện thoại và tablet',
+        downloadKicker: 'Bắt đầu hôm nay',
+        downloadTitle: 'Xây dựng thói quen học tiếng Trung mỗi ngày.',
+        downloadCopy: 'Tải Wo xue Hanyu để luyện với nội dung thực tế, tài liệu HSK có cấu trúc và công cụ hỗ trợ học liên tục.',
+        footerText: '© 2026 Wo xue Hanyu. Bảo lưu mọi quyền.',
         footerTermsConditions: 'Điều Khoản & Điều Kiện',
         footerTerms: 'Điều Khoản Sử Dụng',
         footerPrivacy: 'Chính Sách Bảo Mật',
         footerDeleteAccount: 'Xóa Tài Khoản',
-        footerContact: 'Liên Hệ'
+        footerContact: 'Liên Hệ',
+        bannerSubtitleIos: 'Miễn phí - Trên App Store',
+        bannerSubtitleAndroid: 'Miễn phí - Trên Google Play'
       }
     };
 
-    // Detect user language
-    const browserLang = navigator.language || navigator.userLanguage;
-    let currentLang = browserLang.startsWith('vi') ? 'vi' : 'en';
+    const textBindings = {
+      'brand-subtitle': 'brandSubtitle',
+      'nav-features': 'navFeatures',
+      'nav-preview': 'navPreview',
+      'nav-download': 'navDownload',
+      'hero-eyebrow': 'heroEyebrow',
+      'hero-title': 'heroTitle',
+      'hero-chinese': 'heroChinese',
+      'hero-lede': 'heroLede',
+      'download-ios-text': 'downloadIos',
+      'download-android-text': 'downloadAndroid',
+      'download-ios-text-bottom': 'downloadIos',
+      'download-android-text-bottom': 'downloadAndroid',
+      'hero-stat1-number': 'heroStat1Number',
+      'hero-stat1-label': 'heroStat1Label',
+      'hero-stat2-number': 'heroStat2Number',
+      'hero-stat2-label': 'heroStat2Label',
+      'hero-stat3-number': 'heroStat3Number',
+      'hero-stat3-label': 'heroStat3Label',
+      'note-word': 'noteWord',
+      'note-pinyin': 'notePinyin',
+      'note-meaning': 'noteMeaning',
+      'features-kicker': 'featuresKicker',
+      'features-title': 'featuresTitle',
+      'features-copy': 'featuresCopy',
+      'feature1-title': 'feature1Title',
+      'feature1-desc': 'feature1Desc',
+      'feature2-title': 'feature2Title',
+      'feature2-desc': 'feature2Desc',
+      'feature3-title': 'feature3Title',
+      'feature3-desc': 'feature3Desc',
+      'feature4-title': 'feature4Title',
+      'feature4-desc': 'feature4Desc',
+      'preview-kicker': 'previewKicker',
+      'preview-title': 'previewTitle',
+      'preview-copy': 'previewCopy',
+      'gallery1-title': 'gallery1Title',
+      'gallery1-desc': 'gallery1Desc',
+      'gallery2-title': 'gallery2Title',
+      'gallery2-desc': 'gallery2Desc',
+      'gallery3-title': 'gallery3Title',
+      'gallery3-desc': 'gallery3Desc',
+      'stat1-number': 'stat1Number',
+      'stat1-label': 'stat1Label',
+      'stat2-number': 'stat2Number',
+      'stat2-label': 'stat2Label',
+      'stat3-number': 'stat3Number',
+      'stat3-label': 'stat3Label',
+      'stat4-number': 'stat4Number',
+      'stat4-label': 'stat4Label',
+      'download-kicker': 'downloadKicker',
+      'download-title': 'downloadTitle',
+      'download-copy': 'downloadCopy',
+      'footer-text': 'footerText',
+      'footer-terms-conditions': 'footerTermsConditions',
+      'footer-terms': 'footerTerms',
+      'footer-privacy': 'footerPrivacy',
+      'footer-delete-account': 'footerDeleteAccount',
+      'footer-contact': 'footerContact'
+    };
 
-    // Check localStorage for saved preference
-    const savedLang = localStorage.getItem('woxuehanyu-lang');
-    if (savedLang) {
-      currentLang = savedLang;
+    const browserLang = navigator.language || navigator.userLanguage || '';
+    let currentLang = localStorage.getItem('woxuehanyu-lang') || (browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en');
+
+    function normalizeLang(lang) {
+      return translations[lang] ? lang : 'en';
     }
 
-    // Set language function
+    function updatePreviewImages(lang) {
+      document.querySelectorAll('.js-preview').forEach((image) => {
+        const [kind, file] = image.dataset.preview.split(':');
+        image.src = `/assets/Preview/${kind}-${lang}/${file}`;
+      });
+    }
+
+    function updateStoreLinks(lang) {
+      document.querySelectorAll('#btn-ios, .js-ios-link').forEach((link) => {
+        link.href = STORE_LINKS.ios[lang] || STORE_LINKS.ios.en;
+      });
+      const android = document.getElementById('btn-android');
+      if (android) android.href = STORE_LINKS.android;
+    }
+
+    function updateMeta(t) {
+      document.title = t.pageTitle;
+      const description = document.querySelector('meta[name="description"]');
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      if (description) description.content = t.pageDescription;
+      if (ogTitle) ogTitle.content = t.pageTitle;
+      if (ogDescription) ogDescription.content = t.pageDescription;
+    }
+
+    function updateContent() {
+      currentLang = normalizeLang(currentLang);
+      const t = translations[currentLang];
+
+      Object.keys(textBindings).forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = t[textBindings[id]];
+      });
+
+      document.documentElement.lang = currentLang;
+      updateMeta(t);
+      updatePreviewImages(currentLang);
+      updateStoreLinks(currentLang);
+      updateBannerLanguage();
+    }
+
     function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('woxuehanyu-lang', lang);
+      currentLang = normalizeLang(lang);
+      localStorage.setItem('woxuehanyu-lang', currentLang);
       updateContent();
-      if (typeof updateAppStoreLink === 'function') updateAppStoreLink();
     }
 
     window.applyLanguage = function(lang) {
-      currentLang = translations[lang] ? lang : 'en';
+      currentLang = normalizeLang(lang);
       updateContent();
-      if (typeof updateAppStoreLink === 'function') updateAppStoreLink();
     };
 
-    // Update content based on language
-    function updateContent() {
-      const t = translations[currentLang];
+    window.setLandingLanguage = setLanguage;
 
-      document.getElementById('hero-title').textContent = t.heroTitle;
-      document.getElementById('hero-chinese').textContent = t.heroChinese;
-      document.getElementById('hero-tagline').textContent = t.heroTagline;
-      document.getElementById('download-ios-text').textContent = t.downloadIos;
-      document.getElementById('download-android-text').textContent = t.downloadAndroid;
+    function updateBannerLanguage() {
+      const bannerSubtitle = document.getElementById('bannerSubtitle');
+      if (!bannerSubtitle) return;
 
-      document.getElementById('feature1-title').textContent = t.feature1Title;
-      document.getElementById('feature1-desc').textContent = t.feature1Desc;
-      document.getElementById('feature2-title').textContent = t.feature2Title;
-      document.getElementById('feature2-desc').textContent = t.feature2Desc;
-      document.getElementById('feature3-title').textContent = t.feature3Title;
-      document.getElementById('feature3-desc').textContent = t.feature3Desc;
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      const isAndroid = /android/i.test(userAgent);
+      const t = translations[normalizeLang(currentLang)];
 
-      document.getElementById('about-title').textContent = t.aboutTitle;
-      document.getElementById('about-desc1').textContent = t.aboutDesc1;
-      document.getElementById('about-desc2').textContent = t.aboutDesc2;
-
-      document.getElementById('stat1-number').textContent = t.stat1Number;
-      document.getElementById('stat1-label').textContent = t.stat1Label;
-      document.getElementById('stat2-number').textContent = t.stat2Number;
-      document.getElementById('stat2-label').textContent = t.stat2Label;
-
-      document.getElementById('footer-text').innerHTML = t.footerText;
-      document.getElementById('footer-terms-conditions').textContent = t.footerTermsConditions;
-      document.getElementById('footer-terms').textContent = t.footerTerms;
-      document.getElementById('footer-privacy').textContent = t.footerPrivacy;
-      document.getElementById('footer-delete-account').textContent = t.footerDeleteAccount;
-      document.getElementById('footer-contact').textContent = t.footerContact;
-
-      // Update HTML lang attribute
-      document.documentElement.lang = currentLang;
-    }
-
-    // Initialize on page load
-    updateContent();
-
-    // App store links (update these with actual links when apps are published)
-    function updateAppStoreLink() {
-      const iosBtn = document.getElementById('btn-ios');
-      if (currentLang === 'vi') {
-        iosBtn.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426?l=vi';
+      if (isIOS) {
+        bannerSubtitle.textContent = t.bannerSubtitleIos;
+      } else if (isAndroid) {
+        bannerSubtitle.textContent = t.bannerSubtitleAndroid;
       } else {
-        iosBtn.href = 'https://apps.apple.com/vn/app/wo-xue-hanyu/id6754384426';
+        bannerSubtitle.textContent = t.navDownload;
       }
     }
-    updateAppStoreLink();
 
-    console.log('Wo xue Hanyu - 我学汉语');
-    console.log('Language:', currentLang);
+    updateContent();
 
-    // Smart App Banner
     (function() {
       const banner = document.getElementById('smartBanner');
       const bannerButton = document.getElementById('bannerButton');
       const bannerClose = document.getElementById('bannerClose');
-      const bannerSubtitle = document.getElementById('bannerSubtitle');
+      if (!banner || !bannerButton || !bannerClose) return;
 
-      // Check if banner was previously dismissed
       const bannerDismissed = localStorage.getItem('smartBannerDismissed');
       if (bannerDismissed) {
         banner.classList.add('hidden');
         return;
       }
 
-      // Detect platform
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
       const isAndroid = /android/i.test(userAgent);
-
-      // Universal link
       const universalLink = 'https://woxuehanyu.site/app';
-      const appStoreLink = 'https://apps.apple.com/app/id6754384426';
-      const playStoreLink = 'https://play.google.com/store/apps/details?id=com.woxuehanyu.prod';
 
-      // Show banner on mobile devices
       if (isIOS || isAndroid) {
         setTimeout(() => {
           banner.classList.add('show');
           document.body.classList.add('smart-banner-visible');
         }, 500);
 
-        // Update subtitle based on platform
-        if (isIOS) {
-          bannerSubtitle.textContent = 'Free - On the App Store';
-        } else if (isAndroid) {
-          bannerSubtitle.textContent = 'Free - On Google Play';
-        }
+        updateBannerLanguage();
 
-        // Button click handler
         bannerButton.addEventListener('click', () => {
-          // Try to open with universal link first
           window.location.href = universalLink;
-
-          // Fallback to store after a delay if app didn't open
           setTimeout(() => {
-            if (isIOS) {
-              window.location.href = appStoreLink;
-            } else if (isAndroid) {
-              window.location.href = playStoreLink;
-            }
+            window.location.href = isIOS ? STORE_LINKS.ios[normalizeLang(currentLang)] : STORE_LINKS.android;
           }, 1500);
         });
 
-        // Close button handler
         bannerClose.addEventListener('click', () => {
           banner.classList.remove('show');
           setTimeout(() => {
