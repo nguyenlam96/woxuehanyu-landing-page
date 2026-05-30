@@ -1,0 +1,145 @@
+:root {
+  --fallback-bg: #f5f8f7;
+  --fallback-surface: #ffffff;
+  --fallback-ink: #171411;
+  --fallback-muted: #596461;
+  --fallback-line: rgba(20, 33, 29, 0.12);
+  --fallback-blue: #0879bd;
+  --fallback-blue-strong: #075f94;
+  --fallback-shadow: 0 24px 70px rgba(50, 42, 33, 0.13);
+  --fallback-radius: 8px;
+}
+
+body {
+  min-height: 100vh;
+  padding: 24px !important;
+  background:
+    linear-gradient(90deg, rgba(20, 33, 29, 0.032) 1px, transparent 1px),
+    linear-gradient(180deg, #ffffff 0%, var(--fallback-bg) 48%, #eef7f4 100%) !important;
+  background-size: 48px 48px, auto !important;
+  color: var(--fallback-ink) !important;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.shell {
+  width: min(720px, 100%) !important;
+  border: 1px solid var(--fallback-line) !important;
+  border-radius: var(--fallback-radius) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: var(--fallback-shadow) !important;
+}
+
+.hero {
+  padding: 34px 34px 24px !important;
+  border-bottom: 1px solid var(--fallback-line) !important;
+  background: transparent !important;
+}
+
+.brand {
+  margin-bottom: 28px !important;
+}
+
+.brand img {
+  border-radius: 10px !important;
+  box-shadow: 0 12px 26px rgba(8, 121, 189, 0.18) !important;
+}
+
+.brand h1 {
+  color: var(--fallback-ink) !important;
+  font-size: 18px !important;
+  font-weight: 850 !important;
+}
+
+.headline {
+  max-width: 12ch;
+  color: var(--fallback-ink) !important;
+  font-family: ui-serif, Georgia, "Times New Roman", serif !important;
+  font-size: 48px !important;
+  line-height: 1.02 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+}
+
+.copy {
+  margin-top: 18px;
+  color: var(--fallback-muted) !important;
+  font-size: 17px !important;
+  line-height: 1.68 !important;
+}
+
+.content {
+  padding: 26px 34px 34px !important;
+}
+
+.video-meta {
+  border: 1px solid rgba(8, 121, 189, 0.18) !important;
+  border-left: 4px solid var(--fallback-blue) !important;
+  border-radius: var(--fallback-radius) !important;
+  background: rgba(8, 121, 189, 0.06) !important;
+  color: var(--fallback-muted) !important;
+}
+
+.video-meta strong {
+  color: var(--fallback-ink) !important;
+}
+
+.actions {
+  gap: 14px !important;
+}
+
+.button {
+  min-height: 58px !important;
+  border-radius: var(--fallback-radius) !important;
+  font-weight: 850 !important;
+}
+
+.button.primary {
+  background: var(--fallback-ink) !important;
+  color: white !important;
+  box-shadow: 0 14px 34px rgba(23, 20, 17, 0.16) !important;
+}
+
+.button.primary:hover {
+  background: var(--fallback-ink) !important;
+}
+
+.button.secondary {
+  border-color: var(--fallback-line) !important;
+  background: white !important;
+  color: var(--fallback-ink) !important;
+}
+
+.button.secondary:hover {
+  background: white !important;
+}
+
+.note,
+.generic {
+  color: var(--fallback-muted) !important;
+  font-size: 14px !important;
+}
+
+.generic a {
+  color: var(--fallback-blue-strong) !important;
+}
+
+.language-select-wrap {
+  top: 20px !important;
+  right: 20px !important;
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 14px !important;
+  }
+
+  .hero,
+  .content {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+
+  .headline {
+    font-size: 38px !important;
+  }
+}
