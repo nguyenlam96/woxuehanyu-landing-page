@@ -110,7 +110,7 @@
     .smart-banner-title {
       font-size: 14px;
       font-weight: 800;
-      color: var(--ink);
+      color: var(--blue);
     }
 
     .smart-banner-subtitle {
@@ -435,7 +435,7 @@
     .download-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 48px;
       margin-top: 34px;
     }
 
@@ -448,7 +448,7 @@
       border: 0;
       border-radius: var(--radius);
       background: transparent;
-      color: var(--ink);
+      color: var(--blue);
       font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 15px;
       font-weight: 850;
@@ -458,6 +458,10 @@
 
     .download-btn:hover {
       transform: translateY(-2px);
+      color: var(--blue);
+    }
+
+    .download-btn span:last-child {
       color: var(--blue);
     }
 
@@ -492,6 +496,15 @@
       color: var(--blue);
       font-size: 12px;
       font-weight: 950;
+    }
+
+    .store-mark img {
+      width: 15px;
+      height: 15px;
+    }
+
+    .store-mark img.android-icon {
+      filter: invert(68%) sepia(88%) saturate(2541%) hue-rotate(50deg) brightness(93%) contrast(98%);
     }
 
     .hero-points {
@@ -1017,6 +1030,7 @@
 
       .download-buttons {
         flex-direction: column;
+        gap: 30px;
       }
 
       .download-option {
@@ -1180,7 +1194,7 @@
           <div class="download-buttons" aria-label="Download links">
             <div class="download-option">
               <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn" id="btn-ios" target="_blank" rel="noopener noreferrer">
-                <span class="store-mark" aria-hidden="true">iOS</span>
+                <span class="store-mark" aria-hidden="true"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/apple.svg" alt=""></span>
                 <span id="download-ios-text">Download on App Store</span>
               </a>
               <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-qr js-ios-link" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to download on App Store">
@@ -1189,7 +1203,7 @@
             </div>
             <div class="download-option">
               <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
-                <span class="store-mark" aria-hidden="true">GP</span>
+                <span class="store-mark" aria-hidden="true"><img class="android-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/android.svg" alt=""></span>
                 <span id="download-android-text">Get it on Google Play</span>
               </a>
               <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-qr" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to get it on Google Play">
@@ -1327,7 +1341,7 @@
         <div class="download-buttons" aria-label="Download links">
           <div class="download-option">
             <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn js-ios-link" target="_blank" rel="noopener noreferrer">
-              <span class="store-mark" aria-hidden="true">iOS</span>
+              <span class="store-mark" aria-hidden="true"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/apple.svg" alt=""></span>
               <span id="download-ios-text-bottom">Download on App Store</span>
             </a>
             <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-qr js-ios-link" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to download on App Store">
@@ -1336,7 +1350,7 @@
           </div>
           <div class="download-option">
             <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" target="_blank" rel="noopener noreferrer">
-              <span class="store-mark" aria-hidden="true">GP</span>
+              <span class="store-mark" aria-hidden="true"><img class="android-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/android.svg" alt=""></span>
               <span id="download-android-text-bottom">Get it on Google Play</span>
             </a>
             <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-qr" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to get it on Google Play">
