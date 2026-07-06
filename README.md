@@ -20,7 +20,7 @@ This project provides web-based authentication endpoints that integrate with Sup
 1. Push this repo to GitHub
 2. Connect to Cloudflare Pages
 3. Build command: `npx wrangler deploy`
-4. Configure custom domain: `auth.woxuehanyu.site`
+4. Configure custom domain: `woxuehanyu.com`
 
 ### Configure Supabase
 
@@ -59,10 +59,10 @@ woxuehanyu-auth/
 
 ```bash
 # Test email confirmation page (web browser)
-https://auth.woxuehanyu.site/auth/email-confirmed
+https://woxuehanyu.site/auth/email-confirmed
 
 # Test password reset in-app redirect
-https://auth.woxuehanyu.site/auth/reset-password-in-app
+https://woxuehanyu.site/auth/reset-password-in-app
 ```
 
 ## License
