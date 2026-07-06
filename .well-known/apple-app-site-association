@@ -8,6 +8,10 @@
         ],
         "components": [
           {
+            "/": "/auth/*",
+            "comment": "Open authentication callbacks in app"
+          },
+          {
             "/": "/tube/video/*",
             "comment": "Open shared Tube video in app"
           }

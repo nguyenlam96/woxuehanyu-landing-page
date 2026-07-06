@@ -60,9 +60,14 @@ woxuehanyu-auth/
 ```bash
 # Test email confirmation page (web browser)
 https://woxuehanyu.site/auth/email-confirmed
+https://woxuehanyu.com/auth/email-confirmed
 
 # Test password reset in-app redirect
 https://woxuehanyu.site/auth/reset-password-in-app
+https://woxuehanyu.com/auth/reset-password-in-app
+
+# Test shared Tube video universal link
+https://woxuehanyu.com/tube/video/example-video-id
 ```
 
 ## License
