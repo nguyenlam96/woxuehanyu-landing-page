@@ -212,12 +212,170 @@
     }
 
     .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 11px 18px;
       border-radius: 999px;
       background: var(--ink);
       color: white;
       text-decoration: none;
       box-shadow: 0 12px 26px rgba(23, 20, 17, 0.16);
+    }
+
+    .nav-cta.web {
+      background: #0879bd;
+      color: white;
+      box-shadow: 0 12px 26px rgba(8, 121, 189, 0.18);
+    }
+
+    .nav-cta.ios {
+      background: #171411;
+      color: white;
+      box-shadow: 0 12px 26px rgba(23, 20, 17, 0.18);
+    }
+
+    .nav-cta.android {
+      background: #58cc02;
+      color: white;
+      box-shadow: 0 12px 26px rgba(88, 204, 2, 0.2);
+    }
+
+    .nav-cta svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      fill: currentColor;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .nav-icon-outline {
+      fill: none;
+    }
+
+    .nav-icon-fill {
+      stroke: none;
+    }
+
+    .nav-cta-label {
+      line-height: 1;
+    }
+
+    .start-section {
+      width: min(920px, calc(100% - 40px));
+      min-height: calc(100vh - 76px);
+      margin: 0 auto;
+      padding: 64px 0;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.9fr) minmax(300px, 1fr);
+      align-items: center;
+      justify-content: center;
+      gap: 70px;
+      background: white;
+      box-shadow: 0 0 0 100vmax white;
+      clip-path: inset(0 -100vmax);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .start-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 320px;
+    }
+
+    .start-visual::before,
+    .start-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(88, 204, 2, 0.16);
+    }
+
+    .start-visual::before {
+      width: 250px;
+      height: 250px;
+    }
+
+    .start-visual::after {
+      right: 22px;
+      bottom: 36px;
+      width: 92px;
+      height: 92px;
+      background: rgba(8, 121, 189, 0.14);
+    }
+
+    .start-app-icon {
+      position: relative;
+      z-index: 1;
+      width: min(230px, 62vw);
+      border-radius: 44px;
+      box-shadow: 0 28px 58px rgba(31, 110, 38, 0.18);
+      transform: rotate(-8deg);
+    }
+
+    .start-card {
+      position: absolute;
+      left: 10px;
+      bottom: 28px;
+      z-index: 2;
+      min-width: 142px;
+      padding: 14px 16px;
+      border: 1px solid rgba(88, 204, 2, 0.22);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 16px 36px rgba(23, 20, 17, 0.12);
+      color: #58cc02;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .start-content {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .start-title {
+      max-width: 430px;
+      color: #4b4b4b;
+      font-size: 32px;
+      line-height: 1.32;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .primary-app-cta {
+      width: min(310px, 100%);
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 38px;
+      padding: 0 34px;
+      border-radius: 12px;
+      background: #58cc02;
+      color: white;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 5px 0 #46a302;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .primary-app-cta:hover {
+      transform: translateY(-2px);
+      background: #61d80b;
+      box-shadow: 0 7px 0 #46a302;
+    }
+
+    .primary-app-cta:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #46a302;
     }
 
     .hero {
@@ -747,6 +905,16 @@
         display: none;
       }
 
+      .start-section {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        text-align: center;
+      }
+
+      .start-visual {
+        min-height: 260px;
+      }
+
       .hero {
         min-height: auto;
         grid-template-columns: 1fr;
@@ -790,8 +958,19 @@
         min-height: 68px;
       }
 
-      .brand-subtitle,
+      .brand-subtitle {
+        display: none;
+      }
+
       .nav-links {
+        gap: 8px;
+      }
+
+      .nav-cta {
+        padding: 10px;
+      }
+
+      .nav-cta-label {
         display: none;
       }
 
@@ -805,6 +984,26 @@
       .hero {
         padding: 34px 0 52px;
         gap: 32px;
+      }
+
+      .start-section {
+        width: min(100% - 28px, var(--max));
+        min-height: calc(100vh - 68px);
+        padding: 42px 0;
+      }
+
+      .start-title {
+        font-size: 25px;
+      }
+
+      .start-app-icon {
+        width: min(190px, 58vw);
+        border-radius: 36px;
+      }
+
+      .start-card {
+        left: max(0px, calc(50% - 150px));
+        bottom: 14px;
       }
 
       .eyebrow {
@@ -951,14 +1150,42 @@
           </span>
         </a>
         <div class="nav-links">
-          <a href="#features" id="nav-features">Features</a>
-          <a href="#preview" id="nav-preview">Preview</a>
-          <a href="#download" class="nav-cta" id="nav-download">Download</a>
+          <a href="https://app.woxuehanyu.com" class="nav-cta web" aria-label="Open web app">
+            <svg class="nav-icon-outline" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21M12 3c-2.2 2.4-3.3 5.4-3.3 9s1.1 6.6 3.3 9"></path>
+            </svg>
+            <span class="nav-cta-label" id="nav-web">Web</span>
+          </a>
+          <a href="#download" class="nav-cta ios" aria-label="Go to iOS download">
+            <svg class="nav-icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.8 13.1c0-2.9 2.4-4.3 2.5-4.4-1.4-2-3.5-2.3-4.2-2.3-1.8-.2-3.5 1.1-4.4 1.1-.9 0-2.3-1.1-3.8-1-2 0-3.8 1.2-4.8 3-2.1 3.7-.5 9.1 1.5 12.1 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 3.9-1s2.3 1 3.9 1c1.6 0 2.7-1.5 3.7-3 1.1-1.7 1.6-3.3 1.6-3.4 0 0-3.7-1.4-3.7-5.1ZM14.9 4.6c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.5 2.3-1.3 3.7 1.4.1 2.8-.7 3.6-1.7Z"></path>
+            </svg>
+            <span class="nav-cta-label" id="nav-ios">iOS</span>
+          </a>
+          <a href="#download" class="nav-cta android" aria-label="Go to Android download">
+            <svg class="nav-icon-outline" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 9h10v8.5A2.5 2.5 0 0 1 14.5 20h-5A2.5 2.5 0 0 1 7 17.5V9ZM8 6 6.6 3.8M16 6l1.4-2.2M7 9h10M5 10v6M19 10v6"></path>
+              <path d="M9.5 12h.01M14.5 12h.01"></path>
+            </svg>
+            <span class="nav-cta-label" id="nav-android">Android</span>
+          </a>
         </div>
       </nav>
     </header>
 
     <main>
+      <section class="start-section" aria-labelledby="start-title">
+        <div class="start-visual" aria-hidden="true">
+          <img class="start-app-icon" src="/assets/app_icon.png" alt="">
+          <div class="start-card">我学汉语</div>
+        </div>
+        <div class="start-content">
+          <h2 class="start-title" id="start-title">Learn Chinese with real content, simple tools, and daily practice.</h2>
+          <a href="https://app.woxuehanyu.com" class="primary-app-cta" id="start-learning-cta">Start learning</a>
+        </div>
+      </section>
+
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow" id="hero-eyebrow">Chinese learning for real life</p>
@@ -1162,9 +1389,12 @@
         pageTitle: 'Wo xue Hanyu - Learn Chinese with real content',
         pageDescription: 'Learn Mandarin with Wo xue Hanyu through real videos, contextual vocabulary, HSK practice, writing tools, AI explanations, and offline study.',
         brandSubtitle: 'A journey to Mandarin',
-        navFeatures: 'Features',
-        navPreview: 'Preview',
         navDownload: 'Download',
+        navWeb: 'Web',
+        navIos: 'iOS',
+        navAndroid: 'Android',
+        startTitle: 'Learn Chinese with real content, simple tools, and daily practice.',
+        startLearning: 'Start learning',
         heroEyebrow: 'Chinese learning for real life',
         heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
@@ -1230,9 +1460,12 @@
         pageTitle: 'Wo xue Hanyu - Học tiếng Trung với nội dung thực tế',
         pageDescription: 'Học tiếng Trung với Wo xue Hanyu qua video thực tế, từ vựng theo ngữ cảnh, luyện HSK, luyện viết, giải thích AI và học offline.',
         brandSubtitle: 'Hành trình đến tiếng Quan Thoại',
-        navFeatures: 'Tính năng',
-        navPreview: 'Xem trước',
         navDownload: 'Tải app',
+        navWeb: 'Web',
+        navIos: 'iOS',
+        navAndroid: 'Android',
+        startTitle: 'Học tiếng Trung với nội dung thật, đơn giản và hiệu quả!',
+        startLearning: 'Bắt đầu học',
         heroEyebrow: 'Học tiếng Trung cho đời sống thật',
         heroTitle: 'Wo xue Hanyu',
         heroChinese: '我学汉语',
@@ -1298,9 +1531,11 @@
 
     const textBindings = {
       'brand-subtitle': 'brandSubtitle',
-      'nav-features': 'navFeatures',
-      'nav-preview': 'navPreview',
-      'nav-download': 'navDownload',
+      'nav-web': 'navWeb',
+      'nav-ios': 'navIos',
+      'nav-android': 'navAndroid',
+      'start-title': 'startTitle',
+      'start-learning-cta': 'startLearning',
       'hero-eyebrow': 'heroEyebrow',
       'hero-title': 'heroTitle',
       'hero-chinese': 'heroChinese',
