@@ -314,6 +314,27 @@
       box-shadow: 0 18px 46px rgba(42, 35, 27, 0.15);
     }
 
+    .download-option {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .download-qr {
+      width: 124px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-strong);
+      box-shadow: 0 12px 28px rgba(42, 35, 27, 0.08);
+    }
+
+    .download-qr img {
+      width: 100%;
+      height: auto;
+    }
+
     .store-mark {
       width: 26px;
       height: 26px;
@@ -807,6 +828,10 @@
         flex-direction: column;
       }
 
+      .download-option {
+        width: 100%;
+      }
+
       .download-btn {
         width: 100%;
         justify-content: center;
@@ -942,14 +967,24 @@
           <p class="hero-lede" id="hero-lede">Learn Mandarin through real videos, contextual vocabulary, HSK exam practice, writing tools, and offline study.</p>
 
           <div class="download-buttons" aria-label="Download links">
-            <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn" id="btn-ios" target="_blank" rel="noopener noreferrer">
-              <span class="store-mark" aria-hidden="true">iOS</span>
-              <span id="download-ios-text">Download on App Store</span>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
-              <span class="store-mark" aria-hidden="true">GP</span>
-              <span id="download-android-text">Get it on Google Play</span>
-            </a>
+            <div class="download-option">
+              <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn" id="btn-ios" target="_blank" rel="noopener noreferrer">
+                <span class="store-mark" aria-hidden="true">iOS</span>
+                <span id="download-ios-text">Download on App Store</span>
+              </a>
+              <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-qr js-ios-link" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to download on App Store">
+                <img src="/assets/qr-app-store.svg" alt="App Store QR code" loading="lazy">
+              </a>
+            </div>
+            <div class="download-option">
+              <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" id="btn-android" target="_blank" rel="noopener noreferrer">
+                <span class="store-mark" aria-hidden="true">GP</span>
+                <span id="download-android-text">Get it on Google Play</span>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-qr" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to get it on Google Play">
+                <img src="/assets/qr-google-play.svg" alt="Google Play QR code" loading="lazy">
+              </a>
+            </div>
           </div>
 
           <div class="hero-points" aria-label="Product highlights">
@@ -1079,14 +1114,24 @@
           <p id="download-copy">Download Wo xue Hanyu and practice with real content, structured HSK material, and tools that keep study moving.</p>
         </div>
         <div class="download-buttons" aria-label="Download links">
-          <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn js-ios-link" target="_blank" rel="noopener noreferrer">
-            <span class="store-mark" aria-hidden="true">iOS</span>
-            <span id="download-ios-text-bottom">Download on App Store</span>
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" target="_blank" rel="noopener noreferrer">
-            <span class="store-mark" aria-hidden="true">GP</span>
-            <span id="download-android-text-bottom">Get it on Google Play</span>
-          </a>
+          <div class="download-option">
+            <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-btn js-ios-link" target="_blank" rel="noopener noreferrer">
+              <span class="store-mark" aria-hidden="true">iOS</span>
+              <span id="download-ios-text-bottom">Download on App Store</span>
+            </a>
+            <a href="https://apps.apple.com/vn/app/wo-xue-hanyu-learning-chinese/id6754384426" class="download-qr js-ios-link" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to download on App Store">
+              <img src="/assets/qr-app-store.svg" alt="App Store QR code" loading="lazy">
+            </a>
+          </div>
+          <div class="download-option">
+            <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-btn" target="_blank" rel="noopener noreferrer">
+              <span class="store-mark" aria-hidden="true">GP</span>
+              <span id="download-android-text-bottom">Get it on Google Play</span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.woxuehanyu.prod" class="download-qr" target="_blank" rel="noopener noreferrer" aria-label="Scan QR code to get it on Google Play">
+              <img src="/assets/qr-google-play.svg" alt="Google Play QR code" loading="lazy">
+            </a>
+          </div>
         </div>
       </section>
     </main>
