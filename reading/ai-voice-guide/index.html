@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng dẫn Giọng đọc AI - Wo xue Hanyu</title>
+  <meta name="description" content="Hướng dẫn dùng Giọng đọc AI trong Wo xue Hanyu: API key là gì, cách đăng ký và lấy API key của từng nhà cung cấp.">
+  <link rel="icon" href="/assets/app_icon.png">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html[lang="vi"] .en, html[lang="en"] .vi { display: none !important; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #111827;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 56px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 44px 0 14px;
+      color: #111827;
+      scroll-margin-top: 16px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    p, li, td, th {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #4b5563;
+    }
+
+    p { margin-bottom: 12px; }
+
+    ul, ol { margin: 0 0 16px 24px; }
+
+    li { margin-bottom: 6px; }
+
+    a { color: #4f46e5; font-weight: 600; text-decoration: none; word-break: break-word; }
+    a:hover { text-decoration: underline; }
+
+    strong { color: #1f2937; }
+
+    code {
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 14px;
+    }
+
+    .subtitle { color: #6b7280; font-size: 17px; margin-bottom: 24px; }
+
+    .box {
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+
+    .box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+
+    .info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+    .tip { background: #ecfdf5; border-left: 4px solid #10b981; }
+    .warn { background: #fffbeb; border-left: 4px solid #f59e0b; }
+
+    .toc {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 24px 0;
+    }
+
+    .toc ol { margin-bottom: 0; }
+    .toc li { margin-bottom: 2px; }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .flow span {
+      background: #eef2ff;
+      color: #3730a3;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .flow b { color: #9ca3af; }
+
+    .table-wrap { overflow-x: auto; margin: 16px 0; }
+
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+      font-size: 15px;
+    }
+
+    th { background: #f9fafb; color: #111827; }
+
+    .provider {
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin: 18px 0;
+      scroll-margin-top: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.hard { background: #fee2e2; color: #991b1b; }
+    .badge.mid { background: #fef3c7; color: #92400e; }
+
+    .links { font-size: 15px; margin-top: 8px; }
+
+    details {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 10px 0;
+    }
+
+    summary { cursor: pointer; font-weight: 600; color: #111827; }
+
+    details p { margin-top: 10px; margin-bottom: 0; }
+
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    footer p { font-size: 14px; }
+
+    footer a { color: #667eea; font-weight: 500; }
+
+    @media (max-width: 768px) {
+      body { padding: 64px 10px 20px; }
+      .container { padding: 28px 18px; border-radius: 18px; }
+      h1 { font-size: 28px; }
+      h2 { font-size: 21px; }
+      .provider { padding: 18px 16px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/language.css">
+  <script src="/assets/language.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">
+      <span>←</span>
+      <span class="vi">Về trang chủ</span><span class="en">Back to Home</span>
+    </a>
+
+    <h1>
+      <span class="vi">Hướng dẫn Giọng đọc AI</span>
+      <span class="en">AI Voice Guide</span>
+    </h1>
+    <p class="subtitle vi">Biến bất kỳ bài đọc nào thành audio giọng người thật để nghe, chép chính tả và luyện nói. Trang này giải thích mọi thứ bằng ngôn ngữ đơn giản, không cần biết lập trình.</p>
+    <p class="subtitle en">Turn any reading into natural, human-like audio to listen to, take dictation from and shadow. This page explains everything in plain words, no technical knowledge needed.</p>
+
+    <div class="toc">
+      <p><strong class="vi">Nội dung</strong><strong class="en">Contents</strong></p>
+      <ol>
+        <li><a href="#what"><span class="vi">Giọng đọc AI là gì?</span><span class="en">What is AI voice?</span></a></li>
+        <li><a href="#api-key"><span class="vi">API Key là gì? Vì sao cần?</span><span class="en">What is an API key, and why do I need one?</span></a></li>
+        <li><a href="#how"><span class="vi">Cách hoạt động &amp; bảo mật</span><span class="en">How it works &amp; privacy</span></a></li>
+        <li><a href="#cost"><span class="vi">Tốn bao nhiêu tiền?</span><span class="en">How much does it cost?</span></a></li>
+        <li><a href="#choose"><span class="vi">Nên chọn nhà cung cấp nào?</span><span class="en">Which provider should I pick?</span></a></li>
+        <li><a href="#providers"><span class="vi">Cách lấy API Key từng nhà cung cấp</span><span class="en">Getting a key from each provider</span></a></li>
+        <li><a href="#in-app"><span class="vi">Nhập API Key vào app</span><span class="en">Adding the key in the app</span></a></li>
+        <li><a href="#faq"><span class="vi">Câu hỏi thường gặp &amp; lỗi</span><span class="en">FAQ &amp; troubleshooting</span></a></li>
+      </ol>
+    </div>
+
+    <!-- 1 -->
+    <h2 id="what"><span class="vi">1. Giọng đọc AI là gì?</span><span class="en">1. What is AI voice?</span></h2>
+    <div class="vi">
+      <p>Khi bạn mở một bài đọc trong Wo xue Hanyu và bấm <strong>Giọng đọc AI</strong>, app sẽ gửi chữ trong bài cho một dịch vụ trí tuệ nhân tạo chuyên đọc văn bản (gọi là <strong>nhà cung cấp</strong>, ví dụ Soniox, ElevenLabs...). Dịch vụ đó "đọc" bài và trả về một file audio nghe như người thật.</p>
+      <p>Sau khi tạo xong, bạn có thể:</p>
+      <ul>
+        <li>Nghe bài đọc với giọng tự nhiên, chọn tốc độ phù hợp.</li>
+        <li>Luyện <strong>Nghe chép chính tả</strong> và <strong>Shadowing</strong> (nói đuổi) theo audio vừa tạo.</li>
+        <li>Tải file audio về máy để nghe offline.</li>
+        <li>Tạo nhiều phiên bản với giọng khác nhau và chọn bản bạn thích.</li>
+      </ul>
+    </div>
+    <div class="en">
+      <p>When you open a reading in Wo xue Hanyu and tap <strong>AI voice</strong>, the app sends the text of that reading to an artificial-intelligence service that specialises in reading text aloud (we call it a <strong>provider</strong>, e.g. Soniox, ElevenLabs...). The service "reads" it and sends back an audio file that sounds like a real person.</p>
+      <p>Once it's made, you can:</p>
+      <ul>
+        <li>Listen to the reading in a natural voice, at the speed you like.</li>
+        <li>Practise <strong>Dictation</strong> and <strong>Shadowing</strong> with the new audio.</li>
+        <li>Download the audio file to listen offline.</li>
+        <li>Make several versions with different voices and keep the one you like.</li>
+      </ul>
+    </div>
+
+    <!-- 2 -->
+    <h2 id="api-key"><span class="vi">2. API Key là gì? Vì sao cần?</span><span class="en">2. What is an API key, and why do I need one?</span></h2>
+    <div class="vi">
+      <p>Hãy tưởng tượng nhà cung cấp giọng đọc giống như một <strong>quán cà phê</strong>, còn <strong>API Key</strong> là <strong>thẻ thành viên</strong> của bạn ở quán đó.</p>
+      <ul>
+        <li>Bạn đăng ký tài khoản ở trang của nhà cung cấp (giống làm thẻ thành viên).</li>
+        <li>Nhà cung cấp đưa cho bạn một <strong>dãy ký tự dài</strong>, ví dụ <code>sk_a1b2c3d4e5...</code>. Đó chính là API Key.</li>
+        <li>Bạn dán dãy đó vào app. Mỗi lần tạo giọng đọc, app "trình thẻ" này để nhà cung cấp biết ai đang dùng và tính phí vào đúng tài khoản của bạn.</li>
+      </ul>
+      <div class="box info">
+        <p><strong>Vì sao không dùng chung một key của app?</strong> Tạo giọng đọc AI tốn phí theo từng ký tự. Dùng key riêng giúp bạn <strong>chỉ trả đúng phần mình dùng</strong>, trực tiếp cho nhà cung cấp, với giá gốc, và được chọn nhà cung cấp, giọng đọc mình thích. Wo xue Hanyu không thu thêm bất kỳ khoản phí nào.</p>
+      </div>
+      <div class="box warn">
+        <p><strong>Giữ API Key như giữ mật khẩu.</strong> Ai có key của bạn đều có thể dùng tiền trong tài khoản đó. Đừng gửi key cho người khác hay đăng lên mạng.</p>
+      </div>
+    </div>
+    <div class="en">
+      <p>Think of a voice provider as a <strong>coffee shop</strong>, and an <strong>API key</strong> as your <strong>membership card</strong> there.</p>
+      <ul>
+        <li>You sign up on the provider's website (like getting a membership card).</li>
+        <li>The provider gives you a <strong>long string of characters</strong>, e.g. <code>sk_a1b2c3d4e5...</code>. That is your API key.</li>
+        <li>You paste it into the app. Each time you make a voice, the app "shows the card" so the provider knows it's you and charges your own account.</li>
+      </ul>
+      <div class="box info">
+        <p><strong>Why not one shared key from the app?</strong> Making AI voice costs money per character. With your own key you <strong>pay only for what you use</strong>, straight to the provider at their own price, and you get to pick the provider and voice you like. Wo xue Hanyu adds no fee on top.</p>
+      </div>
+      <div class="box warn">
+        <p><strong>Treat your API key like a password.</strong> Anyone who has it can spend the money in that account. Don't send it to others or post it online.</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <h2 id="how"><span class="vi">3. Cách hoạt động &amp; bảo mật</span><span class="en">3. How it works &amp; privacy</span></h2>
+    <div class="flow vi">
+      <span>📱 App của bạn</span><b>→</b><span>🔒 Máy chủ Wo xue Hanyu</span><b>→</b><span>🤖 Nhà cung cấp AI</span><b>→</b><span>🎧 File audio</span>
+    </div>
+    <div class="flow en">
+      <span>📱 Your app</span><b>→</b><span>🔒 Wo xue Hanyu server</span><b>→</b><span>🤖 AI provider</span><b>→</b><span>🎧 Audio file</span>
+    </div>
+    <div class="vi">
+      <ol>
+        <li>Bạn chọn nhà cung cấp, giọng đọc, tốc độ và bấm <strong>Tạo giọng đọc AI</strong>.</li>
+        <li>App gửi chữ của bài đọc cùng API Key tới máy chủ Wo xue Hanyu qua kết nối mã hóa (HTTPS).</li>
+        <li>Máy chủ chia bài thành từng câu, nhờ nhà cung cấp đọc từng câu bằng key của bạn, rồi ghép lại thành một file audio hoàn chỉnh, có mốc thời gian cho từng câu để app tô sáng câu đang đọc.</li>
+        <li>File audio được lưu cùng bài đọc để bạn nghe lại bất cứ lúc nào, không phải tạo lại.</li>
+      </ol>
+      <div class="box tip">
+        <p><strong>API Key của bạn ở đâu?</strong></p>
+        <ul>
+          <li>Key <strong>chỉ được lưu trên thiết bị của bạn</strong>.</li>
+          <li>Máy chủ chỉ dùng key trong lúc tạo audio và <strong>không lưu lại</strong>.</li>
+          <li>Bạn có thể <strong>đổi hoặc xóa key</strong> trong app bất cứ lúc nào. Nếu lo lắng, bạn cũng có thể xóa key trên trang của nhà cung cấp, key sẽ mất hiệu lực ngay.</li>
+          <li>Đổi điện thoại hoặc cài lại app thì cần nhập lại key.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="en">
+      <ol>
+        <li>You pick a provider, a voice and a speed, then tap <strong>Generate AI voice</strong>.</li>
+        <li>The app sends the reading's text and your API key to the Wo xue Hanyu server over an encrypted (HTTPS) connection.</li>
+        <li>The server splits the reading into sentences, asks the provider to read each one using your key, then joins them into one audio file, with a timestamp per sentence so the app can highlight the sentence being read.</li>
+        <li>The audio is saved with the reading, so you can play it again any time without making it again.</li>
+      </ol>
+      <div class="box tip">
+        <p><strong>Where is my API key kept?</strong></p>
+        <ul>
+          <li>Your key is <strong>stored only on your device</strong>.</li>
+          <li>The server uses it only while making the audio and <strong>never stores it</strong>.</li>
+          <li>You can <strong>change or remove the key</strong> in the app at any time. You can also delete it on the provider's website, which disables it immediately.</li>
+          <li>On a new phone or after reinstalling the app, you'll need to add the key again.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <h2 id="cost"><span class="vi">4. Tốn bao nhiêu tiền?</span><span class="en">4. How much does it cost?</span></h2>
+    <div class="vi">
+      <p>Hầu hết nhà cung cấp <strong>tính tiền theo số ký tự</strong> được đọc (một chữ Hán = một ký tự). Trước khi tạo, app hiện <strong>ước tính thời lượng và số ký tự</strong> để bạn biết trước.</p>
+      <p>Ví dụ với một bài đọc khoảng <strong>1.000 chữ Hán</strong> (giá tham khảo):</p>
+    </div>
+    <div class="en">
+      <p>Most providers <strong>charge by the number of characters</strong> read (one Chinese character = one character). Before you generate, the app shows an <strong>estimate of the length and character count</strong>.</p>
+      <p>For example, a reading of about <strong>1,000 Chinese characters</strong> (approximate prices):</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="vi">Nhà cung cấp</span><span class="en">Provider</span></th>
+            <th><span class="vi">Giá / 1 triệu ký tự</span><span class="en">Price / 1M characters</span></th>
+            <th><span class="vi">Bài 1.000 chữ</span><span class="en">1,000-character reading</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Soniox</td><td>~$1.2</td><td>~$0.001</td></tr>
+          <tr><td>Alibaba CosyVoice</td><td>~$1.4</td><td>~$0.0015</td></tr>
+          <tr><td>Google Cloud</td><td>~$30</td><td>~$0.03</td></tr>
+          <tr><td>MiniMax</td><td>~$60</td><td>~$0.06</td></tr>
+          <tr><td>ElevenLabs</td><td>~$80</td><td>~$0.08</td></tr>
+          <tr><td>Fish Audio</td><td colspan="2"><span class="vi">Xem bảng giá trên trang Fish Audio</span><span class="en">See Fish Audio's pricing page</span></td></tr>
+          <tr><td>iFlytek</td><td colspan="2"><span class="vi">Xem bảng giá trên trang iFlytek (có gói dùng thử)</span><span class="en">See iFlytek's pricing page (has a trial package)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box info vi">
+      <p>Giá trên chỉ để tham khảo và có thể thay đổi. Hãy xem giá chính xác trên trang của nhà cung cấp. Nhiều nơi có <strong>gói miễn phí hoặc tiền dùng thử</strong> cho tài khoản mới, đủ để tạo vài chục bài.</p>
+    </div>
+    <div class="box info en">
+      <p>These prices are only a guide and may change. Check the provider's site for the exact price. Many offer a <strong>free tier or trial credit</strong> for new accounts, enough for dozens of readings.</p>
+    </div>
+
+    <!-- 5 -->
+    <h2 id="choose"><span class="vi">5. Nên chọn nhà cung cấp nào?</span><span class="en">5. Which provider should I pick?</span></h2>
+    <div class="box tip vi">
+      <p><strong>Mới bắt đầu?</strong> Hãy thử <strong>Soniox</strong>: rẻ nhất, đăng ký dễ, và bạn có thể <strong>nghe thử giọng ngay trong app trước khi có key</strong>. Muốn giọng biểu cảm hơn, hãy thử <strong>MiniMax</strong> hoặc <strong>ElevenLabs</strong>.</p>
+    </div>
+    <div class="box tip en">
+      <p><strong>Just starting?</strong> Try <strong>Soniox</strong>: the cheapest, easy to sign up, and you can <strong>preview its voices in the app before you have a key</strong>. For more expressive voices, try <strong>MiniMax</strong> or <strong>ElevenLabs</strong>.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="vi">Nhà cung cấp</span><span class="en">Provider</span></th>
+            <th><span class="vi">Đăng ký</span><span class="en">Sign-up</span></th>
+            <th><span class="vi">Giá</span><span class="en">Price</span></th>
+            <th><span class="vi">Ghi chú</span><span class="en">Notes</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#soniox">Soniox</a></td>
+            <td><span class="vi">Dễ</span><span class="en">Easy</span></td>
+            <td><span class="vi">Rất rẻ</span><span class="en">Very low</span></td>
+            <td><span class="vi">Nghe thử giọng không cần key</span><span class="en">Preview voices without a key</span></td>
+          </tr>
+          <tr>
+            <td><a href="#elevenlabs">ElevenLabs</a></td>
+            <td><span class="vi">Dễ</span><span class="en">Easy</span></td>
+            <td><span class="vi">Cao</span><span class="en">High</span></td>
+            <td><span class="vi">Giọng rất tự nhiên, có gói miễn phí hằng tháng</span><span class="en">Very natural voices, free monthly tier</span></td>
+          </tr>
+          <tr>
+            <td><a href="#minimax">MiniMax</a></td>
+            <td><span class="vi">Dễ</span><span class="en">Easy</span></td>
+            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
+            <td><span class="vi">Nhiều giọng tiếng Trung, chọn được cảm xúc</span><span class="en">Many Chinese voices, emotion control</span></td>
+          </tr>
+          <tr>
+            <td><a href="#fish">Fish Audio</a></td>
+            <td><span class="vi">Dễ</span><span class="en">Easy</span></td>
+            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
+            <td><span class="vi">Kho giọng cộng đồng rất lớn</span><span class="en">Huge community voice library</span></td>
+          </tr>
+          <tr>
+            <td><a href="#alibaba">Alibaba CosyVoice</a></td>
+            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
+            <td><span class="vi">Rất rẻ</span><span class="en">Very low</span></td>
+            <td><span class="vi">Giọng tiếng Trung chuẩn, cần chọn đúng khu vực</span><span class="en">Native Chinese voices, pick the right region</span></td>
+          </tr>
+          <tr>
+            <td><a href="#google">Google Cloud</a></td>
+            <td><span class="vi">Khó hơn</span><span class="en">Harder</span></td>
+            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
+            <td><span class="vi">Cần thẻ thanh toán, có $300 dùng thử</span><span class="en">Needs a card, $300 trial credit</span></td>
+          </tr>
+          <tr>
+            <td><a href="#iflytek">iFlytek</a></td>
+            <td><span class="vi">Khó</span><span class="en">Hard</span></td>
+            <td><span class="vi">Có gói thử</span><span class="en">Trial package</span></td>
+            <td><span class="vi">Trang tiếng Trung, thường cần số điện thoại Trung Quốc</span><span class="en">Chinese-only site, usually needs a Chinese phone number</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6 -->
+    <h2 id="providers"><span class="vi">6. Cách lấy API Key từng nhà cung cấp</span><span class="en">6. Getting a key from each provider</span></h2>
+    <p class="vi">Trong app, khi bấm <strong>Nhập API Key</strong> sẽ có nút <strong>Lấy API Key</strong> mở thẳng tới đúng trang bên dưới. Giao diện của các trang có thể thay đổi theo thời gian, nhưng các bước chính thường giống nhau: <strong>đăng ký → (nạp tiền nếu cần) → tạo key → sao chép</strong>.</p>
+    <p class="en">In the app, tapping <strong>Add API Key</strong> shows a <strong>Get an API Key</strong> button that opens the right page below. The websites may change their look over time, but the main steps stay the same: <strong>sign up → (add credit if needed) → create a key → copy it</strong>.</p>
+
+    <div class="provider" id="soniox">
+      <h3>Soniox <span class="badge"><span class="vi">Khuyên dùng</span><span class="en">Recommended</span></span></h3>
+      <ol class="vi">
+        <li>Mở <a href="https://console.soniox.com" target="_blank" rel="noopener">console.soniox.com</a> và đăng ký bằng email hoặc tài khoản Google.</li>
+        <li>Nếu tài khoản chưa có tiền dùng thử, vào mục <strong>Billing</strong> để thêm phương thức thanh toán hoặc nạp tiền.</li>
+        <li>Vào mục <strong>API Keys</strong>, bấm <strong>Create API key</strong> (tạo key mới), đặt tên tùy ý, ví dụ "WoXueHanyu".</li>
+        <li>Bấm sao chép key vừa hiện ra.</li>
+        <li>Mở app, chọn nhà cung cấp <strong>Soniox</strong> → <strong>Nhập API Key</strong> → dán vào ô <strong>API key</strong> → lưu.</li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://console.soniox.com" target="_blank" rel="noopener">console.soniox.com</a> and sign up with email or a Google account.</li>
+        <li>If the account has no trial credit, go to <strong>Billing</strong> to add a payment method or credit.</li>
+        <li>Go to <strong>API Keys</strong>, tap <strong>Create API key</strong>, and give it any name, e.g. "WoXueHanyu".</li>
+        <li>Copy the key that appears.</li>
+        <li>In the app, pick <strong>Soniox</strong> → <strong>Add API Key</strong> → paste it into <strong>API key</strong> → save.</li>
+      </ol>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://docs.soniox.com/tts/get-started" target="_blank" rel="noopener">docs.soniox.com</a></p>
+    </div>
+
+    <div class="provider" id="elevenlabs">
+      <h3>ElevenLabs <span class="badge"><span class="vi">Khuyên dùng</span><span class="en">Recommended</span></span></h3>
+      <ol class="vi">
+        <li>Mở <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a> và đăng ký (email hoặc Google). Gói <strong>Free</strong> có một lượng ký tự miễn phí mỗi tháng.</li>
+        <li>Sau khi đăng nhập, link trên mở thẳng trang <strong>API Keys</strong> (hoặc vào <strong>Developers → API Keys</strong>).</li>
+        <li>Bấm <strong>Create API Key</strong>, đặt tên. Nếu có mục quyền (permissions), hãy bật quyền <strong>Text to Speech</strong> và <strong>Voices</strong> (đọc).</li>
+        <li>Sao chép key. <strong>Lưu ý:</strong> ElevenLabs chỉ hiện key đầy đủ <strong>một lần</strong>, hãy dán vào app ngay.</li>
+        <li>Mở app, chọn <strong>ElevenLabs</strong> → <strong>Nhập API Key</strong> → dán → lưu.</li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a> and sign up (email or Google). The <strong>Free</strong> plan includes some free characters every month.</li>
+        <li>Once signed in, that link opens the <strong>API Keys</strong> page (or go to <strong>Developers → API Keys</strong>).</li>
+        <li>Tap <strong>Create API Key</strong> and name it. If there are permissions, turn on <strong>Text to Speech</strong> and <strong>Voices</strong> (read).</li>
+        <li>Copy the key. <strong>Note:</strong> ElevenLabs shows the full key <strong>only once</strong>, so paste it into the app right away.</li>
+        <li>In the app, pick <strong>ElevenLabs</strong> → <strong>Add API Key</strong> → paste → save.</li>
+      </ol>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://elevenlabs.io/docs/api-reference/text-to-speech/convert" target="_blank" rel="noopener">elevenlabs.io/docs</a></p>
+    </div>
+
+    <div class="provider" id="minimax">
+      <h3>MiniMax <span class="badge"><span class="vi">Khuyên dùng</span><span class="en">Recommended</span></span></h3>
+      <ol class="vi">
+        <li>Mở <a href="https://platform.minimax.io/user-center/basic-information/interface-key" target="_blank" rel="noopener">platform.minimax.io</a> (bản quốc tế) và đăng ký.</li>
+        <li>Vào mục <strong>Billing / Balance</strong> để nạp một ít tiền (MiniMax trừ tiền từ số dư).</li>
+        <li>Vào <strong>API Keys</strong>, bấm <strong>Create new secret key</strong>, đặt tên và sao chép key.</li>
+        <li>Mở app, chọn <strong>MiniMax</strong> → <strong>Nhập API Key</strong> → dán key → ở ô <strong>Region</strong> chọn:
+          <ul>
+            <li><strong>International (minimax.io)</strong> nếu bạn đăng ký ở minimax.io (đa số người dùng).</li>
+            <li><strong>China (minimax.cn)</strong> nếu bạn đăng ký ở trang Trung Quốc minimax.cn.</li>
+          </ul>
+        </li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://platform.minimax.io/user-center/basic-information/interface-key" target="_blank" rel="noopener">platform.minimax.io</a> (international) and sign up.</li>
+        <li>Go to <strong>Billing / Balance</strong> and add a little credit (MiniMax charges your balance).</li>
+        <li>Go to <strong>API Keys</strong>, tap <strong>Create new secret key</strong>, name it and copy it.</li>
+        <li>In the app, pick <strong>MiniMax</strong> → <strong>Add API Key</strong> → paste → under <strong>Region</strong> choose:
+          <ul>
+            <li><strong>International (minimax.io)</strong> if you signed up at minimax.io (most people).</li>
+            <li><strong>China (minimax.cn)</strong> if you signed up on the Chinese site minimax.cn.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="box warn">
+        <p class="vi">Chọn sai Region sẽ báo lỗi key không hợp lệ, dù key đúng.</p>
+        <p class="en">Choosing the wrong region makes a correct key look invalid.</p>
+      </div>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://platform.minimax.io/docs/api-reference/speech-t2a-http" target="_blank" rel="noopener">platform.minimax.io/docs</a></p>
+    </div>
+
+    <div class="provider" id="fish">
+      <h3>Fish Audio</h3>
+      <ol class="vi">
+        <li>Mở <a href="https://fish.audio/app/api-keys" target="_blank" rel="noopener">fish.audio</a> và đăng ký (email hoặc Google).</li>
+        <li>Vào phần <strong>API</strong> / <strong>Billing</strong> để nạp tiền cho API. Lưu ý: tiền API tách riêng với gói thành viên trên web.</li>
+        <li>Ở trang <strong>API Keys</strong>, bấm tạo key mới và sao chép.</li>
+        <li>Mở app, chọn <strong>Fish Audio</strong> → <strong>Nhập API Key</strong> → dán → lưu.</li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://fish.audio/app/api-keys" target="_blank" rel="noopener">fish.audio</a> and sign up (email or Google).</li>
+        <li>Go to <strong>API</strong> / <strong>Billing</strong> and add API credit. Note: API credit is separate from the website membership.</li>
+        <li>On the <strong>API Keys</strong> page, create a new key and copy it.</li>
+        <li>In the app, pick <strong>Fish Audio</strong> → <strong>Add API Key</strong> → paste → save.</li>
+      </ol>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://docs.fish.audio/features/text-to-speech" target="_blank" rel="noopener">docs.fish.audio</a></p>
+    </div>
+
+    <div class="provider" id="alibaba">
+      <h3>Alibaba CosyVoice <span class="badge mid"><span class="vi">Trung bình</span><span class="en">Medium</span></span></h3>
+      <p class="vi">CosyVoice chạy trên nền tảng <strong>Model Studio</strong> (tiếng Trung: 百炼 / Bailian). Key ở đây gọi là <strong>DashScope API key</strong>. Có hai phiên bản, hãy chọn một:</p>
+      <p class="en">CosyVoice runs on Alibaba's <strong>Model Studio</strong> (Chinese: 百炼 / Bailian). The key is called a <strong>DashScope API key</strong>. There are two editions, pick one:</p>
+      <ul class="vi">
+        <li><strong>Quốc tế (Singapore)</strong>: đăng ký tại <a href="https://www.alibabacloud.com" target="_blank" rel="noopener">alibabacloud.com</a>, sau đó mở <a href="https://modelstudio.console.alibabacloud.com" target="_blank" rel="noopener">Model Studio (quốc tế)</a>. Phù hợp với đa số người dùng ngoài Trung Quốc.</li>
+        <li><strong>Trung Quốc (Beijing)</strong>: đăng ký tại <a href="https://bailian.console.aliyun.com/?apiKey=1" target="_blank" rel="noopener">bailian.console.aliyun.com</a>. Thường cần xác minh danh tính Trung Quốc.</li>
+      </ul>
+      <ul class="en">
+        <li><strong>International (Singapore)</strong>: sign up at <a href="https://www.alibabacloud.com" target="_blank" rel="noopener">alibabacloud.com</a>, then open <a href="https://modelstudio.console.alibabacloud.com" target="_blank" rel="noopener">Model Studio (international)</a>. Best for most people outside China.</li>
+        <li><strong>China (Beijing)</strong>: sign up at <a href="https://bailian.console.aliyun.com/?apiKey=1" target="_blank" rel="noopener">bailian.console.aliyun.com</a>. Usually needs Chinese identity verification.</li>
+      </ul>
+      <ol class="vi">
+        <li>Đăng nhập Model Studio, bấm <strong>kích hoạt</strong> dịch vụ nếu được hỏi (tài khoản mới thường có lượng dùng thử miễn phí).</li>
+        <li>Vào mục <strong>API Key</strong> (thường ở góc trên bên phải hoặc menu bên trái), bấm <strong>Create API Key</strong> và sao chép key (bắt đầu bằng <code>sk-</code>).</li>
+        <li>Mở app, chọn <strong>Alibaba CosyVoice</strong> → <strong>Nhập API Key</strong> → dán vào ô <strong>DashScope API key</strong> → ở ô <strong>Region</strong> chọn đúng phiên bản bạn đã đăng ký: <strong>International (Singapore)</strong> hoặc <strong>China (Beijing)</strong>.</li>
+      </ol>
+      <ol class="en">
+        <li>Sign in to Model Studio and <strong>activate</strong> the service if asked (new accounts usually get a free trial quota).</li>
+        <li>Open <strong>API Key</strong> (usually top-right or in the left menu), tap <strong>Create API Key</strong> and copy it (it starts with <code>sk-</code>).</li>
+        <li>In the app, pick <strong>Alibaba CosyVoice</strong> → <strong>Add API Key</strong> → paste into <strong>DashScope API key</strong> → under <strong>Region</strong> choose the edition you signed up for: <strong>International (Singapore)</strong> or <strong>China (Beijing)</strong>.</li>
+      </ol>
+      <div class="box warn">
+        <p class="vi">Key của bản quốc tế không dùng được cho bản Trung Quốc và ngược lại. Chọn sai Region sẽ báo key không hợp lệ.</p>
+        <p class="en">An international key doesn't work in the China edition and vice versa. The wrong region makes the key look invalid.</p>
+      </div>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://www.alibabacloud.com/help/en/model-studio/cosyvoice-tts-http-api" target="_blank" rel="noopener">alibabacloud.com/help</a></p>
+    </div>
+
+    <div class="provider" id="google">
+      <h3>Google Cloud <span class="badge mid"><span class="vi">Trung bình</span><span class="en">Medium</span></span></h3>
+      <ol class="vi">
+        <li>Mở <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> và đăng nhập bằng tài khoản Google.</li>
+        <li>Tạo một <strong>Project</strong> mới (ví dụ "WoXueHanyu TTS").</li>
+        <li>Bật <strong>Billing</strong> (thanh toán) cho project: cần thêm thẻ. Tài khoản mới thường được tặng <strong>$300 dùng thử</strong>.</li>
+        <li>Tìm và bật <a href="https://console.cloud.google.com/apis/library/texttospeech.googleapis.com" target="_blank" rel="noopener">Cloud Text-to-Speech API</a> (bấm <strong>Enable</strong>).</li>
+        <li>Vào <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">APIs &amp; Services → Credentials</a>, bấm <strong>Create credentials → API key</strong> và sao chép key.</li>
+        <li><em>Khuyên làm:</em> bấm vào key vừa tạo → <strong>API restrictions</strong> → chỉ cho phép <strong>Cloud Text-to-Speech API</strong> để an toàn hơn.</li>
+        <li>Mở app, chọn <strong>Google Cloud</strong> → <strong>Nhập API Key</strong> → dán → lưu.</li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and sign in with a Google account.</li>
+        <li>Create a new <strong>Project</strong> (e.g. "WoXueHanyu TTS").</li>
+        <li>Turn on <strong>Billing</strong> for the project: a card is required. New accounts usually get <strong>$300 trial credit</strong>.</li>
+        <li>Find and enable the <a href="https://console.cloud.google.com/apis/library/texttospeech.googleapis.com" target="_blank" rel="noopener">Cloud Text-to-Speech API</a> (tap <strong>Enable</strong>).</li>
+        <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">APIs &amp; Services → Credentials</a>, tap <strong>Create credentials → API key</strong> and copy it.</li>
+        <li><em>Recommended:</em> open the new key → <strong>API restrictions</strong> → allow only <strong>Cloud Text-to-Speech API</strong>, for safety.</li>
+        <li>In the app, pick <strong>Google Cloud</strong> → <strong>Add API Key</strong> → paste → save.</li>
+      </ol>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://cloud.google.com/text-to-speech/docs" target="_blank" rel="noopener">cloud.google.com/text-to-speech</a></p>
+    </div>
+
+    <div class="provider" id="iflytek">
+      <h3>iFlytek (讯飞) <span class="badge hard"><span class="vi">Khó</span><span class="en">Hard</span></span></h3>
+      <p class="vi">Trang iFlytek chỉ có tiếng Trung và thường cần <strong>số điện thoại Trung Quốc</strong> để đăng ký. Chỉ nên chọn nếu bạn đã quen dùng dịch vụ Trung Quốc. iFlytek cần <strong>3 thông tin</strong> thay vì một key.</p>
+      <p class="en">iFlytek's site is in Chinese only and usually needs a <strong>Chinese phone number</strong> to sign up. Only pick it if you're used to Chinese services. iFlytek needs <strong>3 values</strong> instead of one key.</p>
+      <ol class="vi">
+        <li>Mở <a href="https://console.xfyun.cn/services/uts" target="_blank" rel="noopener">console.xfyun.cn</a>, đăng ký (注册) và đăng nhập (登录). Có thể cần xác minh danh tính (实名认证).</li>
+        <li>Tạo ứng dụng mới: bấm <strong>创建新应用</strong> (tạo ứng dụng mới), điền tên bất kỳ.</li>
+        <li>Mở ứng dụng vừa tạo, chọn dịch vụ <strong>超拟人语音合成</strong> (tổng hợp giọng siêu tự nhiên), nhận gói dùng thử miễn phí nếu có.</li>
+        <li>Ở góc phải trang dịch vụ có mục <strong>服务接口认证信息</strong> với 3 dòng: <strong>APPID</strong>, <strong>APISecret</strong>, <strong>APIKey</strong>.</li>
+        <li>Mở app, chọn <strong>iFlytek</strong> → <strong>Nhập API Key</strong> → sao chép và dán <strong>đúng từng dòng</strong> vào ô tương ứng (cẩn thận đừng đảo APIKey và APISecret).</li>
+      </ol>
+      <ol class="en">
+        <li>Open <a href="https://console.xfyun.cn/services/uts" target="_blank" rel="noopener">console.xfyun.cn</a>, sign up (注册) and sign in (登录). Identity verification (实名认证) may be required.</li>
+        <li>Create a new app: tap <strong>创建新应用</strong> (create new app) and give it any name.</li>
+        <li>Open that app and pick the <strong>超拟人语音合成</strong> (super-natural speech synthesis) service; claim the free trial package if offered.</li>
+        <li>On the right side of the service page, the <strong>服务接口认证信息</strong> box shows 3 lines: <strong>APPID</strong>, <strong>APISecret</strong>, <strong>APIKey</strong>.</li>
+        <li>In the app, pick <strong>iFlytek</strong> → <strong>Add API Key</strong> → copy and paste <strong>each line</strong> into its matching field (don't swap APIKey and APISecret).</li>
+      </ol>
+      <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://www.xfyun.cn/doc/spark/super%20smart-tts.html" target="_blank" rel="noopener">xfyun.cn/doc</a></p>
+    </div>
+
+    <!-- 7 -->
+    <h2 id="in-app"><span class="vi">7. Nhập API Key vào app</span><span class="en">7. Adding the key in the app</span></h2>
+    <ol class="vi">
+      <li>Mở một bài đọc bất kỳ, bấm <strong>Giọng đọc AI</strong>.</li>
+      <li>Ở mục nhà cung cấp, chọn nhà cung cấp bạn vừa lấy key.</li>
+      <li>Bấm <strong>Nhập API Key</strong>, dán key (và chọn Region nếu có), rồi bấm lưu. App sẽ kiểm tra key giúp bạn.</li>
+      <li>Chọn <strong>giọng đọc</strong>: bấm nút nghe thử ▶ để nghe mẫu trước khi chọn. Điều chỉnh <strong>tốc độ</strong> nếu muốn.</li>
+      <li>Xem ô <strong>ước tính</strong> (thời lượng, số ký tự), rồi bấm <strong>Tạo giọng đọc AI</strong>.</li>
+      <li>Đợi vài giây tới vài phút tùy độ dài bài. Xong rồi, bạn có thể nghe, luyện chép chính tả, shadowing hoặc tải file về.</li>
+    </ol>
+    <ol class="en">
+      <li>Open any reading and tap <strong>AI voice</strong>.</li>
+      <li>In the provider section, pick the provider you got the key from.</li>
+      <li>Tap <strong>Add API Key</strong>, paste the key (and pick a region if asked), then save. The app checks the key for you.</li>
+      <li>Pick a <strong>voice</strong>: tap ▶ to hear a sample first. Adjust the <strong>speed</strong> if you like.</li>
+      <li>Check the <strong>estimate</strong> (length, characters), then tap <strong>Generate AI voice</strong>.</li>
+      <li>Wait a few seconds to a few minutes depending on length. Then listen, practise dictation or shadowing, or download the file.</li>
+    </ol>
+
+    <!-- 8 -->
+    <h2 id="faq"><span class="vi">8. Câu hỏi thường gặp &amp; lỗi</span><span class="en">8. FAQ &amp; troubleshooting</span></h2>
+
+    <details>
+      <summary><span class="vi">App báo "API Key không hợp lệ"</span><span class="en">The app says "invalid API key"</span></summary>
+      <p class="vi">Kiểm tra: (1) đã sao chép đủ cả key, không thừa dấu cách; (2) key chưa bị xóa trên trang nhà cung cấp; (3) với MiniMax và Alibaba, đã chọn đúng <strong>Region</strong>; (4) với iFlytek, không đảo APIKey và APISecret. Nếu vẫn lỗi, hãy tạo key mới và nhập lại.</p>
+      <p class="en">Check that: (1) you copied the whole key with no extra spaces; (2) the key hasn't been deleted on the provider's site; (3) for MiniMax and Alibaba, the <strong>region</strong> is right; (4) for iFlytek, APIKey and APISecret aren't swapped. If it still fails, create a new key and add it again.</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Báo hết tiền / hết hạn mức</span><span class="en">It says out of credit / quota</span></summary>
+      <p class="vi">Tài khoản của bạn ở nhà cung cấp đã hết số dư hoặc hết lượng miễn phí. Hãy vào trang Billing của nhà cung cấp để nạp thêm, hoặc đợi sang tháng (với gói miễn phí hằng tháng).</p>
+      <p class="en">Your account with the provider has run out of balance or free quota. Top up on the provider's Billing page, or wait for next month (for monthly free tiers).</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Nghe thử giọng có bị tính tiền không?</span><span class="en">Does previewing a voice cost money?</span></summary>
+      <p class="vi">Nghe thử chỉ đọc một câu rất ngắn nên tốn rất ít, gần như không đáng kể. Với Soniox, bạn nghe thử được cả khi chưa có key.</p>
+      <p class="en">A preview reads one very short sentence, so the cost is tiny. With Soniox you can preview even without a key.</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Nhà cung cấp hoặc giọng báo "đang tạm dừng"</span><span class="en">A provider or voice says "paused"</span></summary>
+      <p class="vi">Đôi khi Wo xue Hanyu tạm dừng một nhà cung cấp, model hoặc giọng khi họ gặp sự cố. Bạn vẫn nghe được các bản đã tạo; hãy chọn giọng hoặc nhà cung cấp khác để tạo mới.</p>
+      <p class="en">Wo xue Hanyu sometimes pauses a provider, model or voice while it has problems. Versions you already made still play; pick another voice or provider to make new ones.</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Làm sao đổi hoặc xóa API Key?</span><span class="en">How do I change or remove my key?</span></summary>
+      <p class="vi">Trong màn Giọng đọc AI, ở ô API Key bấm nút ⋮ → <strong>Đổi API Key</strong> hoặc <strong>Xóa API Key</strong>. Để vô hiệu hóa key hoàn toàn, hãy xóa nó trên trang của nhà cung cấp.</p>
+      <p class="en">On the AI voice screen, in the API Key box tap ⋮ → <strong>Change API Key</strong> or <strong>Remove API Key</strong>. To disable the key completely, delete it on the provider's website.</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Sửa bài đọc thì audio có tự cập nhật không?</span><span class="en">If I edit the reading, does the audio update?</span></summary>
+      <p class="vi">Không. App sẽ báo văn bản đã thay đổi; bấm <strong>Tạo phiên bản mới</strong> để có audio khớp với nội dung mới. Bản cũ vẫn được giữ trong danh sách phiên bản.</p>
+      <p class="en">No. The app tells you the text has changed; tap <strong>Generate new version</strong> to get audio that matches. The old version stays in the version list.</p>
+    </details>
+
+    <details>
+      <summary><span class="vi">Làm sao tránh bị tính tiền quá nhiều?</span><span class="en">How do I avoid spending too much?</span></summary>
+      <p class="vi">Xem ô ước tính trước khi tạo, và đặt <strong>hạn mức chi tiêu</strong> hoặc chỉ nạp một số tiền nhỏ trên trang nhà cung cấp. Như vậy dù có chuyện gì, bạn cũng không bị trừ quá số đó.</p>
+      <p class="en">Check the estimate before generating, and set a <strong>spending limit</strong> or only add a small amount of credit on the provider's site. That way you can never be charged more than that.</p>
+    </details>
+
+    <div class="box info">
+      <p class="vi">Vẫn gặp khó khăn? Trong màn Giọng đọc AI, bấm <strong>Báo lỗi / Góp ý</strong> ở góc trên, hoặc <a href="/contact">liên hệ chúng tôi</a>.</p>
+      <p class="en">Still stuck? On the AI voice screen, tap <strong>Report / Feedback</strong> at the top, or <a href="/contact">contact us</a>.</p>
+    </div>
+
+    <footer>
+      <p><span class="vi">&copy; 2026 Wo xue Hanyu. Bảo lưu mọi quyền.</span><span class="en">&copy; 2026 Wo xue Hanyu. All rights reserved.</span></p>
+      <p style="margin-top: 12px;">
+        <a href="/"><span class="vi">Trang chủ</span><span class="en">Home</span></a> •
+        <a href="/privacy_policy"><span class="vi">Chính Sách Bảo Mật</span><span class="en">Privacy Policy</span></a> •
+        <a href="/contact"><span class="vi">Liên Hệ</span><span class="en">Contact</span></a>
+      </p>
+    </footer>
+  </div>
+  <script>
+    window.applyLanguage = function(lang) {
+      document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
+      document.title = lang === 'vi'
+        ? 'Hướng dẫn Giọng đọc AI - Wo xue Hanyu'
+        : 'AI Voice Guide - Wo xue Hanyu';
+    };
+  </script>
+</body>
+</html>
