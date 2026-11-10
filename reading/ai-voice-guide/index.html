@@ -114,25 +114,6 @@
     .toc ol { margin-bottom: 0; }
     .toc li { margin-bottom: 2px; }
 
-    .flow {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin: 16px 0;
-    }
-
-    .flow span {
-      background: #eef2ff;
-      color: #3730a3;
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .flow b { color: #9ca3af; }
-
     .table-wrap { overflow-x: auto; margin: 16px 0; }
 
     table { width: 100%; border-collapse: collapse; min-width: 560px; }
@@ -226,7 +207,6 @@
       <ol>
         <li><a href="#what"><span class="vi">Giọng đọc AI là gì?</span><span class="en">What is AI voice?</span></a></li>
         <li><a href="#api-key"><span class="vi">API Key là gì? Vì sao cần?</span><span class="en">What is an API key, and why do I need one?</span></a></li>
-        <li><a href="#how"><span class="vi">Cách hoạt động &amp; bảo mật</span><span class="en">How it works &amp; privacy</span></a></li>
         <li><a href="#cost"><span class="vi">Tốn bao nhiêu tiền?</span><span class="en">How much does it cost?</span></a></li>
         <li><a href="#choose"><span class="vi">Nên chọn nhà cung cấp nào?</span><span class="en">Which provider should I pick?</span></a></li>
         <li><a href="#providers"><span class="vi">Cách lấy API Key từng nhà cung cấp</span><span class="en">Getting a key from each provider</span></a></li>
@@ -292,50 +272,7 @@
     </div>
 
     <!-- 3 -->
-    <h2 id="how"><span class="vi">3. Cách hoạt động &amp; bảo mật</span><span class="en">3. How it works &amp; privacy</span></h2>
-    <div class="flow vi">
-      <span>📱 App của bạn</span><b>→</b><span>🔒 Máy chủ Wo xue Hanyu</span><b>→</b><span>🤖 Nhà cung cấp AI</span><b>→</b><span>🎧 File audio</span>
-    </div>
-    <div class="flow en">
-      <span>📱 Your app</span><b>→</b><span>🔒 Wo xue Hanyu server</span><b>→</b><span>🤖 AI provider</span><b>→</b><span>🎧 Audio file</span>
-    </div>
-    <div class="vi">
-      <ol>
-        <li>Bạn chọn nhà cung cấp, giọng đọc, tốc độ và bấm <strong>Tạo giọng đọc AI</strong>.</li>
-        <li>App gửi chữ của bài đọc cùng API Key tới máy chủ Wo xue Hanyu qua kết nối mã hóa (HTTPS).</li>
-        <li>Máy chủ chia bài thành từng câu, nhờ nhà cung cấp đọc từng câu bằng key của bạn, rồi ghép lại thành một file audio hoàn chỉnh, có mốc thời gian cho từng câu để app tô sáng câu đang đọc.</li>
-        <li>File audio được lưu cùng bài đọc để bạn nghe lại bất cứ lúc nào, không phải tạo lại.</li>
-      </ol>
-      <div class="box tip">
-        <p><strong>API Key của bạn ở đâu?</strong></p>
-        <ul>
-          <li>Key <strong>chỉ được lưu trên thiết bị của bạn</strong>.</li>
-          <li>Máy chủ chỉ dùng key trong lúc tạo audio và <strong>không lưu lại</strong>.</li>
-          <li>Bạn có thể <strong>đổi hoặc xóa key</strong> trong app bất cứ lúc nào. Nếu lo lắng, bạn cũng có thể xóa key trên trang của nhà cung cấp, key sẽ mất hiệu lực ngay.</li>
-          <li>Đổi điện thoại hoặc cài lại app thì cần nhập lại key.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="en">
-      <ol>
-        <li>You pick a provider, a voice and a speed, then tap <strong>Generate AI voice</strong>.</li>
-        <li>The app sends the reading's text and your API key to the Wo xue Hanyu server over an encrypted (HTTPS) connection.</li>
-        <li>The server splits the reading into sentences, asks the provider to read each one using your key, then joins them into one audio file, with a timestamp per sentence so the app can highlight the sentence being read.</li>
-        <li>The audio is saved with the reading, so you can play it again any time without making it again.</li>
-      </ol>
-      <div class="box tip">
-        <p><strong>Where is my API key kept?</strong></p>
-        <ul>
-          <li>Your key is <strong>stored only on your device</strong>.</li>
-          <li>The server uses it only while making the audio and <strong>never stores it</strong>.</li>
-          <li>You can <strong>change or remove the key</strong> in the app at any time. You can also delete it on the provider's website, which disables it immediately.</li>
-          <li>On a new phone or after reinstalling the app, you'll need to add the key again.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <h2 id="cost"><span class="vi">4. Tốn bao nhiêu tiền?</span><span class="en">4. How much does it cost?</span></h2>
+    <h2 id="cost"><span class="vi">3. Tốn bao nhiêu tiền?</span><span class="en">3. How much does it cost?</span></h2>
     <div class="vi">
       <p>Hầu hết nhà cung cấp <strong>tính tiền theo số ký tự</strong> được đọc (một chữ Hán = một ký tự). Trước khi tạo, app hiện <strong>ước tính thời lượng và số ký tự</strong> để bạn biết trước.</p>
       <p>Ví dụ với một bài đọc khoảng <strong>1.000 chữ Hán</strong> (giá tham khảo):</p>
@@ -371,8 +308,8 @@
       <p>These prices are only a guide and may change. Check the provider's site for the exact price. Many offer a <strong>free tier or trial credit</strong> for new accounts, enough for dozens of readings.</p>
     </div>
 
-    <!-- 5 -->
-    <h2 id="choose"><span class="vi">5. Nên chọn nhà cung cấp nào?</span><span class="en">5. Which provider should I pick?</span></h2>
+    <!-- 4 -->
+    <h2 id="choose"><span class="vi">4. Nên chọn nhà cung cấp nào?</span><span class="en">4. Which provider should I pick?</span></h2>
     <div class="box tip vi">
       <p><strong>Mới bắt đầu?</strong> Hãy thử <strong>Soniox</strong>: rẻ nhất, đăng ký dễ, và bạn có thể <strong>nghe thử giọng ngay trong app trước khi có key</strong>. Muốn giọng biểu cảm hơn, hãy thử <strong>MiniMax</strong> hoặc <strong>ElevenLabs</strong>.</p>
     </div>
@@ -436,8 +373,8 @@
       </table>
     </div>
 
-    <!-- 6 -->
-    <h2 id="providers"><span class="vi">6. Cách lấy API Key từng nhà cung cấp</span><span class="en">6. Getting a key from each provider</span></h2>
+    <!-- 5 -->
+    <h2 id="providers"><span class="vi">5. Cách lấy API Key từng nhà cung cấp</span><span class="en">5. Getting a key from each provider</span></h2>
     <p class="vi">Trong app, khi bấm <strong>Nhập API Key</strong> sẽ có nút <strong>Lấy API Key</strong> mở thẳng tới đúng trang bên dưới. Giao diện của các trang có thể thay đổi theo thời gian, nhưng các bước chính thường giống nhau: <strong>đăng ký → (nạp tiền nếu cần) → tạo key → sao chép</strong>.</p>
     <p class="en">In the app, tapping <strong>Add API Key</strong> shows a <strong>Get an API Key</strong> button that opens the right page below. The websites may change their look over time, but the main steps stay the same: <strong>sign up → (add credit if needed) → create a key → copy it</strong>.</p>
 
@@ -600,8 +537,8 @@
       <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://www.xfyun.cn/doc/spark/super%20smart-tts.html" target="_blank" rel="noopener">xfyun.cn/doc</a></p>
     </div>
 
-    <!-- 7 -->
-    <h2 id="in-app"><span class="vi">7. Nhập API Key vào app</span><span class="en">7. Adding the key in the app</span></h2>
+    <!-- 6 -->
+    <h2 id="in-app"><span class="vi">6. Nhập API Key vào app</span><span class="en">6. Adding the key in the app</span></h2>
     <ol class="vi">
       <li>Mở một bài đọc bất kỳ, bấm <strong>Giọng đọc AI</strong>.</li>
       <li>Ở mục nhà cung cấp, chọn nhà cung cấp bạn vừa lấy key.</li>
@@ -619,8 +556,8 @@
       <li>Wait a few seconds to a few minutes depending on length. Then listen, practise dictation or shadowing, or download the file.</li>
     </ol>
 
-    <!-- 8 -->
-    <h2 id="faq"><span class="vi">8. Câu hỏi thường gặp &amp; lỗi</span><span class="en">8. FAQ &amp; troubleshooting</span></h2>
+    <!-- 7 -->
+    <h2 id="faq"><span class="vi">7. Câu hỏi thường gặp &amp; lỗi</span><span class="en">7. FAQ &amp; troubleshooting</span></h2>
 
     <details>
       <summary><span class="vi">App báo "API Key không hợp lệ"</span><span class="en">The app says "invalid API key"</span></summary>
