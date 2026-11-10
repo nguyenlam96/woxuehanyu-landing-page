@@ -205,7 +205,6 @@
       <ol>
         <li><a href="#what"><span class="vi">Giọng đọc AI là gì?</span><span class="en">What is AI voice?</span></a></li>
         <li><a href="#api-key"><span class="vi">API Key là gì? Vì sao cần?</span><span class="en">What is an API key, and why do I need one?</span></a></li>
-        <li><a href="#cost"><span class="vi">Tốn bao nhiêu tiền?</span><span class="en">How much does it cost?</span></a></li>
         <li><a href="#choose"><span class="vi">Nên chọn nhà cung cấp nào?</span><span class="en">Which provider should I pick?</span></a></li>
         <li><a href="#providers"><span class="vi">Cách lấy API Key từng nhà cung cấp</span><span class="en">Getting a key from each provider</span></a></li>
         <li><a href="#in-app"><span class="vi">Nhập API Key vào app</span><span class="en">Adding the key in the app</span></a></li>
@@ -245,9 +244,6 @@
         <li>Nhà cung cấp đưa cho bạn một <strong>dãy ký tự dài</strong>, ví dụ <code>sk_a1b2c3d4e5...</code>. Đó chính là API Key.</li>
         <li>Bạn dán dãy đó vào app. Mỗi lần tạo giọng đọc, app "trình thẻ" này để nhà cung cấp biết ai đang dùng và tính phí vào đúng tài khoản của bạn.</li>
       </ul>
-      <div class="box info">
-        <p><strong>Vì sao không dùng chung một key của app?</strong> Tạo giọng đọc AI tốn phí theo từng ký tự. Dùng key riêng giúp bạn <strong>chỉ trả đúng phần mình dùng</strong>, trực tiếp cho nhà cung cấp, với giá gốc, và được chọn nhà cung cấp, giọng đọc mình thích. Wo xue Hanyu không thu thêm bất kỳ khoản phí nào.</p>
-      </div>
       <div class="box warn">
         <p><strong>Giữ API Key như giữ mật khẩu.</strong> Ai có key của bạn đều có thể dùng tiền trong tài khoản đó. Đừng gửi key cho người khác hay đăng lên mạng.</p>
         <p>Wo xue Hanyu <strong>không thu thập API Key của bạn</strong>: key chỉ được lưu trên thiết bị của bạn.</p>
@@ -260,9 +256,6 @@
         <li>The provider gives you a <strong>long string of characters</strong>, e.g. <code>sk_a1b2c3d4e5...</code>. That is your API key.</li>
         <li>You paste it into the app. Each time you make a voice, the app "shows the card" so the provider knows it's you and charges your own account.</li>
       </ul>
-      <div class="box info">
-        <p><strong>Why not one shared key from the app?</strong> Making AI voice costs money per character. With your own key you <strong>pay only for what you use</strong>, straight to the provider at their own price, and you get to pick the provider and voice you like. Wo xue Hanyu adds no fee on top.</p>
-      </div>
       <div class="box warn">
         <p><strong>Treat your API key like a password.</strong> Anyone who has it can spend the money in that account. Don't send it to others or post it online.</p>
         <p>Wo xue Hanyu <strong>does not collect your API key</strong>: it is stored only on your device.</p>
@@ -270,102 +263,56 @@
     </div>
 
     <!-- 3 -->
-    <h2 id="cost"><span class="vi">3. Tốn bao nhiêu tiền?</span><span class="en">3. How much does it cost?</span></h2>
-    <div class="vi">
-      <p>Hầu hết nhà cung cấp <strong>tính tiền theo số ký tự</strong> được đọc (một chữ Hán = một ký tự). Trước khi tạo, app hiện <strong>ước tính thời lượng và số ký tự</strong> để bạn biết trước.</p>
-      <p>Ví dụ với một bài đọc khoảng <strong>1.000 chữ Hán</strong> (giá tham khảo):</p>
-    </div>
-    <div class="en">
-      <p>Most providers <strong>charge by the number of characters</strong> read (one Chinese character = one character). Before you generate, the app shows an <strong>estimate of the length and character count</strong>.</p>
-      <p>For example, a reading of about <strong>1,000 Chinese characters</strong> (approximate prices):</p>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th><span class="vi">Nhà cung cấp</span><span class="en">Provider</span></th>
-            <th><span class="vi">Giá / 1 triệu ký tự</span><span class="en">Price / 1M characters</span></th>
-            <th><span class="vi">Bài 1.000 chữ</span><span class="en">1,000-character reading</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Soniox</td><td>~$1.2</td><td>~$0.001</td></tr>
-          <tr><td>Alibaba CosyVoice</td><td>~$1.4</td><td>~$0.0015</td></tr>
-          <tr><td>Google Cloud</td><td>~$30</td><td>~$0.03</td></tr>
-          <tr><td>MiniMax</td><td>~$60</td><td>~$0.06</td></tr>
-          <tr><td>ElevenLabs</td><td>~$80</td><td>~$0.08</td></tr>
-          <tr><td>Fish Audio</td><td colspan="2"><span class="vi">Xem bảng giá trên trang Fish Audio</span><span class="en">See Fish Audio's pricing page</span></td></tr>
-          <tr><td>iFlytek</td><td colspan="2"><span class="vi">Xem bảng giá trên trang iFlytek (có gói dùng thử)</span><span class="en">See iFlytek's pricing page (has a trial package)</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="box info vi">
-      <p>Giá trên chỉ để tham khảo và có thể thay đổi. Hãy xem giá chính xác trên trang của nhà cung cấp. Nhiều nơi có <strong>gói miễn phí hoặc tiền dùng thử</strong> cho tài khoản mới, đủ để tạo vài chục bài.</p>
-    </div>
-    <div class="box info en">
-      <p>These prices are only a guide and may change. Check the provider's site for the exact price. Many offer a <strong>free tier or trial credit</strong> for new accounts, enough for dozens of readings.</p>
-    </div>
-
-    <!-- 4 -->
-    <h2 id="choose"><span class="vi">4. Nên chọn nhà cung cấp nào?</span><span class="en">4. Which provider should I pick?</span></h2>
+    <h2 id="choose"><span class="vi">3. Nên chọn nhà cung cấp nào?</span><span class="en">3. Which provider should I pick?</span></h2>
     <div class="box tip vi">
-      <p><strong>Mới bắt đầu?</strong> Hãy thử <strong>Soniox</strong>: giá rẻ nhất. Muốn giọng biểu cảm hơn, hãy thử <strong>MiniMax</strong> hoặc <strong>ElevenLabs</strong>.</p>
+      <p><strong>Chưa biết chọn gì?</strong> Hãy bắt đầu với một nhà cung cấp được đánh dấu <strong>Khuyên dùng</strong>: Soniox, ElevenLabs hoặc MiniMax.</p>
     </div>
     <div class="box tip en">
-      <p><strong>Just starting?</strong> Try <strong>Soniox</strong>: the lowest price. For more expressive voices, try <strong>MiniMax</strong> or <strong>ElevenLabs</strong>.</p>
+      <p><strong>Not sure which to pick?</strong> Start with one marked <strong>Recommended</strong>: Soniox, ElevenLabs or MiniMax.</p>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th><span class="vi">Nhà cung cấp</span><span class="en">Provider</span></th>
-            <th><span class="vi">Giá</span><span class="en">Price</span></th>
-            <th><span class="vi">Ghi chú</span><span class="en">Notes</span></th>
+            <th><span class="vi">Đặc điểm</span><span class="en">Highlights</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><a href="#soniox">Soniox</a></td>
-            <td><span class="vi">Rất rẻ</span><span class="en">Very low</span></td>
-            <td><span class="vi">Giá rẻ nhất</span><span class="en">Lowest price</span></td>
+            <td><span class="vi">Giọng tiếng Trung rõ ràng, chọn được giọng điệu</span><span class="en">Clear Chinese voices, tone control</span></td>
           </tr>
           <tr>
             <td><a href="#elevenlabs">ElevenLabs</a></td>
-            <td><span class="vi">Cao</span><span class="en">High</span></td>
-            <td><span class="vi">Giọng rất tự nhiên, có gói miễn phí hằng tháng</span><span class="en">Very natural voices, free monthly tier</span></td>
+            <td><span class="vi">Giọng rất tự nhiên, biểu cảm</span><span class="en">Very natural, expressive voices</span></td>
           </tr>
           <tr>
             <td><a href="#minimax">MiniMax</a></td>
-            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
             <td><span class="vi">Nhiều giọng tiếng Trung, chọn được cảm xúc</span><span class="en">Many Chinese voices, emotion control</span></td>
           </tr>
           <tr>
             <td><a href="#fish">Fish Audio</a></td>
-            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
             <td><span class="vi">Kho giọng cộng đồng rất lớn</span><span class="en">Huge community voice library</span></td>
           </tr>
           <tr>
             <td><a href="#alibaba">Alibaba CosyVoice</a></td>
-            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
-            <td><span class="vi">Rất rẻ</span><span class="en">Very low</span></td>
             <td><span class="vi">Giọng tiếng Trung chuẩn, cần chọn đúng khu vực</span><span class="en">Native Chinese voices, pick the right region</span></td>
           </tr>
           <tr>
             <td><a href="#google">Google Cloud</a></td>
-            <td><span class="vi">Trung bình</span><span class="en">Medium</span></td>
-            <td><span class="vi">Cần thẻ thanh toán</span><span class="en">Needs a card</span></td>
+            <td><span class="vi">Nhiều giọng tiếng Trung phổ thông, giọng Chirp 3 HD rất tự nhiên</span><span class="en">Many Mandarin voices, very natural Chirp 3 HD voices</span></td>
           </tr>
           <tr>
             <td><a href="#iflytek">iFlytek</a></td>
-            <td><span class="vi">Có gói thử</span><span class="en">Trial package</span></td>
-            <td><span class="vi">Trang tiếng Trung, thường cần số điện thoại Trung Quốc</span><span class="en">Chinese-only site, usually needs a Chinese phone number</span></td>
+            <td><span class="vi">Công ty giọng nói hàng đầu Trung Quốc, giọng tiếng Trung bản địa rất tự nhiên</span><span class="en">China's leading speech company, very natural native Chinese voices</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- 5 -->
-    <h2 id="providers"><span class="vi">5. Cách lấy API Key từng nhà cung cấp</span><span class="en">5. Getting a key from each provider</span></h2>
+    <!-- 4 -->
+    <h2 id="providers"><span class="vi">4. Cách lấy API Key từng nhà cung cấp</span><span class="en">4. Getting a key from each provider</span></h2>
     <p class="vi">Trong app, khi bấm <strong>Nhập API Key</strong> sẽ có nút <strong>Lấy API Key</strong> mở thẳng tới đúng trang bên dưới. Giao diện của các trang có thể thay đổi theo thời gian, nhưng các bước chính thường giống nhau: <strong>đăng ký → (nạp tiền nếu cần) → tạo key → sao chép</strong>.</p>
     <p class="en">In the app, tapping <strong>Add API Key</strong> shows a <strong>Get an API Key</strong> button that opens the right page below. The websites may change their look over time, but the main steps stay the same: <strong>sign up → (add credit if needed) → create a key → copy it</strong>.</p>
 
@@ -509,8 +456,8 @@
 
     <div class="provider" id="iflytek">
       <h3>iFlytek (讯飞)</h3>
-      <p class="vi">Trang iFlytek chỉ có tiếng Trung và thường cần <strong>số điện thoại Trung Quốc</strong> để đăng ký. iFlytek cần <strong>3 thông tin</strong> thay vì một key.</p>
-      <p class="en">iFlytek's site is in Chinese only and usually needs a <strong>Chinese phone number</strong> to sign up. iFlytek needs <strong>3 values</strong> instead of one key.</p>
+      <p class="vi">iFlytek cần <strong>3 thông tin</strong> thay vì một key.</p>
+      <p class="en">iFlytek needs <strong>3 values</strong> instead of one key.</p>
       <ol class="vi">
         <li>Mở <a href="https://console.xfyun.cn/services/uts" target="_blank" rel="noopener">console.xfyun.cn</a>, đăng ký (注册) và đăng nhập (登录). Có thể cần xác minh danh tính (实名认证).</li>
         <li>Tạo ứng dụng mới: bấm <strong>创建新应用</strong> (tạo ứng dụng mới), điền tên bất kỳ.</li>
@@ -528,8 +475,8 @@
       <p class="links"><span class="vi">Tài liệu:</span><span class="en">Docs:</span> <a href="https://www.xfyun.cn/doc/spark/super%20smart-tts.html" target="_blank" rel="noopener">xfyun.cn/doc</a></p>
     </div>
 
-    <!-- 6 -->
-    <h2 id="in-app"><span class="vi">6. Nhập API Key vào app</span><span class="en">6. Adding the key in the app</span></h2>
+    <!-- 5 -->
+    <h2 id="in-app"><span class="vi">5. Nhập API Key vào app</span><span class="en">5. Adding the key in the app</span></h2>
     <ol class="vi">
       <li>Mở một bài đọc bất kỳ, bấm <strong>Giọng đọc AI</strong>.</li>
       <li>Ở mục nhà cung cấp, chọn nhà cung cấp bạn vừa lấy key.</li>
@@ -547,8 +494,8 @@
       <li>Wait a few seconds to a few minutes depending on length. Then listen, practise dictation or shadowing, or download the file.</li>
     </ol>
 
-    <!-- 7 -->
-    <h2 id="faq"><span class="vi">7. Câu hỏi thường gặp &amp; lỗi</span><span class="en">7. FAQ &amp; troubleshooting</span></h2>
+    <!-- 6 -->
+    <h2 id="faq"><span class="vi">6. Câu hỏi thường gặp &amp; lỗi</span><span class="en">6. FAQ &amp; troubleshooting</span></h2>
 
     <details>
       <summary><span class="vi">App báo "API Key không hợp lệ"</span><span class="en">The app says "invalid API key"</span></summary>
